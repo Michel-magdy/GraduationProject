@@ -12,9 +12,11 @@ public class Business
     public int OwnerId { get; set; }
     public User? Owner { get; set; }
 
-    public Hotel? Hotel { get; set; }
-    public Restaurant? Restaurant { get; set; }
-    public ICollection<CarRental> CarRentals { get; set; } = new List<CarRental>(); public Tour? Tour { get; set; }
+    public ICollection<Hotel> Hotels { get; set; } = new List<Hotel>();
+    public ICollection<Restaurant> Restaurants { get; set; } = new List<Restaurant>();
+    public ICollection<CarRental> CarRentals { get; set; } = new List<CarRental>();
+    public ICollection<Tour> Tours { get; set; } = new List<Tour>();
+
     public ICollection<Image> Images { get; set; } = new List<Image>();
     public ICollection<Review> Reviews { get; set; } = new List<Review>();
 }
