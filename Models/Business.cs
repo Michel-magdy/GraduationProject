@@ -14,8 +14,7 @@ public class Business
 
     public Hotel? Hotel { get; set; }
     public Restaurant? Restaurant { get; set; }
-    public CarRental? CarRental { get; set; }
-    public Tour? Tour { get; set; }
+    public ICollection<CarRental> CarRentals { get; set; } = new List<CarRental>(); public Tour? Tour { get; set; }
     public ICollection<Image> Images { get; set; } = new List<Image>();
     public ICollection<Review> Reviews { get; set; } = new List<Review>();
 }
