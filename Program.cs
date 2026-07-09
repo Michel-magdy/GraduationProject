@@ -1,4 +1,6 @@
+using GraduationProject.Interfaces;
 using GraduationProject.Models;
+using GraduationProject.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 
@@ -6,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IUser, UserService>();
+
 builder.Services.AddDbContext<Context>(
     options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("CS")

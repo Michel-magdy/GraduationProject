@@ -1,0 +1,35 @@
+@model List<User>
+
+
+<table class="table table-striped"">
+    <thead>
+        <tr>
+            <th scope=" col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Department</th>
+            <th scope="col">Details</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    @foreach (var student in Model)
+    {
+        <tr>
+            <td>@student.Id</td>
+            <td>@student.FullName</td>
+            <td>@student.Email</td>
+            <td>
+                <a asp-controller="Student" asp-action="Details" asp-route-id="@student.Id" class="btn btn-dark">Detials</a>
+            </td>
+            <td>
+                <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id" class="btn btn-success">Edit</a>
+                <form asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id" method="post"
+                      class="d-inline">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+
+<a asp-controller="Student" asp-action="Add" class="btn btn-primary">Add New Student</a>
