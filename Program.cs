@@ -12,6 +12,7 @@ builder.Services.AddScoped<IUser, UserService>();
 builder.Services.AddScoped<IBusiness, BusinessService>();
 builder.Services.AddScoped<ICarRentalBooking, CarRentalBookingService>();
 builder.Services.AddScoped<IHotelBooking, HotelBookingService>();
+builder.Services.AddScoped<IHotel, HotelService>();
 builder.Services.AddScoped<IImage, ImageService>();
 builder.Services.AddScoped<IRestaurantBooking, RestaurantBookingService>();
 builder.Services.AddScoped<IRestaurant, RestaurantService>();
