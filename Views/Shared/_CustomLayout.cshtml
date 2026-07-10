@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - NexusTravel</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/GraduationProject.styles.css" asp-append-version="true" />
+</head>
+<body class="bg-light-gray">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top soft-shadow-sm py-3 z-index-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center fw-bold text-dark fs-4 text-decoration-none" asp-controller="Home" asp-action="Index">
+                <span class="logo-icon bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2">
+                    <i class="bi bi-geo-alt-fill"></i>
+                </span>
+                Nexus<span class="text-primary">Travel</span>
+            </a>
+
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-list fs-1 text-dark"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto fw-medium text-muted">
+                    <li class="nav-item px-2">
+                        <a class="nav-link active text-primary" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="#">Hotels</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="#">Restaurants</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="#">Car Rentals</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="#">Tours</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link" asp-controller="Home" asp-action="Privacy">Contact</a>
+                    </li>
+                </ul>
+
+                <div class="d-flex mt-3 mt-lg-0 gap-2">
+                    <a class="btn btn-outline-primary rounded-custom px-4 py-2 fw-semibold" href="#">Login</a>
+                    <a class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm" href="#">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <footer class="bg-white py-5 border-top border-light-subtle">
+        <div class="container py-4">
+            <div class="row g-4 mb-5">
+                <div class="col-lg-4 pe-lg-5">
+                    <a class="d-flex align-items-center fw-bold text-dark fs-4 text-decoration-none mb-3" asp-controller="Home" asp-action="Index">
+                        <span class="logo-icon bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </span>
+                        Nexus<span class="text-primary">Travel</span>
+                    </a>
+                    <p class="text-muted mb-4">
+                        Your premium platform for booking top-tier travel experiences. Explore, dream, and discover with us.
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a class="text-dark bg-light-gray rounded-circle p-2 d-inline-flex hover-primary transition-all text-decoration-none" href="#" aria-label="Instagram">
+                            <i class="bi bi-instagram fs-5"></i>
+                        </a>
+                        <a class="text-dark bg-light-gray rounded-circle p-2 d-inline-flex hover-primary transition-all text-decoration-none" href="#" aria-label="Twitter X">
+                            <i class="bi bi-twitter-x fs-5"></i>
+                        </a>
+                        <a class="text-dark bg-light-gray rounded-circle p-2 d-inline-flex hover-primary transition-all text-decoration-none" href="#" aria-label="LinkedIn">
+                            <i class="bi bi-linkedin fs-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-6 col-lg-2 offset-lg-1">
+                    <h6 class="fw-bold text-dark mb-3">Company</h6>
+                    <ul class="list-unstyled mb-0 d-flex flex-column gap-2">
+                        <li><a class="text-muted text-decoration-none hover-primary fw-medium small" href="#">About Us</a></li>
+                        <li><a class="text-muted text-decoration-none hover-primary fw-medium small" href="#">Careers</a></li>
+                        <li><a class="text-muted text-decoration-none hover-primary fw-medium small" href="#">Travel Blog</a></li>
+                        <li><a class="text-muted text-decoration-none hover-primary fw-medium small" href="#">Press</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-lg-2">
+                    <h6 class="fw-bold text-dark mb-3">Support</h6>
+                    <ul class="list-unstyled mb-0 d-flex flex-column gap-2">
+                        <li><a class="text-muted text-decoration-none hover-primary fw-medium small" href="#">Help Center</a></li>
+                        <li><a class="text-muted text-decoration-none hover-primary fw-medium small" href="#">Contact Us</a></li>
+                        <li><a class="text-muted text-decoration-none hover-primary fw-medium small" href="#">Cancellation Policy</a></li>
+                        <li><a class="text-muted text-decoration-none hover-primary fw-medium small" href="#">FAQs</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3">
+                    <h6 class="fw-bold text-dark mb-3">Newsletter</h6>
+                    <p class="text-muted small mb-3">
+                        Subscribe to get the latest deals and destination inspiration.
+                    </p>
+                    <div class="input-group">
+                        <input class="form-control bg-light-gray border-0" type="email" placeholder="Email address" aria-label="Email address" />
+                        <button class="btn btn-primary" type="button" aria-label="Subscribe">
+                            <i class="bi bi-send"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center pt-4 border-top border-light-subtle">
+                <p class="text-muted mb-0 small fw-medium">
+                    &copy; 2026 NexusTravel. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,70 @@
+@model IEnumerable<Hotel>
+
+@{
+    ViewData["Title"] = "Hotels";
+}
+
+<section class="management-page position-relative overflow-hidden">
+    <div class="blur-circle bg-teal-gradient position-absolute bottom-0 end-0 translate-middle"></div>
+    <div class="container position-relative z-index-2">
+        <div class="management-hero d-flex flex-column flex-lg-row justify-content-between align-items-lg-end">
+            <div>
+                <span class="management-eyebrow">Stays</span>
+                <h1 class="management-title">Hotels</h1>
+                <p class="management-subtitle">Browse hotel listings and room inventory connected to each business.</p>
+            </div>
+            <a asp-controller="Hotel" asp-action="Add" class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">
+                <i class="bi bi-plus-lg me-1"></i>Add Hotel
+            </a>
+        </div>
+
+        <div class="management-card">
+            @if (Model?.Any() == true)
+            {
+                <div class="table-responsive">
+                    <table class="table management-table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Hotel</th>
+                                <th>Business</th>
+                                <th>Location</th>
+                                <th>Rooms</th>
+                                <th>Description</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var hotel in Model)
+                            {
+                                <tr>
+                                    <td data-label="Hotel"><div class="entity-name">@hotel.Name</div></td>
+                                    <td data-label="Business">@(hotel.Business?.BusinessName ?? $"Business #{hotel.BusinessId}")</td>
+                                    <td data-label="Location">@hotel.Location</td>
+                                    <td data-label="Rooms">@hotel.Rooms.Count</td>
+                                    <td data-label="Description"><span class="entity-muted">@hotel.Description</span></td>
+                                    <td data-label="Actions" class="text-lg-end">
+                                        <div class="action-group">
+                                            <a asp-controller="Hotel" asp-action="Details" asp-route-id="@hotel.Id" class="btn btn-outline-primary btn-sm rounded-custom">Details</a>
+                                            <a asp-controller="Hotel" asp-action="Edit" asp-route-id="@hotel.Id" class="btn btn-primary btn-sm rounded-custom">Edit</a>
+                                            <form asp-controller="Hotel" asp-action="Delete" asp-route-id="@hotel.Id" method="post" class="d-inline">
+                                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-custom">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="bi bi-building-fill"></i>
+                    <h2 class="h5 fw-bold mt-3 mb-2">No hotels yet</h2>
+                    <p class="text-muted mb-0">Hotel records will show here after they are loaded.</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>

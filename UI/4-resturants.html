@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusTravel | Premium Dining</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light-gray">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top soft-shadow-sm py-3 z-index-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center fw-bold text-dark fs-4" href="index.html">
+                <div class="logo-icon bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2 flex-shrink-0">
+                    <i class="bi bi-geo-alt-fill lh-1"></i>
+                </div>
+                Nexus<span class="text-primary">Travel</span>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-1 text-dark"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto fw-medium text-muted">
+                    <li class="nav-item px-2"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="hotels.html">Hotels</a></li>
+                    <!-- Active State moved to Restaurants -->
+                    <li class="nav-item px-2"><a class="nav-link active text-primary fw-bold" href="restaurants.html">Restaurants</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="#">Car Rentals</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="#">Tours</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="#">Contact</a></li>
+                </ul>
+                
+                <div class="d-flex mt-3 mt-lg-0 gap-2">
+                    <a href="login.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold">Login</a>
+                    <a href="register.html" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold shadow-sm">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header & Dining Search Modifier -->
+    <header class="position-relative overflow-hidden pt-4 pb-5 bg-white border-bottom border-light-subtle">
+        <div class="blur-circle bg-primary-gradient position-absolute top-0 start-0 translate-middle" style="width: 500px; height: 500px; opacity: 0.2;"></div>
+        <div class="blur-circle bg-primary-gradient position-absolute bottom-0 end-0 translate-middle" style="width: 400px; height: 400px; opacity: 0.15;"></div>
+
+        <div class="container position-relative z-index-2">
+            <nav aria-label="breadcrumb" class="mb-3">
+                <ol class="breadcrumb small fw-medium">
+                    <li class="breadcrumb-item"><a href="index.html" class="text-muted text-decoration-none hover-primary">Home</a></li>
+                    <li class="breadcrumb-item active text-dark" aria-current="page">Restaurants</li>
+                </ol>
+            </nav>
+
+            <h1 class="fw-bold text-dark mb-4">Dining in <span class="text-primary">Paris, France</span></h1>
+
+            <div class="glass-card p-3 rounded-custom shadow-sm border border-light-subtle bg-white">
+                <form class="row g-2 align-items-center" id="diningSearchForm">
+                    <div class="col-md-4">
+                        <div class="form-floating form-floating-icon position-relative">
+                            <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted z-index-3"></i>
+                            <input type="text" class="form-control rounded-custom bg-light-gray border-0" id="cuisine" value="French, Fine Dining">
+                            <label for="cuisine">Cuisine or Restaurant Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-floating form-floating-icon position-relative">
+                            <i class="bi bi-calendar-event position-absolute top-50 start-0 translate-middle-y ms-3 text-muted z-index-3"></i>
+                            <input type="text" class="form-control rounded-custom bg-light-gray border-0" id="date_time" value="Oct 15, 19:30">
+                            <label for="date_time">Date & Time</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-floating form-floating-icon position-relative">
+                            <i class="bi bi-people position-absolute top-50 start-0 translate-middle-y ms-3 text-muted z-index-3"></i>
+                            <input type="text" class="form-control rounded-custom bg-light-gray border-0" id="table_guests" value="2 People">
+                            <label for="table_guests">Table For</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary w-100 rounded-custom py-3 fw-bold shadow-sm" id="searchDiningBtn">
+                            Find Table
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                
+                <!-- Left Sidebar: Dining Filters -->
+                <aside class="col-lg-3">
+                    <div class="card rounded-custom border-light-subtle shadow-sm bg-white p-4 sticky-top" style="top: 100px;">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="fw-bold text-dark mb-0">Filters</h5>
+                            <a href="#" class="text-primary text-decoration-none small fw-medium" id="clearFiltersBtn">Clear All</a>
+                        </div>
+
+                        <!-- Max Price Slider -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="fw-bold text-dark mb-0">Max Price</h6>
+                                <!-- Exact pill style -->
+                                <span class="badge bg-primary-subtle text-primary fw-bold rounded-pill px-3 py-2 fs-6" id="priceDisplay">$150</span>
+                            </div>
+                            <input type="range" class="form-range custom-range mt-2" id="priceRange" min="20" max="500" value="150" step="10">
+                            <div class="d-flex justify-content-between text-muted small fw-medium mt-2">
+                                <span>$20</span>
+                                <span>$500+</span>
+                            </div>
+                        </div>
+
+                        <hr class="text-light-subtle my-4">
+
+                        <!-- Guest Rating -->
+                        <div class="mb-4 filter-group">
+                            <h6 class="fw-bold text-dark mb-3">Guest Rating</h6>
+                            <div class="form-check d-flex align-items-center mb-2 gap-2">
+                                <input class="form-check-input custom-checkbox" type="checkbox" id="star5" checked>
+                                <label class="form-check-label text-warning fs-5 lh-1" for="star5">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </label>
+                            </div>
+                            <div class="form-check d-flex align-items-center mb-2 gap-2">
+                                <input class="form-check-input custom-checkbox" type="checkbox" id="star4" checked>
+                                <label class="form-check-label text-warning fs-5 lh-1" for="star4">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star text-muted opacity-50"></i>
+                                </label>
+                            </div>
+                            <div class="form-check d-flex align-items-center gap-2">
+                                <input class="form-check-input custom-checkbox" type="checkbox" id="star3">
+                                <label class="form-check-label text-warning fs-5 lh-1" for="star3">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star text-muted opacity-50"></i><i class="bi bi-star text-muted opacity-50"></i>
+                                </label>
+                            </div>
+                        </div>
+
+                        <hr class="text-light-subtle my-4">
+
+                        <!-- Features / Amenities -->
+                        <div class="filter-group">
+                            <h6 class="fw-bold text-dark mb-3">Features</h6>
+                            <div class="form-check d-flex align-items-center mb-2 gap-2">
+                                <input class="form-check-input custom-checkbox" type="checkbox" id="f_outdoor" checked>
+                                <label class="form-check-label text-dark fw-medium" for="f_outdoor">Outdoor Seating</label>
+                            </div>
+                            <div class="form-check d-flex align-items-center mb-2 gap-2">
+                                <input class="form-check-input custom-checkbox" type="checkbox" id="f_valet">
+                                <label class="form-check-label text-dark fw-medium" for="f_valet">Valet Parking</label>
+                            </div>
+                            <div class="form-check d-flex align-items-center gap-2">
+                                <input class="form-check-input custom-checkbox" type="checkbox" id="f_wifi" checked>
+                                <label class="form-check-label text-dark fw-medium" for="f_wifi">Free Wi-Fi</label>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Right Area: Restaurant Results -->
+                <div class="col-lg-9">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+                        <p class="text-dark fw-medium mb-0 fs-5">Showing <span class="fw-bold text-primary" id="resultCount">84</span> dining spots</p>
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="text-muted small fw-medium text-nowrap">Sort by:</label>
+                            <!-- Working Select Dropdown -->
+                            <select class="form-select border-light-subtle rounded-pill bg-white text-dark fw-medium py-1 px-3 custom-select-sort" id="sortSelect">
+                                <option value="recommended" selected>Highest Rated</option>
+                                <option value="distance">Distance</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Restaurant List Container -->
+                    <div id="restaurantList">
+                        
+                        <!-- Restaurant Card 1 -->
+                        <div class="card rounded-custom border-light-subtle mb-4 overflow-hidden shadow-sm bg-white hotel-card">
+                            <div class="row g-0">
+                                <div class="col-md-4 position-relative">
+                                    <div class="photo-placeholder h-100 w-100 min-vh-25 rounded-start-custom border-0" style="background-color: #E2E8F0;">
+                                        <span>(put ur photo here)</span>
+                                    </div>
+                                    <div class="badge bg-danger text-white position-absolute top-0 start-0 m-3 px-3 py-2 rounded-pill fw-bold shadow-sm d-flex align-items-center gap-1">
+                                        Michelin Star
+                                    </div>
+                                    <button class="btn btn-light bg-white rounded-circle position-absolute top-0 end-0 m-3 shadow-sm text-muted hover-primary p-2 lh-1 wishlist-btn">
+                                        <i class="bi bi-heart fs-5 transition-all"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body p-4 h-100 d-flex flex-column justify-content-between">
+                                        <div>
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <div>
+                                                    <div class="text-warning small mb-1 fs-6">
+                                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                                    </div>
+                                                    <h3 class="fw-bold text-dark mb-1">L'Arpège</h3>
+                                                    <p class="text-muted small mb-0">
+                                                        <i class="bi bi-geo-alt text-primary me-1"></i> 7th Arrondissement, Paris 
+                                                    </p>
+                                                </div>
+                                                <!-- High-Rounded Rating Badge -->
+                                                <div class="bg-primary text-white text-center shadow-sm rating-badge">
+                                                    <h4 class="fw-bold mb-0 lh-1">9.9</h4>
+                                                    <small class="d-block mt-1 fw-medium" style="font-size: 11px;">Exceptional</small>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Amenities Tags -->
+                                            <div class="d-flex flex-wrap gap-2 mt-3 pb-4 border-bottom border-light-subtle">
+                                                <span class="badge bg-white text-dark border border-light-subtle px-2 py-1 fw-medium rounded-2 shadow-sm"><i class="bi bi-cup-hot me-1 text-muted"></i> French Fine Dining</span>
+                                                <span class="badge bg-white text-dark border border-light-subtle px-2 py-1 fw-medium rounded-2 shadow-sm"><i class="bi bi-leaf me-1 text-muted"></i> Vegetarian Options</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="d-flex justify-content-between align-items-end mt-3">
+                                            <div class="d-flex gap-2 time-slots">
+                                                <!-- Time slots matching primary theme -->
+                                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill fw-bold px-3 time-btn">19:00</button>
+                                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill fw-bold px-3 time-btn active">19:30</button>
+                                                <button type="button" class="btn btn-sm btn-light text-muted border-light-subtle rounded-pill fw-medium px-3" disabled>20:00</button>
+                                            </div>
+                                            <!-- Rounded Pill Button -->
+                                            <button class="btn btn-primary rounded-pill px-4 py-2 fw-semibold fs-6 check-avail-btn d-flex align-items-center gap-2">
+                                                <span>Reserve Table</span> <i class="bi bi-chevron-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Restaurant Card 2 -->
+                        <div class="card rounded-custom border-light-subtle mb-4 overflow-hidden shadow-sm bg-white hotel-card">
+                            <div class="row g-0">
+                                <div class="col-md-4 position-relative">
+                                    <div class="photo-placeholder h-100 w-100 min-vh-25 rounded-start-custom border-0" style="background-color: #E2E8F0;">
+                                        <span>(put ur photo here)</span>
+                                    </div>
+                                    <button class="btn btn-light bg-white rounded-circle position-absolute top-0 end-0 m-3 shadow-sm text-muted hover-primary p-2 lh-1 wishlist-btn">
+                                        <i class="bi bi-heart fs-5 transition-all"></i>
+                                    </button>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body p-4 h-100 d-flex flex-column justify-content-between">
+                                        <div>
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <div>
+                                                    <div class="text-warning small mb-1 fs-6">
+                                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star text-muted opacity-50"></i>
+                                                    </div>
+                                                    <h3 class="fw-bold text-dark mb-1">Bistrot Paul Bert</h3>
+                                                    <p class="text-muted small mb-0">
+                                                        <i class="bi bi-geo-alt text-primary me-1"></i> 11th Arrondissement, Paris
+                                                    </p>
+                                                </div>
+                                                <!-- High-Rounded Rating Badge -->
+                                                <div class="bg-primary text-white text-center shadow-sm rating-badge">
+                                                    <h4 class="fw-bold mb-0 lh-1">8.9</h4>
+                                                    <small class="d-block mt-1 fw-medium" style="font-size: 11px;">Excellent</small>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="d-flex flex-wrap gap-2 mt-3 pb-3 border-bottom border-light-subtle">
+                                                <span class="badge bg-white text-dark border border-light-subtle px-2 py-1 fw-medium rounded-2 shadow-sm"><i class="bi bi-shop me-1 text-muted"></i> Classic Bistro</span>
+                                                <span class="badge bg-white text-dark border border-light-subtle px-2 py-1 fw-medium rounded-2 shadow-sm">Steakhouse</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="d-flex justify-content-between align-items-end mt-3">
+                                            <div class="d-flex gap-2 time-slots">
+                                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill fw-bold px-3 time-btn">19:30</button>
+                                                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill fw-bold px-3 time-btn">20:30</button>
+                                            </div>
+                                            <!-- Rounded Pill Button -->
+                                            <button class="btn btn-primary rounded-pill px-4 py-2 fw-semibold fs-6 check-avail-btn d-flex align-items-center gap-2">
+                                                <span>Reserve Table</span> <i class="bi bi-chevron-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Minimalist Footer -->
+    <footer class="bg-white py-5 mt-auto border-top border-light-subtle">
+        <div class="container py-2">
+            <div class="row mb-4">
+                <div class="col-md-5">
+                    <a class="d-flex align-items-center fw-bold text-dark fs-4 text-decoration-none mb-3" href="#">
+                        <div class="logo-icon bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2 flex-shrink-0">
+                            <i class="bi bi-geo-alt-fill lh-1"></i>
+                        </div>
+                        Nexus<span class="text-primary">Travel</span>
+                    </a>
+                    <p class="text-muted small fw-medium lh-base mb-0" style="max-width: 350px;">
+                        Your premium platform for booking top-tier travel experiences. Explore, dream, and discover with us.
+                    </p>
+                </div>
+            </div>
+            
+            <hr class="text-light-subtle mb-4">
+            
+            <div class="text-center">
+                <p class="text-muted small fw-medium mb-0">&copy; 2026 NexusTravel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.css"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
+
+<style>
+    /* Color Variables */
+:root {
+    --primary: #2563EB;
+    --dark: #0F172A;
+    --light-gray: #F8FAFC;
+    --white: #FFFFFF;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    background-color: var(--light-gray);
+}
+
+/* Utilities */
+.bg-light-gray { background-color: var(--light-gray) !important; }
+.text-dark { color: var(--dark) !important; }
+.text-primary { color: var(--primary) !important; }
+.bg-primary { background-color: var(--primary) !important; }
+.bg-primary-subtle { background-color: #E0E7FF !important; } /* Exact light blue from photo */
+
+.rounded-custom { border-radius: 16px !important; }
+.rounded-start-custom { border-top-left-radius: 16px; border-bottom-left-radius: 16px; }
+.soft-shadow-sm { box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03); }
+
+/* Buttons */
+.btn-primary { 
+    background: var(--primary); 
+    border-color: var(--primary); 
+    transition: all 0.3s ease; 
+}
+.btn-primary:hover:not(:disabled) { 
+    background-color: #1D4ED8; 
+    border-color: #1D4ED8; 
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3); 
+}
+.btn-outline-primary { color: var(--primary); border-color: var(--primary); }
+.btn-outline-primary:hover { background-color: var(--primary); color: var(--white); }
+
+/* Rating Badge (Extra Round, exactly like image) */
+.rating-badge {
+    border-radius: 14px;
+    min-width: 65px;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Custom Checkboxes (Rounded with Light Blue Focus Ring) */
+.custom-checkbox { 
+    width: 1.25rem; 
+    height: 1.25rem; 
+    border-color: #CBD5E1; 
+    border-width: 2px;
+    border-radius: 6px !important; /* Slightly rounded square */
+    cursor: pointer; 
+    transition: all 0.2s ease;
+    margin-top: 0;
+}
+.custom-checkbox:checked { 
+    background-color: var(--primary); 
+    border-color: var(--primary); 
+    /* The light blue glowing ring from the photo */
+    box-shadow: 0 0 0 4px #E0E7FF !important; 
+}
+
+/* Custom Range Slider (Blue thumb, thin track) */
+.custom-range { height: 6px; }
+.custom-range::-webkit-slider-runnable-track {
+    background-color: #E2E8F0;
+    height: 6px;
+    border-radius: 6px;
+}
+.custom-range::-webkit-slider-thumb {
+    background-color: var(--primary);
+    border: 3px solid var(--white);
+    box-shadow: 0 0 0 1.5px #E2E8F0; /* Soft outer ring */
+    width: 18px;
+    height: 18px;
+    margin-top: -6px; /* Centering the thumb */
+}
+
+/* Sorting Select Dropdown */
+.custom-select-sort {
+    cursor: pointer;
+    border-color: #E2E8F0;
+    width: auto;
+}
+.custom-select-sort:focus {
+    box-shadow: 0 0 0 4px #E0E7FF;
+    border-color: var(--primary);
+}
+
+/* Photo Placeholders */
+.photo-placeholder {
+    color: #94A3B8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    overflow: hidden;
+}
+
+/* Logo Fixes */
+.logo-icon { width: 36px; height: 36px; font-size: 18px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+
+/* Wishlist Heart Animation */
+.wishlist-btn i.active { color: #EF4444 !important; transform: scale(1.15); }
+
+@media (max-width: 768px) {
+    .rounded-start-custom { border-top-left-radius: 16px !important; border-top-right-radius: 16px !important; border-bottom-left-radius: 0 !important; }
+    .min-vh-25 { min-height: 250px; }
+}
+
+/* Custom Form & Floating Inputs Fixes */
+.form-control { 
+    transition: all 0.3s ease; 
+    height: calc(3.5rem + 2px); 
+}
+
+.form-control:focus { 
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); 
+    border-color: var(--primary); 
+}
+
+/* 1. Fixes the overlapping text by forcing the left padding */
+.form-floating-icon .form-control { 
+    padding-left: 3.25rem !important; 
+}
+.form-floating-icon label { 
+    padding-left: 3.25rem !important; 
+    background-color: transparent !important; /* Removes label background */
+}
+
+/* 2. Kills the Bootstrap white box cutout completely */
+.form-floating-icon label::after { 
+    background-color: transparent !important; 
+}
+
+/* 3. Ensures icons stay perfectly centered and on top */
+.form-floating-icon i { 
+    z-index: 5 !important; 
+    pointer-events: none; /* Prevents the icon from blocking clicks */
+}
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+    /* =======================================
+       1. Dynamic Price Slider Logic
+       ======================================= */
+    const priceRange = document.getElementById('priceRange');
+    const priceDisplay = document.getElementById('priceDisplay');
+
+    if (priceRange && priceDisplay) {
+        priceRange.addEventListener('input', (e) => {
+            priceDisplay.textContent = `$${e.target.value}`;
+        });
+    }
+
+    /* =======================================
+       2. Working Checkboxes (Visual Log)
+       ======================================= */
+    const checkboxes = document.querySelectorAll('.custom-checkbox');
+    checkboxes.forEach(box => {
+        box.addEventListener('change', function() {
+            console.log(`Filter changed: ${this.id} is now ${this.checked ? 'Active' : 'Inactive'}`);
+        });
+    });
+
+    /* =======================================
+       3. Sorting Dropdown Interaction
+       ======================================= */
+    const sortSelect = document.getElementById('sortSelect');
+    if (sortSelect) {
+        sortSelect.addEventListener('change', function() {
+            const listContainer = document.getElementById('restaurantList') || document.getElementById('hotelList');
+            
+            // Brief opacity fade to simulate sorting refresh
+            if(listContainer) {
+                listContainer.style.opacity = '0.4';
+                listContainer.style.transition = 'opacity 0.3s ease';
+                
+                setTimeout(() => {
+                    listContainer.style.opacity = '1';
+                    console.log(`Results sorted by: ${this.value}`);
+                }, 400);
+            }
+        });
+    }
+
+    /* =======================================
+       4. Wishlist Heart Toggle Animation
+       ======================================= */
+    const wishlistBtns = document.querySelectorAll('.wishlist-btn');
+    wishlistBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const icon = this.querySelector('i');
+            
+            if (icon.classList.contains('bi-heart')) {
+                icon.classList.remove('bi-heart');
+                icon.classList.add('bi-heart-fill', 'active');
+            } else {
+                icon.classList.remove('bi-heart-fill', 'active');
+                icon.classList.add('bi-heart');
+            }
+        });
+    });
+
+    /* =======================================
+       5. Time Slot Selection Logic
+       ======================================= */
+    const timeSlotGroups = document.querySelectorAll('.time-slots');
+    timeSlotGroups.forEach(group => {
+        const timeBtns = group.querySelectorAll('.time-btn');
+        timeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons in this row
+                timeBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+            });
+        });
+    });
+
+    /* =======================================
+       6. "Reserve Table / See Availability" Loading State
+       ======================================= */
+    const availBtns = document.querySelectorAll('.check-avail-btn');
+    availBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const originalHTML = this.innerHTML;
+            this.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Loading...`;
+            this.disabled = true;
+
+            setTimeout(() => {
+                this.innerHTML = `Confirmed <i class="bi bi-check2-circle ms-1"></i>`;
+                this.classList.replace('btn-primary', 'btn-success');
+                
+                setTimeout(() => {
+                    this.innerHTML = originalHTML;
+                    this.disabled = false;
+                    this.classList.replace('btn-success', 'btn-primary');
+                }, 2000);
+            }, 1200);
+        });
+    });
+
+    /* =======================================
+       7. Clear Filters Logic
+       ======================================= */
+    const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+    if (clearFiltersBtn) {
+        clearFiltersBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Uncheck everything
+            checkboxes.forEach(cb => cb.checked = false);
+            
+            // Reset Slider
+            if (priceRange) {
+                priceRange.value = 500;
+                priceDisplay.textContent = `$500`;
+            }
+        });
+    }
+});
+</script>

@@ -1,8 +1,122 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!-- Hero Section -->
+<header class="position-relative overflow-hidden py-5 mb-5">
+    <!-- Abstract Background Blurs -->
+    <div class="blur-circle bg-primary-gradient position-absolute top-0 start-0 translate-middle"></div>
+    <div class="blur-circle bg-teal-gradient position-absolute bottom-0 end-0 translate-middle"></div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+    <div class="container position-relative z-index-2 py-5">
+        <div class="row align-items-center g-5">
+            <!-- Left Side: Copy & Search Widget -->
+            <div class="col-lg-6 col-xl-5 pe-xl-5 position-relative z-index-3">
+                <span
+                    class="badge bg-light text-primary rounded-pill px-3 py-2 mb-3 fw-semibold border border-primary-subtle">
+                    <i class="bi bi-stars me-1"></i> Premium Tourism Booking
+                </span>
+                <h1 class="display-4 fw-bolder text-dark mb-4 lh-sm">
+                    Discover Your Next <span class="text-primary">Adventure</span>
+                </h1>
+                <p class="text-muted fs-5 mb-5">
+                    Experience the world's most breathtaking destinations. Book
+                    hotels, flights, and exclusive tours all in one place.
+                </p>
+
+                <!-- Glassmorphism Booking Widget -->
+                <div class="glass-card p-4 rounded-custom">
+                    <!-- Booking Tabs -->
+                    <ul class="nav nav-pills mb-4 gap-1 gap-sm-2 d-flex flex-nowrap" id="bookingTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active rounded-pill px-3 py-2 fw-medium" type="button">
+                                Hotels
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded-pill px-3 py-2 fw-medium" type="button">
+                                Restaurants
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded-pill px-3 py-2 fw-medium" type="button">
+                                Cars
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link rounded-pill px-3 py-2 fw-medium" type="button">
+                                Tours
+                            </button>
+                        </li>
+                    </ul>
+
+                    <form class="custom-form">
+                        <div class="form-floating form-floating-icon mb-3 position-relative">
+                            <i
+                            class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted z-index-3"></i>
+                            <input type="text" class="form-control rounded-custom bg-white border-light-subtle"
+                                   id="destination" placeholder="Where are you going?" />
+                            <label for="destination">Where are you going?</label>
+                        </div>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-6">
+                                <div class="form-floating form-floating-icon position-relative">
+                                    <i
+                                    class="bi bi-calendar-event position-absolute top-50 start-0 translate-middle-y ms-3 text-muted z-index-3"></i>
+                                    <input type="text" class="form-control rounded-custom bg-white border-light-subtle"
+                                           id="checkin" placeholder="Check In" />
+                                    <label for="checkin">Check In</label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating form-floating-icon position-relative">
+                                    <i
+                                    class="bi bi-calendar-event position-absolute top-50 start-0 translate-middle-y ms-3 text-muted z-index-3"></i>
+                                    <input type="text" class="form-control rounded-custom bg-white border-light-subtle"
+                                           id="checkout" placeholder="Check Out" />
+                                    <label for="checkout">Check Out</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button"
+                                class="btn btn-primary w-100 rounded-custom py-3 fw-bold fs-6 shadow-primary">
+                            Search Destinations
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Side: Hero Image Placeholder & Floating UI -->
+            <div class="col-lg-6 col-xl-7 position-relative d-none d-lg-block z-index-2 ps-lg-5">
+                <!-- Main Hero Image Placeholder -->
+                <div class="photo-placeholder hero-placeholder w-100 rounded-custom-lg shadow-sm">
+                    <span>(put ur photo here)</span>
+                </div>
+
+                <!-- Floating UI Card 1 (Fixed positioning to prevent overlap) -->
+                <div class="glass-card position-absolute p-3 rounded-custom float-animation-1 shadow-lg d-flex align-items-center gap-3"
+                     style="bottom: 10%; left: 1rem">
+                    <div class="icon-wrapper bg-accent text-white shadow-sm rounded-circle d-flex align-items-center justify-content-center"
+                         style="width: 48px; height: 48px; font-size: 20px">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 fw-bold text-dark lh-1">100% Safe</p>
+                        <small class="text-muted fw-medium">Secure Booking</small>
+                    </div>
+                </div>
+
+                <!-- Floating UI Card 2 -->
+                <div class="glass-card position-absolute p-3 rounded-custom float-animation-2 shadow-lg d-flex align-items-center gap-3"
+                     style="top: 15%; right: -1rem">
+                    <div class="icon-wrapper bg-white text-warning shadow-sm rounded-circle d-flex align-items-center justify-content-center"
+                         style="width: 48px; height: 48px; font-size: 20px">
+                        <i class="bi bi-star-fill"></i>
+                    </div>
+                    <div>
+                        <p class="mb-0 fw-bold text-dark lh-1">4.9/5 Rating</p>
+                        <small class="text-muted fw-medium">From 10k+ reviews</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

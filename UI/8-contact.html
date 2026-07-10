@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusTravel | Contact & Partner Registration</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light-gray">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top soft-shadow-sm py-3 z-index-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center fw-bold text-dark fs-4" href="index.html">
+                <div class="logo-icon bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2 flex-shrink-0">
+                    <i class="bi bi-geo-alt-fill lh-1"></i>
+                </div>
+                Nexus<span class="text-primary">Travel</span>
+            </a>
+
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-1 text-dark"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto fw-medium text-muted">
+                    <li class="nav-item px-2"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="hotels.html">Hotels</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="restaurants.html">Restaurants</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="car-rentals.html">Car Rentals</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="tours.html">Tours</a></li>
+                    <li class="nav-item px-2"><a class="nav-link active text-primary fw-bold" href="contact.html">Contact</a></li>
+                </ul>
+                
+                <div class="d-flex mt-3 mt-lg-0 gap-2">
+                    <a href="login.html" class="btn btn-outline-primary rounded-pill px-4 py-2 fw-semibold">Login</a>
+                    <a href="register.html" class="btn btn-primary rounded-pill px-4 py-2 fw-semibold shadow-sm">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="position-relative overflow-hidden py-5 bg-white border-bottom border-light-subtle text-center">
+        <!-- Abstract Background Blurs -->
+        <div class="blur-circle bg-primary-gradient position-absolute top-0 start-0 translate-middle" style="width: 400px; height: 400px; opacity: 0.15;"></div>
+        <div class="blur-circle bg-teal-gradient position-absolute bottom-0 end-0 translate-middle" style="width: 400px; height: 400px; opacity: 0.15;"></div>
+
+        <div class="container position-relative z-index-2 py-4">
+            <h1 class="display-5 fw-bolder text-dark mb-3">Contact <span class="text-primary">Us</span></h1>
+            <p class="text-muted fs-5 mb-0 mx-auto" style="max-width: 600px;">
+                Need help or want to become one of our business partners? We'd love to hear from you.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Registration Section -->
+    <main class="py-5 position-relative z-index-2">
+        <div class="container">
+            <div class="row g-5">
+                
+                <!-- Left Sidebar: Business Categories -->
+                <aside class="col-lg-4 col-xl-3">
+                    <div class="card rounded-custom border-light-subtle shadow-sm bg-white p-4 sticky-top" style="top: 100px;">
+                        <h5 class="fw-bold text-dark mb-4">Business Categories</h5>
+                        
+                        <div class="list-group category-list gap-2 border-0" id="sidebarCategoryList">
+                            <button type="button" class="list-group-item list-group-item-action rounded-custom border-0 fw-medium active d-flex align-items-center" data-category="hotel">
+                                <i class="bi bi-building fs-5 me-3"></i> Hotels
+                            </button>
+                            <button type="button" class="list-group-item list-group-item-action rounded-custom border-0 fw-medium d-flex align-items-center" data-category="restaurant">
+                                <i class="bi bi-cup-hot fs-5 me-3"></i> Restaurants
+                            </button>
+                            <button type="button" class="list-group-item list-group-item-action rounded-custom border-0 fw-medium d-flex align-items-center" data-category="car">
+                                <i class="bi bi-car-front fs-5 me-3"></i> Car Rentals
+                            </button>
+                            <button type="button" class="list-group-item list-group-item-action rounded-custom border-0 fw-medium d-flex align-items-center" data-category="tour">
+                                <i class="bi bi-compass fs-5 me-3"></i> Tours & Activities
+                            </button>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Right Content: Business Registration Form -->
+                <div class="col-lg-8 col-xl-9">
+                    <div class="card rounded-custom border-light-subtle shadow-sm bg-white p-4 p-md-5">
+                        
+                        <div class="mb-5 border-bottom border-light-subtle pb-4">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 48px; height: 48px;">
+                                    <i class="bi bi-briefcase-fill fs-4 lh-1"></i>
+                                </div>
+                                <h2 class="fw-bold text-dark mb-0">Become a Business Partner</h2>
+                            </div>
+                            <p class="text-muted mt-3 mb-0">
+                                Submit your business information for administrator review. Your request will be evaluated before your business appears on the platform.
+                            </p>
+                        </div>
+
+                        <form id="businessPartnerForm" class="needs-validation" novalidate>
+                            
+                            <!-- 1. Business Information -->
+                            <h5 class="fw-bold text-dark mb-3">1. Business Information</h5>
+                            <div class="row g-3 mb-5">
+                                <div class="col-md-6">
+                                    <div class="form-floating form-floating-icon position-relative">
+                                        <i class="bi bi-shop position-absolute top-50 start-0 translate-middle-y ms-3 text-muted z-index-3"></i>
+                                        <input type="text" class="form-control rounded-custom bg-light-gray border-0" id="bizName" placeholder="Business Name" required>
+                                        <label for="bizName">Business Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating form-floating-icon position-relative">
+                                        <i class="bi bi-person position-absolute top-50 start-0 translate-middle-y ms-3 text-muted z-index-3"></i>
+                                        <input type="text" class="form-control rounded-custom bg-light-gray border-0" id="ownerName" placeholder="Owner Full Name" required>
+                                        <label for="ownerName">Owner Full Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating form-floating-icon position-relative">
+                                        <i class="bi bi-envelope position-absolute top-50 start-0 translate-middle-y ms-3 text-muted z-index-3"></i>
+                                        <input type="email" class="form-control rounded-custom bg-light-gray border-0" id="bizEmail" placeholder="Business Email" required>
+                                        <label for="bizEmail">Business Email</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating form-floating-icon position-relative">
+                                        <i class="bi bi-telephone position-absolute top-50 start-0 translate-middle-y ms-3 text-muted z-index-3"></i>
+                                        <input type="tel" class="form-control rounded-custom bg-light-gray border-0" id="bizPhone" placeholder="Phone Number" required>
+                                        <label for="bizPhone">Phone Number</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating form-floating-icon position-relative">
+                                        <i class="bi bi-geo-alt position-absolute top-50 start-0 translate-middle-y ms-3 text-muted z-index-3"></i>
+                                        <input type="text" class="form-control rounded-custom bg-light-gray border-0" id="bizAddress" placeholder="Business Address" required>
+                                        <label for="bizAddress">Business Address</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control rounded-custom bg-light-gray border-0 px-4" id="bizCity" placeholder="City" required>
+                                        <label class="px-4" for="bizCity">City</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control rounded-custom bg-light-gray border-0 px-4" id="bizCountry" placeholder="Country" required>
+                                        <label class="px-4" for="bizCountry">Country</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 2. Category & Dynamic Details -->
+                            <h5 class="fw-bold text-dark mb-3">2. Category & Specifications</h5>
+                            
+                            <!-- Master Category Dropdown -->
+                            <div class="mb-4">
+                                <label for="categorySelect" class="form-label small text-muted fw-medium mb-2">Select Business Category</label>
+                                <select class="form-select rounded-custom bg-light-gray border-0 py-3 px-4 fw-medium text-dark" id="categorySelect" required>
+                                    <option value="hotel" selected>Hotel & Accommodation</option>
+                                    <option value="restaurant">Restaurant & Dining</option>
+                                    <option value="car">Car Rental</option>
+                                    <option value="tour">Tour & Activity</option>
+                                </select>
+                            </div>
+
+                            <!-- Dynamic Fields Container -->
+                            <div class="bg-light-gray p-4 rounded-custom mb-5 border border-light-subtle">
+                                
+                                <!-- Hotel Fields -->
+                                <div id="hotelFields" class="dynamic-section row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted fw-medium mb-1">Number of Rooms</label>
+                                        <input type="number" class="form-control rounded-custom border-light-subtle px-3 py-2" placeholder="e.g. 50">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted fw-medium mb-1">Star Rating</label>
+                                        <select class="form-select rounded-custom border-light-subtle px-3 py-2">
+                                            <option>1 Star</option>
+                                            <option>2 Stars</option>
+                                            <option>3 Stars</option>
+                                            <option>4 Stars</option>
+                                            <option>5 Stars</option>
+                                            <option>Unrated / Boutique</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Restaurant Fields -->
+                                <div id="restaurantFields" class="dynamic-section row g-3 d-none">
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted fw-medium mb-1">Number of Tables</label>
+                                        <input type="number" class="form-control rounded-custom border-light-subtle px-3 py-2" placeholder="e.g. 25">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted fw-medium mb-1">Primary Cuisine Type</label>
+                                        <input type="text" class="form-control rounded-custom border-light-subtle px-3 py-2" placeholder="e.g. Italian, Fusion">
+                                    </div>
+                                </div>
+
+                                <!-- Car Rental Fields -->
+                                <div id="carFields" class="dynamic-section row g-3 d-none">
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted fw-medium mb-1">Number of Vehicles</label>
+                                        <input type="number" class="form-control rounded-custom border-light-subtle px-3 py-2" placeholder="e.g. 100">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted fw-medium mb-1">Vehicle Types Available</label>
+                                        <input type="text" class="form-control rounded-custom border-light-subtle px-3 py-2" placeholder="e.g. Sedan, SUV, Luxury">
+                                    </div>
+                                </div>
+
+                                <!-- Tour Fields -->
+                                <div id="tourFields" class="dynamic-section row g-3 d-none">
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted fw-medium mb-1">Number of Unique Tours</label>
+                                        <input type="number" class="form-control rounded-custom border-light-subtle px-3 py-2" placeholder="e.g. 15">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted fw-medium mb-1">Max Participants per Tour</label>
+                                        <input type="number" class="form-control rounded-custom border-light-subtle px-3 py-2" placeholder="e.g. 30">
+                                    </div>
+                                </div>
+
+                                <!-- Shared Details (Always visible) -->
+                                <div class="row g-3 mt-1">
+                                    <div class="col-12">
+                                        <label class="form-label small text-muted fw-medium mb-1">Business Description</label>
+                                        <textarea class="form-control rounded-custom border-light-subtle px-3 py-2" rows="4" placeholder="Describe your business, amenities, and unique selling points..." required></textarea>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted fw-medium mb-1">Website (Optional)</label>
+                                        <input type="url" class="form-control rounded-custom border-light-subtle px-3 py-2" placeholder="https://www.example.com">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted fw-medium mb-1">Google Maps Link (Optional)</label>
+                                        <input type="url" class="form-control rounded-custom border-light-subtle px-3 py-2" placeholder="https://maps.google.com/...">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3. Required Documents -->
+                            <h5 class="fw-bold text-dark mb-3">3. Required Documents</h5>
+                            <p class="text-muted small mb-4">Please upload standard PDF, JPG, or PNG files. Max size 5MB per file.</p>
+                            
+                            <div class="row g-4 mb-5">
+                                <div class="col-md-6">
+                                    <label class="form-label small text-dark fw-bold mb-2">Business License <span class="text-danger">*</span></label>
+                                    <input class="form-control custom-file-input rounded-custom bg-light-gray border-0" type="file" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-dark fw-bold mb-2">National ID / Passport <span class="text-danger">*</span></label>
+                                    <input class="form-control custom-file-input rounded-custom bg-light-gray border-0" type="file" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-dark fw-bold mb-2">Tax Registration Certificate <span class="text-danger">*</span></label>
+                                    <input class="form-control custom-file-input rounded-custom bg-light-gray border-0" type="file" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-dark fw-bold mb-2">Commercial Registration <span class="text-danger">*</span></label>
+                                    <input class="form-control custom-file-input rounded-custom bg-light-gray border-0" type="file" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-dark fw-bold mb-2">Business Logo (High Res)</label>
+                                    <input class="form-control custom-file-input rounded-custom bg-light-gray border-0" type="file" accept="image/*">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-dark fw-bold mb-2">Additional Documents</label>
+                                    <input class="form-control custom-file-input rounded-custom bg-light-gray border-0" type="file" multiple>
+                                </div>
+                            </div>
+
+                            <!-- Agreement & Submit -->
+                            <div class="bg-primary-subtle p-4 rounded-custom border border-primary-subtle mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input custom-checkbox border-primary" type="checkbox" id="agreement" required>
+                                    <label class="form-check-label text-dark fw-medium" for="agreement">
+                                        I confirm that all submitted information and documents are authentic, correct, and belong to my business. I agree to the platform's <a href="#" class="text-primary text-decoration-none">Terms and Conditions</a>.
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-column flex-md-row gap-3">
+                                <button type="submit" class="btn btn-primary rounded-pill px-5 py-3 fw-bold fs-6 shadow-sm" id="submitRegBtn">
+                                    Submit Request
+                                </button>
+                                <button type="reset" class="btn btn-light border-light-subtle text-dark rounded-pill px-5 py-3 fw-bold fs-6 hover-lift" id="resetBtn">
+                                    Reset Form
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Support & Map Section -->
+    <section class="py-5 border-top border-light-subtle bg-white position-relative">
+        <div class="container">
+            <div class="row g-5">
+                
+                <!-- Support Info -->
+                <div class="col-lg-5">
+                    <h3 class="fw-bold text-dark mb-4">Customer Support</h3>
+                    <p class="text-muted mb-5">Our support team is available to assist you with registration inquiries, technical issues, and partner support.</p>
+                    
+                    <div class="d-flex flex-column gap-4">
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="bg-light-gray text-primary rounded-circle d-flex align-items-center justify-content-center shadow-sm flex-shrink-0" style="width: 48px; height: 48px;">
+                                <i class="bi bi-telephone-fill fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold text-dark mb-1">Phone Number</h6>
+                                <p class="text-muted mb-0 fw-medium">+1 (800) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="bg-light-gray text-primary rounded-circle d-flex align-items-center justify-content-center shadow-sm flex-shrink-0" style="width: 48px; height: 48px;">
+                                <i class="bi bi-envelope-fill fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold text-dark mb-1">Email Address</h6>
+                                <p class="text-muted mb-0 fw-medium">partners@nexustravel.com</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="bg-light-gray text-primary rounded-circle d-flex align-items-center justify-content-center shadow-sm flex-shrink-0" style="width: 48px; height: 48px;">
+                                <i class="bi bi-geo-alt-fill fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold text-dark mb-1">Office Address</h6>
+                                <p class="text-muted mb-0 fw-medium">100 Premium Way, Suite 500<br>Paris, France 75008</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start gap-3">
+                            <div class="bg-light-gray text-primary rounded-circle d-flex align-items-center justify-content-center shadow-sm flex-shrink-0" style="width: 48px; height: 48px;">
+                                <i class="bi bi-clock-fill fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold text-dark mb-1">Working Hours</h6>
+                                <p class="text-muted mb-0 fw-medium">Mon - Fri: 9:00 AM - 6:00 PM (CET)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Abstract Map Placeholder -->
+                <div class="col-lg-7">
+                    <div class="rounded-custom h-100 min-vh-50 w-100 position-relative overflow-hidden d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%); border: 2px dashed #CBD5E1;">
+                        <div class="blur-circle bg-primary-gradient position-absolute top-50 start-50 translate-middle" style="width: 300px; height: 300px; opacity: 0.1;"></div>
+                        <div class="text-center z-index-2">
+                            <i class="bi bi-map text-muted opacity-50 mb-3 d-block" style="font-size: 3rem;"></i>
+                            <p class="text-muted fw-bold mb-0">Responsive Google Maps Placeholder</p>
+                            <small class="text-muted fw-medium">iframe goes here</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Minimalist Footer -->
+    <footer class="bg-white py-5 mt-auto border-top border-light-subtle">
+        <div class="container py-2">
+            <div class="row mb-4">
+                <div class="col-md-5 mb-4 mb-md-0">
+                    <a class="d-flex align-items-center fw-bold text-dark fs-4 text-decoration-none mb-3" href="#">
+                        <div class="logo-icon bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2 flex-shrink-0">
+                            <i class="bi bi-geo-alt-fill lh-1"></i>
+                        </div>
+                        Nexus<span class="text-primary">Travel</span>
+                    </a>
+                    <p class="text-muted small fw-medium lh-base mb-0" style="max-width: 350px;">
+                        Your premium platform for booking top-tier travel experiences. Explore, dream, and discover with us.
+                    </p>
+                </div>
+                <div class="col-md-7 d-flex justify-content-md-end align-items-center gap-4">
+                    <a href="#" class="text-dark text-decoration-none fw-medium small hover-primary">About</a>
+                    <a href="#" class="text-dark text-decoration-none fw-medium small hover-primary">Privacy Policy</a>
+                    <a href="#" class="text-dark text-decoration-none fw-medium small hover-primary">Terms & Conditions</a>
+                    <a href="#" class="text-dark text-decoration-none fw-medium small hover-primary">Contact</a>
+                </div>
+            </div>
+            
+            <hr class="text-light-subtle mb-4">
+            
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <p class="text-muted small fw-medium mb-3 mb-md-0">&copy; 2026 NexusTravel. All rights reserved.</p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="text-muted hover-primary fs-5"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-muted hover-primary fs-5"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" class="text-muted hover-primary fs-5"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.css"></script>
+    
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
+
+<style>
+    /* Color Variables */
+:root {
+    --primary: #2563EB;
+    --accent: #14B8A6;
+    --dark: #0F172A;
+    --light-gray: #F8FAFC;
+    --white: #FFFFFF;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    background-color: var(--light-gray);
+    overflow-x: hidden;
+}
+
+/* Base Styles & Utilities */
+.bg-light-gray { background-color: var(--light-gray) !important; }
+.text-dark { color: var(--dark) !important; }
+.text-primary { color: var(--primary) !important; }
+.bg-primary { background-color: var(--primary) !important; }
+.bg-primary-subtle { background-color: #E0E7FF !important; }
+
+.rounded-custom { border-radius: 16px !important; }
+.z-index-2 { z-index: 2; position: relative; }
+.z-index-3 { z-index: 3; position: relative; }
+.z-index-top { z-index: 1030; }
+.soft-shadow-sm { box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03); }
+.shadow-primary { box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25); }
+.transition-all { transition: all 0.3s ease; }
+
+/* Buttons */
+.btn-primary { 
+    background: var(--primary); 
+    border-color: var(--primary); 
+    transition: all 0.3s ease; 
+}
+.btn-primary:hover:not(:disabled) { 
+    background-color: #1D4ED8; 
+    border-color: #1D4ED8; 
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3); 
+}
+.btn-outline-primary { color: var(--primary); border-color: var(--primary); }
+.btn-outline-primary:hover { background-color: var(--primary); color: var(--white); }
+.hover-primary { transition: color 0.2s; }
+.hover-primary:hover { color: var(--primary) !important; }
+
+/* Interactions */
+.hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.hover-lift:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Custom Checkboxes */
+.custom-checkbox { 
+    width: 1.25rem; 
+    height: 1.25rem; 
+    border-color: #CBD5E1; 
+    border-width: 2px;
+    border-radius: 6px !important; 
+    cursor: pointer; 
+    transition: all 0.2s ease;
+    margin-top: 0;
+}
+.custom-checkbox:checked { 
+    background-color: var(--primary); 
+    border-color: var(--primary); 
+    box-shadow: 0 0 0 4px #E0E7FF !important; 
+}
+
+/* Custom Form & Floating Inputs Fixes */
+.form-control { 
+    transition: all 0.3s ease; 
+    height: calc(3.5rem + 2px); 
+}
+.form-control:focus { 
+    box-shadow: 0 0 0 4px #E0E7FF; 
+    border-color: var(--primary); 
+}
+.form-floating-icon .form-control { 
+    padding-left: 3.25rem !important; 
+}
+.form-floating-icon label { 
+    padding-left: 3.25rem !important; 
+    background-color: transparent !important;
+}
+.form-floating-icon label::after { 
+    background-color: transparent !important; 
+}
+.form-floating-icon i { 
+    z-index: 5 !important; 
+    pointer-events: none; 
+}
+
+/* Logo Alignment */
+.logo-icon { 
+    width: 36px; 
+    height: 36px; 
+    font-size: 18px; 
+    flex-shrink: 0; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Blurs & Shadows */
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+.blur-circle { border-radius: 50%; filter: blur(100px); z-index: 0; }
+.bg-primary-gradient { background: radial-gradient(circle, var(--primary) 0%, rgba(37,99,235,0) 70%); }
+.bg-teal-gradient { background: radial-gradient(circle, var(--accent) 0%, rgba(20,184,166,0) 70%); }
+
+/* =======================================
+   Contact & Business Registration Specifics 
+   ======================================= */
+
+/* Sidebar Category List */
+.category-list .list-group-item {
+    background-color: transparent;
+    color: var(--dark);
+    padding: 12px 20px;
+    margin-bottom: 4px;
+    transition: all 0.2s ease;
+}
+.category-list .list-group-item:hover:not(.active) {
+    background-color: var(--light-gray);
+    color: var(--primary);
+    transform: translateX(4px);
+}
+.category-list .list-group-item.active {
+    background-color: var(--primary) !important;
+    color: var(--white) !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+/* Custom File Input (Premium Look) */
+.custom-file-input {
+    height: auto !important; /* Overrides floating label height */
+    padding: 0.5rem 1rem !important;
+}
+.custom-file-input::file-selector-button {
+    background-color: var(--white);
+    color: var(--dark);
+    border: 1px solid #CBD5E1;
+    border-radius: 8px;
+    padding: 6px 16px;
+    margin-right: 16px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.custom-file-input::file-selector-button:hover {
+    background-color: #F1F5F9;
+    border-color: var(--primary);
+    color: var(--primary);
+}
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+    /* =======================================
+       1. Dynamic Category Syncing
+       ======================================= */
+    const sidebarBtns = document.querySelectorAll('#sidebarCategoryList .list-group-item');
+    const categorySelect = document.getElementById('categorySelect');
+    const dynamicSections = document.querySelectorAll('.dynamic-section');
+
+    // Function to handle showing the right fields
+    function updateDynamicFields(categoryValue) {
+        // Hide all dynamic sections first
+        dynamicSections.forEach(section => {
+            section.classList.add('d-none');
+        });
+        
+        // Show the selected section based on the dropdown value
+        const targetSection = document.getElementById(`${categoryValue}Fields`);
+        if (targetSection) {
+            targetSection.classList.remove('d-none');
+        }
+    }
+
+    // A. When a Sidebar button is clicked
+    if (sidebarBtns && categorySelect) {
+        sidebarBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // 1. Update Sidebar Active State
+                sidebarBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // 2. Update Select Dropdown Value
+                const targetCategory = this.getAttribute('data-category');
+                categorySelect.value = targetCategory;
+
+                // 3. Update the form fields below
+                updateDynamicFields(targetCategory);
+            });
+        });
+
+        // B. When the Dropdown itself is changed (Mobile view usage)
+        categorySelect.addEventListener('change', function() {
+            const selectedValue = this.value;
+            
+            // 1. Update Form Fields
+            updateDynamicFields(selectedValue);
+
+            // 2. Sync the Sidebar active state to match the dropdown
+            sidebarBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.getAttribute('data-category') === selectedValue) {
+                    btn.classList.add('active');
+                }
+            });
+        });
+    }
+
+    /* =======================================
+       2. Form Submission / Loading State
+       ======================================= */
+    const partnerForm = document.getElementById('businessPartnerForm');
+    const submitBtn = document.getElementById('submitRegBtn');
+
+    if (partnerForm && submitBtn) {
+        partnerForm.addEventListener('submit', (e) => {
+            // Check HTML5 validity
+            if (!partnerForm.checkValidity()) {
+                e.preventDefault();
+                e.stopPropagation();
+                partnerForm.classList.add('was-validated');
+                return;
+            }
+
+            e.preventDefault();
+            
+            const originalHTML = submitBtn.innerHTML;
+            
+            // Set loading state
+            submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Submitting Request...`;
+            submitBtn.disabled = true;
+
+            // Simulate API Call / Validation
+            setTimeout(() => {
+                submitBtn.innerHTML = `Request Submitted <i class="bi bi-check2-circle ms-1"></i>`;
+                submitBtn.classList.replace('btn-primary', 'btn-success');
+                
+                // Reset visual state after 2.5s
+                setTimeout(() => {
+                    alert("Thank you! Your business registration request has been submitted to the administration for review.");
+                    partnerForm.reset();
+                    partnerForm.classList.remove('was-validated');
+                    submitBtn.innerHTML = originalHTML;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.replace('btn-success', 'btn-primary');
+                    
+                    // Reset to default Category (Hotel)
+                    if (categorySelect && sidebarBtns) {
+                        categorySelect.value = "hotel";
+                        updateDynamicFields("hotel");
+                        sidebarBtns.forEach(b => b.classList.remove('active'));
+                        sidebarBtns[0].classList.add('active');
+                    }
+
+                }, 2500);
+            }, 1500);
+        });
+    }
+
+    /* =======================================
+       3. Form Reset Button Logic
+       ======================================= */
+    const resetBtn = document.getElementById('resetBtn');
+    if (resetBtn && partnerForm) {
+        resetBtn.addEventListener('click', () => {
+            partnerForm.classList.remove('was-validated');
+            setTimeout(() => {
+                // Return to default Hotel layout after reset
+                categorySelect.value = "hotel";
+                updateDynamicFields("hotel");
+                sidebarBtns.forEach(b => b.classList.remove('active'));
+                sidebarBtns[0].classList.add('active');
+            }, 10);
+        });
+    }
+
+});
+</script>

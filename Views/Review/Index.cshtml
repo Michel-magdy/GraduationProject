@@ -1,0 +1,75 @@
+@model IEnumerable<Review>
+
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+<section class="management-page position-relative overflow-hidden">
+    <div class="blur-circle bg-primary-gradient position-absolute top-0 start-0 translate-middle"></div>
+    <div class="container position-relative z-index-2">
+        <div class="management-hero d-flex flex-column flex-lg-row justify-content-between align-items-lg-end">
+            <div>
+                <span class="management-eyebrow">Feedback</span>
+                <h1 class="management-title">Reviews</h1>
+                <p class="management-subtitle">Moderate guest feedback, ratings, comments, and related businesses.</p>
+            </div>
+            <a asp-controller="Review" asp-action="Add" class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">
+                <i class="bi bi-plus-lg me-1"></i>Add Review
+            </a>
+        </div>
+
+        <div class="management-card">
+            @if (Model?.Any() == true)
+            {
+                <div class="table-responsive">
+                    <table class="table management-table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Reviewer</th>
+                                <th>Business</th>
+                                <th>Rating</th>
+                                <th>Comment</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var review in Model)
+                            {
+                                <tr>
+                                    <td data-label="Reviewer"><div class="entity-name">@(review.User?.FullName ?? $"User #{review.UserId}")</div></td>
+                                    <td data-label="Business">@(review.Business?.BusinessName ?? $"Business #{review.BusinessId}")</td>
+                                    <td data-label="Rating">
+                                        <span class="text-warning">
+                                            @for (var i = 1; i <= 5; i++)
+                                            {
+                                                <i class="bi @(i <= review.Rate ? "bi-star-fill" : "bi-star")"></i>
+                                            }
+                                        </span>
+                                    </td>
+                                    <td data-label="Comment"><span class="entity-muted">@review.Comment</span></td>
+                                    <td data-label="Actions" class="text-lg-end">
+                                        <div class="action-group">
+                                            <a asp-controller="Review" asp-action="Details" asp-route-id="@review.Id" class="btn btn-outline-primary btn-sm rounded-custom">Details</a>
+                                            <a asp-controller="Review" asp-action="Edit" asp-route-id="@review.Id" class="btn btn-primary btn-sm rounded-custom">Edit</a>
+                                            <form asp-controller="Review" asp-action="Delete" asp-route-id="@review.Id" method="post" class="d-inline">
+                                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-custom">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="bi bi-star-fill"></i>
+                    <h2 class="h5 fw-bold mt-3 mb-2">No reviews yet</h2>
+                    <p class="text-muted mb-0">Reviews will appear here once loaded.</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NexusTravel | Book Your Next Adventure</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body class="bg-light-gray">
+    <!-- Navigation Bar -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white sticky-top soft-shadow-sm py-3 z-index-top"
+    >
+      <div class="container">
+        <!-- Logo -->
+        <a
+          class="navbar-brand d-flex align-items-center fw-bold text-dark fs-4"
+          href="index.html"
+        >
+          <div
+            class="logo-icon bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2"
+          >
+            <i class="bi bi-geo-alt-fill"></i>
+          </div>
+          Nexus<span class="text-primary">Travel</span>
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <i class="bi bi-list fs-1 text-dark"></i>
+        </button>
+
+        <!-- Nav Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto fw-medium text-muted">
+            <li class="nav-item px-2">
+              <a class="nav-link active text-primary" href="#">Home</a>
+            </li>
+            <li class="nav-item px-2">
+              <a class="nav-link" href="#">Hotels</a>
+            </li>
+            <li class="nav-item px-2">
+              <a class="nav-link" href="#">Restaurants</a>
+            </li>
+            <li class="nav-item px-2">
+              <a class="nav-link" href="#">Car Rentals</a>
+            </li>
+            <li class="nav-item px-2">
+              <a class="nav-link" href="#">Tours</a>
+            </li>
+            <li class="nav-item px-2">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+
+          <!-- Login & Sign Up Buttons -->
+          <div class="d-flex mt-3 mt-lg-0 gap-2">
+            <a
+              href="login.html"
+              class="btn btn-outline-primary rounded-custom px-4 py-2 fw-semibold"
+              >Login</a
+            >
+            <a
+              href="register.html"
+              class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm"
+              >Sign Up</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="position-relative overflow-hidden py-5 mb-5">
+      <!-- Abstract Background Blurs -->
+      <div
+        class="blur-circle bg-primary-gradient position-absolute top-0 start-0 translate-middle"
+      ></div>
+      <div
+        class="blur-circle bg-teal-gradient position-absolute bottom-0 end-0 translate-middle"
+      ></div>
+
+      <div class="container position-relative z-index-2 py-5">
+        <div class="row align-items-center g-5">
+          <!-- Left Side: Copy & Search Widget -->
+          <div class="col-lg-6 col-xl-5 pe-xl-5 position-relative z-index-3">
+            <span
+              class="badge bg-light text-primary rounded-pill px-3 py-2 mb-3 fw-semibold border border-primary-subtle"
+            >
+              <i class="bi bi-stars me-1"></i> Premium Tourism Booking
+            </span>
+            <h1 class="display-4 fw-bolder text-dark mb-4 lh-sm">
+              Discover Your Next <span class="text-primary">Adventure</span>
+            </h1>
+            <p class="text-muted fs-5 mb-5">
+              Experience the world's most breathtaking destinations. Book
+              hotels, flights, and exclusive tours all in one place.
+            </p>
+
+            <!-- Glassmorphism Booking Widget -->
+            <div class="glass-card p-4 rounded-custom">
+              <!-- Booking Tabs -->
+              <ul
+                class="nav nav-pills mb-4 gap-1 gap-sm-2 d-flex flex-nowrap"
+                id="bookingTab"
+                role="tablist"
+              >
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link active rounded-pill px-3 py-2 fw-medium"
+                    type="button"
+                  >
+                    Hotels
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link rounded-pill px-3 py-2 fw-medium"
+                    type="button"
+                  >
+                    Restaurants
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link rounded-pill px-3 py-2 fw-medium"
+                    type="button"
+                  >
+                    Cars
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link rounded-pill px-3 py-2 fw-medium"
+                    type="button"
+                  >
+                    Tours
+                  </button>
+                </li>
+              </ul>
+
+              <form class="custom-form">
+                <div
+                  class="form-floating form-floating-icon mb-3 position-relative"
+                >
+                  <i
+                    class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted z-index-3"
+                  ></i>
+                  <input
+                    type="text"
+                    class="form-control rounded-custom bg-white border-light-subtle"
+                    id="destination"
+                    placeholder="Where are you going?"
+                  />
+                  <label for="destination">Where are you going?</label>
+                </div>
+
+                <div class="row g-3 mb-4">
+                  <div class="col-6">
+                    <div
+                      class="form-floating form-floating-icon position-relative"
+                    >
+                      <i
+                        class="bi bi-calendar-event position-absolute top-50 start-0 translate-middle-y ms-3 text-muted z-index-3"
+                      ></i>
+                      <input
+                        type="text"
+                        class="form-control rounded-custom bg-white border-light-subtle"
+                        id="checkin"
+                        placeholder="Check In"
+                      />
+                      <label for="checkin">Check In</label>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div
+                      class="form-floating form-floating-icon position-relative"
+                    >
+                      <i
+                        class="bi bi-calendar-event position-absolute top-50 start-0 translate-middle-y ms-3 text-muted z-index-3"
+                      ></i>
+                      <input
+                        type="text"
+                        class="form-control rounded-custom bg-white border-light-subtle"
+                        id="checkout"
+                        placeholder="Check Out"
+                      />
+                      <label for="checkout">Check Out</label>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="btn btn-primary w-100 rounded-custom py-3 fw-bold fs-6 shadow-primary"
+                >
+                  Search Destinations
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Right Side: Hero Image Placeholder & Floating UI -->
+          <div
+            class="col-lg-6 col-xl-7 position-relative d-none d-lg-block z-index-2 ps-lg-5"
+          >
+            <!-- Main Hero Image Placeholder -->
+            <div
+              class="photo-placeholder hero-placeholder w-100 rounded-custom-lg shadow-sm"
+            >
+              <span>(put ur photo here)</span>
+            </div>
+
+            <!-- Floating UI Card 1 (Fixed positioning to prevent overlap) -->
+            <div
+              class="glass-card position-absolute p-3 rounded-custom float-animation-1 shadow-lg d-flex align-items-center gap-3"
+              style="bottom: 10%; left: 1rem"
+            >
+              <div
+                class="icon-wrapper bg-accent text-white shadow-sm rounded-circle d-flex align-items-center justify-content-center"
+                style="width: 48px; height: 48px; font-size: 20px"
+              >
+                <i class="bi bi-shield-check"></i>
+              </div>
+              <div>
+                <p class="mb-0 fw-bold text-dark lh-1">100% Safe</p>
+                <small class="text-muted fw-medium">Secure Booking</small>
+              </div>
+            </div>
+
+            <!-- Floating UI Card 2 -->
+            <div
+              class="glass-card position-absolute p-3 rounded-custom float-animation-2 shadow-lg d-flex align-items-center gap-3"
+              style="top: 15%; right: -1rem"
+            >
+              <div
+                class="icon-wrapper bg-white text-warning shadow-sm rounded-circle d-flex align-items-center justify-content-center"
+                style="width: 48px; height: 48px; font-size: 20px"
+              >
+                <i class="bi bi-star-fill"></i>
+              </div>
+              <div>
+                <p class="mb-0 fw-bold text-dark lh-1">4.9/5 Rating</p>
+                <small class="text-muted fw-medium">From 10k+ reviews</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Popular Destinations Section -->
+    <section class="py-5 bg-white border-top border-light-subtle">
+      <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-end mb-5">
+          <div>
+            <h2 class="fw-bold text-dark mb-2">Popular Destinations</h2>
+            <p class="text-muted mb-0">
+              Explore our highly rated travel packages
+            </p>
+          </div>
+          <a
+            href="#"
+            class="btn btn-outline-primary rounded-custom px-4 d-none d-md-inline-flex"
+            >View All</a
+          >
+        </div>
+
+        <div class="row g-4">
+          <!-- Destination Card 1 -->
+          <div class="col-md-6 col-lg-4">
+            <div
+              class="card rounded-custom border-light-subtle h-100 dest-card hover-lift"
+            >
+              <div class="photo-placeholder card-img-placeholder w-100">
+                <span>(put ur photo here)</span>
+              </div>
+              <div class="card-body p-4 position-relative">
+                <div
+                  class="badge bg-white text-dark shadow-sm position-absolute top-0 end-0 translate-middle-y me-4 px-3 py-2 rounded-pill fw-bold"
+                >
+                  <i class="bi bi-star-fill text-warning me-1"></i> 4.8
+                </div>
+                <h5 class="fw-bold text-dark mb-1">Santorini, Greece</h5>
+                <p class="text-muted small mb-3">
+                  <i class="bi bi-geo-alt text-accent me-1"></i> 7 Days Tour
+                </p>
+                <div
+                  class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top border-light-subtle"
+                >
+                  <div>
+                    <span class="text-muted small d-block lh-1"
+                      >Starting from</span
+                    >
+                    <span class="fs-5 fw-bold text-primary">$1,299</span>
+                  </div>
+                  <button
+                    class="btn btn-primary rounded-custom px-4 py-2 fw-medium btn-sm"
+                  >
+                    Book
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Destination Card 2 -->
+          <div class="col-md-6 col-lg-4">
+            <div
+              class="card rounded-custom border-light-subtle h-100 dest-card hover-lift"
+            >
+              <div class="photo-placeholder card-img-placeholder w-100">
+                <span>(put ur photo here)</span>
+              </div>
+              <div class="card-body p-4 position-relative">
+                <div
+                  class="badge bg-white text-dark shadow-sm position-absolute top-0 end-0 translate-middle-y me-4 px-3 py-2 rounded-pill fw-bold"
+                >
+                  <i class="bi bi-star-fill text-warning me-1"></i> 4.9
+                </div>
+                <h5 class="fw-bold text-dark mb-1">Kyoto, Japan</h5>
+                <p class="text-muted small mb-3">
+                  <i class="bi bi-geo-alt text-accent me-1"></i> 10 Days Tour
+                </p>
+                <div
+                  class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top border-light-subtle"
+                >
+                  <div>
+                    <span class="text-muted small d-block lh-1"
+                      >Starting from</span
+                    >
+                    <span class="fs-5 fw-bold text-primary">$2,150</span>
+                  </div>
+                  <button
+                    class="btn btn-primary rounded-custom px-4 py-2 fw-medium btn-sm"
+                  >
+                    Book
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Destination Card 3 -->
+          <div class="col-md-6 col-lg-4">
+            <div
+              class="card rounded-custom border-light-subtle h-100 dest-card hover-lift"
+            >
+              <div class="photo-placeholder card-img-placeholder w-100">
+                <span>(put ur photo here)</span>
+              </div>
+              <div class="card-body p-4 position-relative">
+                <div
+                  class="badge bg-white text-dark shadow-sm position-absolute top-0 end-0 translate-middle-y me-4 px-3 py-2 rounded-pill fw-bold"
+                >
+                  <i class="bi bi-star-fill text-warning me-1"></i> 4.7
+                </div>
+                <h5 class="fw-bold text-dark mb-1">Maldives Retreat</h5>
+                <p class="text-muted small mb-3">
+                  <i class="bi bi-geo-alt text-accent me-1"></i> 5 Days Resort
+                </p>
+                <div
+                  class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top border-light-subtle"
+                >
+                  <div>
+                    <span class="text-muted small d-block lh-1"
+                      >Starting from</span
+                    >
+                    <span class="fs-5 fw-bold text-primary">$3,400</span>
+                  </div>
+                  <button
+                    class="btn btn-primary rounded-custom px-4 py-2 fw-medium btn-sm"
+                  >
+                    Book
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us / Features -->
+    <section class="py-5 bg-light-gray position-relative overflow-hidden">
+      <!-- Abstract Shapes -->
+      <i
+        class="bi bi-compass position-absolute text-primary opacity-25 float-animation-1"
+        style="top: 10%; right: 10%; font-size: 5rem; transform: rotate(15deg)"
+      ></i>
+      <i
+        class="bi bi-globe-americas position-absolute text-accent opacity-25 float-animation-2"
+        style="
+          bottom: 10%;
+          left: 5%;
+          font-size: 6rem;
+          transform: rotate(-15deg);
+        "
+      ></i>
+
+      <div class="container py-5 z-index-2 position-relative">
+        <div class="text-center mb-5">
+          <h2 class="fw-bold text-dark mb-2">Why Travel With Us?</h2>
+          <p class="text-muted">
+            We provide the best tools and services to make your journey
+            seamless.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div
+              class="glass-card p-5 rounded-custom text-center h-100 interactive-card"
+            >
+              <div
+                class="d-inline-flex bg-white text-primary shadow-sm rounded-circle p-4 mb-4"
+              >
+                <i class="bi bi-tags-fill fs-2 lh-1"></i>
+              </div>
+              <h4 class="fw-bold text-dark mb-3">Best Price Guarantee</h4>
+              <p class="text-muted mb-0">
+                We ensure you get the most competitive rates on flights, hotels,
+                and rentals globally.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="glass-card p-5 rounded-custom text-center h-100 interactive-card"
+            >
+              <div
+                class="d-inline-flex bg-white text-accent shadow-sm rounded-circle p-4 mb-4"
+              >
+                <i class="bi bi-map-fill fs-2 lh-1"></i>
+              </div>
+              <h4 class="fw-bold text-dark mb-3">Curated Experiences</h4>
+              <p class="text-muted mb-0">
+                Discover handpicked tours and unique local activities tailored
+                to your interests.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="glass-card p-5 rounded-custom text-center h-100 interactive-card"
+            >
+              <div
+                class="d-inline-flex bg-white text-primary shadow-sm rounded-circle p-4 mb-4"
+              >
+                <i class="bi bi-headset fs-2 lh-1"></i>
+              </div>
+              <h4 class="fw-bold text-dark mb-3">24/7 Global Support</h4>
+              <p class="text-muted mb-0">
+                Our dedicated team is available around the clock to assist you
+                anywhere in the world.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-5 border-top border-light-subtle">
+      <div class="container py-4">
+        <div class="row g-4 mb-5">
+          <div class="col-lg-4 pe-lg-5">
+            <a
+              class="d-flex align-items-center fw-bold text-dark fs-4 text-decoration-none mb-3"
+              href="#"
+            >
+              <div
+                class="logo-icon bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2"
+              >
+                <i class="bi bi-geo-alt-fill"></i>
+              </div>
+              Nexus<span class="text-primary">Travel</span>
+            </a>
+            <p class="text-muted mb-4">
+              Your premium platform for booking top-tier travel experiences.
+              Explore, dream, and discover with us.
+            </p>
+            <div class="d-flex gap-3">
+              <a
+                href="#"
+                class="text-dark bg-light-gray rounded-circle p-2 d-inline-flex hover-primary transition-all"
+                ><i class="bi bi-instagram fs-5"></i
+              ></a>
+              <a
+                href="#"
+                class="text-dark bg-light-gray rounded-circle p-2 d-inline-flex hover-primary transition-all"
+                ><i class="bi bi-twitter-x fs-5"></i
+              ></a>
+              <a
+                href="#"
+                class="text-dark bg-light-gray rounded-circle p-2 d-inline-flex hover-primary transition-all"
+                ><i class="bi bi-linkedin fs-5"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-6 col-lg-2 offset-lg-1">
+            <h6 class="fw-bold text-dark mb-3">Company</h6>
+            <ul class="list-unstyled mb-0 d-flex flex-column gap-2">
+              <li>
+                <a
+                  href="#"
+                  class="text-muted text-decoration-none hover-primary fw-medium small"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-muted text-decoration-none hover-primary fw-medium small"
+                  >Careers</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-muted text-decoration-none hover-primary fw-medium small"
+                  >Travel Blog</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-muted text-decoration-none hover-primary fw-medium small"
+                  >Press</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-6 col-lg-2">
+            <h6 class="fw-bold text-dark mb-3">Support</h6>
+            <ul class="list-unstyled mb-0 d-flex flex-column gap-2">
+              <li>
+                <a
+                  href="#"
+                  class="text-muted text-decoration-none hover-primary fw-medium small"
+                  >Help Center</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-muted text-decoration-none hover-primary fw-medium small"
+                  >Contact Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-muted text-decoration-none hover-primary fw-medium small"
+                  >Cancellation Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-muted text-decoration-none hover-primary fw-medium small"
+                  >FAQs</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h6 class="fw-bold text-dark mb-3">Newsletter</h6>
+            <p class="text-muted small mb-3">
+              Subscribe to get the latest deals and destination inspiration.
+            </p>
+            <div class="input-group">
+              <input
+                type="email"
+                class="form-control bg-light-gray border-0"
+                placeholder="Email address"
+              />
+              <button class="btn btn-primary" type="button">
+                <i class="bi bi-send"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="text-center pt-4 border-top border-light-subtle">
+          <p class="text-muted mb-0 small fw-medium">
+            &copy; 2026 NexusTravel. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.css"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+  </body>
+</html>
+
+<style>
+  /* Color Variables */
+  :root {
+    --primary: #2563eb;
+    --accent: #14b8a6;
+    --dark: #0f172a;
+    --light-gray: #f8fafc;
+    --white: #ffffff;
+  }
+
+  /* Base Styles */
+  body {
+    font-family: "Inter", sans-serif;
+    color: var(--dark);
+    background-color: var(--light-gray);
+    overflow-x: hidden;
+  }
+
+  .bg-light-gray {
+    background-color: var(--light-gray);
+  }
+  .text-dark {
+    color: var(--dark) !important;
+  }
+  .text-primary {
+    color: var(--primary) !important;
+  }
+  .text-accent {
+    color: var(--accent) !important;
+  }
+  .bg-primary {
+    background-color: var(--primary) !important;
+  }
+  .bg-accent {
+    background-color: var(--accent) !important;
+  }
+
+  /* Utilities & Spacing */
+  .rounded-custom {
+    border-radius: 16px !important;
+  }
+  .rounded-custom-lg {
+    border-radius: 24px !important;
+  }
+  .z-index-top {
+    z-index: 1030;
+  }
+  .z-index-2 {
+    z-index: 2;
+    position: relative;
+  }
+  .z-index-3 {
+    z-index: 3;
+    position: relative;
+  }
+  .soft-shadow-sm {
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+  }
+  .shadow-primary {
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+  }
+
+  /* Buttons & Links */
+  .btn-primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    transition: all 0.3s ease;
+  }
+  .btn-primary:hover {
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+  }
+  .btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+  .btn-outline-primary:hover {
+    background-color: var(--primary);
+    color: var(--white);
+  }
+  .hover-primary {
+    transition:
+      color 0.2s,
+      background-color 0.2s;
+  }
+  .hover-primary:hover {
+    color: var(--primary) !important;
+  }
+  .transition-all {
+    transition: all 0.3s ease;
+  }
+
+  /* Navigation Pills */
+  .nav-pills .nav-link.active {
+    background-color: var(--primary);
+    color: var(--white) !important;
+  }
+  .nav-pills .nav-link {
+    color: var(--dark);
+    font-weight: 500;
+  }
+
+  /* Forms */
+  .form-control {
+    border-color: #e2e8f0;
+    transition: all 0.3s ease;
+    height: calc(3.5rem + 2px);
+  }
+  .form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  }
+  .form-floating-icon .form-control {
+    padding-left: 3.5rem;
+  }
+  .form-floating-icon label {
+    padding-left: 3.5rem;
+  }
+
+  /* Logo Icon */
+  .logo-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  /* 
+  =====================================
+  Photo Placeholders 
+  (Strictly replacing all images)
+  ===================================== 
+*/
+  .photo-placeholder {
+    background-color: #f1f5f9;
+    border: 2px dashed #cbd5e1;
+    color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 1rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero-placeholder {
+    height: 550px;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    font-size: 1.25rem;
+  }
+  .card-img-placeholder {
+    height: 240px;
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+  }
+
+  /* 
+  =====================================
+  Abstract Geometry & Glassmorphism 
+  ===================================== 
+*/
+  .blur-circle {
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.3;
+    z-index: 0;
+  }
+  .bg-primary-gradient {
+    background: radial-gradient(
+      circle,
+      var(--primary) 0%,
+      rgba(37, 99, 235, 0) 70%
+    );
+  }
+  .bg-teal-gradient {
+    background: radial-gradient(
+      circle,
+      var(--accent) 0%,
+      rgba(20, 184, 166, 0) 70%
+    );
+  }
+
+  /* Glass Cards */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
+  }
+
+  /* Hover Interactions */
+  .interactive-card,
+  .hover-lift {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .interactive-card:hover,
+  .hover-lift:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.1);
+  }
+  .interactive-card:hover {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 1);
+  }
+
+  /* Floating Animations */
+  .float-animation-1 {
+    animation: float 6s ease-in-out infinite;
+  }
+  .float-animation-2 {
+    animation: float 8s ease-in-out infinite reverse;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  /* Booking Tabs Hover & Active States */
+  #bookingTab .nav-link {
+    color: var(--dark);
+    background-color: transparent;
+    transition: all 0.2s ease-in-out;
+    border: none;
+    white-space: nowrap; /* عشان الكلمة متتقسمش على سطرين */
+  }
+
+  /* شكل الزرار لما تعمل عليه Hover (ومش متحدد) */
+  #bookingTab .nav-link:not(.active):hover {
+    background-color: #f1f5f9;
+    color: var(--primary);
+  }
+
+  /* شكل الزرار لما تدوس عليه ويكون Active */
+  #bookingTab .nav-link.active {
+    background-color: var(--primary) !important;
+    color: var(--white) !important;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    // Simple alert for the booking form demo
+    const searchBtn = document.querySelector(".btn-primary.w-100");
+    if (searchBtn) {
+      searchBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const destination = document.getElementById("destination").value;
+        const originalText = searchBtn.innerHTML;
+
+        searchBtn.innerHTML =
+          '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Searching...';
+        searchBtn.disabled = true;
+
+        setTimeout(() => {
+          searchBtn.innerHTML = originalText;
+          searchBtn.disabled = false;
+
+          if (destination) {
+            alert(`Searching for top results in ${destination}...`);
+          } else {
+            alert("Please enter a destination to search.");
+          }
+        }, 1200);
+      });
+    }
+  });
+  document.addEventListener("DOMContentLoaded", () => {
+    // Tab Selection Logic
+    const bookingTabs = document.querySelectorAll("#bookingTab .nav-link");
+
+    bookingTabs.forEach((tab) => {
+      tab.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        // 1. شيل كلاس active من كل الزراير
+        bookingTabs.forEach((t) => t.classList.remove("active"));
+
+        // 2. حط كلاس active للزرار اللي اليوزر داس عليه
+        this.classList.add("active");
+      });
+    });
+
+    // ... (باقي الكود القديم بتاعك زي الـ Search والـ Password Toggle خليه زي ما هو) ...
+  });
+</script>

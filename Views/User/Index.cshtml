@@ -1,35 +1,80 @@
-@model List<User>
+@model IEnumerable<User>
 
+@{
+    ViewData["Title"] = "Users";
+}
 
-<table class="table table-striped"">
-    <thead>
-        <tr>
-            <th scope=" col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Age</th>
-            <th scope="col">Department</th>
-            <th scope="col">Details</th>
-            <th scope="col">Actions</th>
-        </tr>
-    </thead>
-    @foreach (var student in Model)
-    {
-        <tr>
-            <td>@student.Id</td>
-            <td>@student.FullName</td>
-            <td>@student.Email</td>
-            <td>
-                <a asp-controller="Student" asp-action="Details" asp-route-id="@student.Id" class="btn btn-dark">Detials</a>
-            </td>
-            <td>
-                <a asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id" class="btn btn-success">Edit</a>
-                <form asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id" method="post"
-                      class="d-inline">
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </td>
-        </tr>
-    }
-</table>
+<section class="management-page position-relative overflow-hidden">
+    <div class="blur-circle bg-primary-gradient position-absolute top-0 start-0 translate-middle"></div>
+    <div class="container position-relative z-index-2">
+        <div class="management-hero d-flex flex-column flex-lg-row justify-content-between align-items-lg-end">
+            <div>
+                <span class="management-eyebrow">Accounts</span>
+                <h1 class="management-title">Users</h1>
+                <p class="management-subtitle">Manage travelers, owners, bookings, reviews, and their connected businesses.</p>
+            </div>
+            <a asp-controller="User" asp-action="Add" class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">
+                <i class="bi bi-plus-lg me-1"></i>Add User
+            </a>
+        </div>
 
-<a asp-controller="Student" asp-action="Add" class="btn btn-primary">Add New Student</a>
+        <div class="management-card">
+            @if (Model?.Any() == true)
+            {
+                <div class="table-responsive">
+                    <table class="table management-table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>Role</th>
+                                <th>Businesses</th>
+                                <th>Bookings</th>
+                                <th>Reviews</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model)
+                            {
+                                var bookingCount = user.HotelBookings.Count + user.RestaurantBookings.Count + user.CarRentalBookings.Count + user.TourBookings.Count;
+
+                                <tr>
+                                    <td data-label="Name">
+                                        <div class="entity-name">@user.FullName</div>
+                                        <div class="entity-muted">Joined @user.CreatedAt.ToString("MMM dd, yyyy")</div>
+                                    </td>
+                                    <td data-label="Contact">
+                                        <div>@user.Email</div>
+                                        <div class="entity-muted">@user.Phone</div>
+                                    </td>
+                                    <td data-label="Role">@(user.Role?.Name ?? $"Role #{user.RoleId}")</td>
+                                    <td data-label="Businesses">@user.Businesses.Count</td>
+                                    <td data-label="Bookings">@bookingCount</td>
+                                    <td data-label="Reviews">@user.Reviews.Count</td>
+                                    <td data-label="Actions" class="text-lg-end">
+                                        <div class="action-group">
+                                            <a asp-controller="User" asp-action="Details" asp-route-id="@user.Id" class="btn btn-outline-primary btn-sm rounded-custom">Details</a>
+                                            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id" class="btn btn-primary btn-sm rounded-custom">Edit</a>
+                                            <form asp-controller="User" asp-action="Delete" asp-route-id="@user.Id" method="post" class="d-inline">
+                                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-custom">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="bi bi-people-fill"></i>
+                    <h2 class="h5 fw-bold mt-3 mb-2">No users yet</h2>
+                    <p class="text-muted mb-0">New accounts will appear here after your controller sends them to this view.</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>

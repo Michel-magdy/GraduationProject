@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | Premium Travel</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-light-gray">
+
+   <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top soft-shadow-sm py-3">
+        <div class="container">
+            <!-- Logo -->
+            <a class="navbar-brand d-flex align-items-center fw-bold text-dark fs-4" href="#">
+                <div class="logo-icon bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2">
+                    <i class="bi bi-geo-alt-fill"></i>
+                </div>
+                Nexus<span class="text-primary">Travel</span>
+            </a>
+
+            <!-- Mobile Toggle -->
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-1 text-dark"></i>
+            </button>
+
+            <!-- Nav Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto fw-medium text-muted">
+                    <li class="nav-item px-2"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="#">Hotels</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="#">Restaurants</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="#">Car Rentals</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="#">Tours</a></li>
+                    <li class="nav-item px-2"><a class="nav-link" href="#">Contact</a></li>
+                </ul>
+                
+                <!-- Login & Sign Up Buttons -->
+                <div class="d-flex mt-3 mt-lg-0 gap-2">
+                    <a href="#" class="btn btn-outline-primary rounded-custom px-4 py-2 fw-semibold">Login</a>
+                    <a href="#" class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Registration Section -->
+    <main class="container py-5 min-vh-100 d-flex align-items-center">
+        <div class="row w-100 align-items-center g-5 mx-0">
+
+            <!-- Left Side: Registration Form -->
+            <div class="col-lg-5 col-xl-5 offset-xl-1 z-index-2">
+                <div class="text-start mb-4">
+                    <h1 class="fw-bold text-dark mb-2">Create Your Account</h1>
+                    <p class="text-muted">Join millions of travelers discovering the world.</p>
+                </div>
+
+                <form class="custom-form" id="registrationForm">
+                    <!-- Full Name -->
+                    <div class="form-floating form-floating-icon mb-3 position-relative">
+                        <i class="bi bi-person position-absolute top-50 start-0 translate-middle-y ms-3 text-muted fs-5 z-index-3"></i>
+                        <input type="text" class="form-control rounded-custom bg-white border-light-subtle" id="fullName" placeholder="Full Name">
+                        <label for="fullName">Full Name</label>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-floating form-floating-icon mb-3 position-relative">
+                        <i class="bi bi-envelope position-absolute top-50 start-0 translate-middle-y ms-3 text-muted fs-5 z-index-3"></i>
+                        <input type="email" class="form-control rounded-custom bg-white border-light-subtle" id="email" placeholder="name@example.com">
+                        <label for="email">Email Address</label>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="form-floating form-floating-icon mb-3 position-relative">
+                        <i class="bi bi-telephone position-absolute top-50 start-0 translate-middle-y ms-3 text-muted fs-5 z-index-3"></i>
+                        <input type="tel" class="form-control rounded-custom bg-white border-light-subtle" id="phone" placeholder="Phone Number">
+                        <label for="phone">Phone Number</label>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-floating form-floating-icon mb-3 position-relative">
+                        <i class="bi bi-lock position-absolute top-50 start-0 translate-middle-y ms-3 text-muted fs-5 z-index-3"></i>
+                        <input type="password" class="form-control rounded-custom bg-white border-light-subtle pe-5" id="password" placeholder="Password">
+                        <label for="password">Password</label>
+                        <button type="button" class="btn border-0 position-absolute top-50 end-0 translate-middle-y me-2 text-muted z-index-3 toggle-password" data-target="password">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-floating form-floating-icon mb-4 position-relative">
+                        <i class="bi bi-shield-check position-absolute top-50 start-0 translate-middle-y ms-3 text-muted fs-5 z-index-3"></i>
+                        <input type="password" class="form-control rounded-custom bg-white border-light-subtle pe-5" id="confirmPassword" placeholder="Confirm Password">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <button type="button" class="btn border-0 position-absolute top-50 end-0 translate-middle-y me-2 text-muted z-index-3 toggle-password" data-target="confirmPassword">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+
+                    <!-- Checkboxes -->
+                    <div class="d-flex justify-content-between mb-4 small">
+                        <div class="form-check">
+                            <input class="form-check-input custom-checkbox" type="checkbox" id="rememberMe">
+                            <label class="form-check-label text-muted" for="rememberMe">Remember Me</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input custom-checkbox" type="checkbox" id="terms" required>
+                            <label class="form-check-label text-muted" for="terms">I accept the <a href="#" class="text-primary text-decoration-none fw-medium">Terms</a></label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary w-100 rounded-custom py-3 fw-bold fs-6 shadow-primary mb-4">
+                        Create Account
+                    </button>
+
+                    <!-- Divider -->
+                    <div class="divider mb-4">
+                        <span class="px-3 bg-light-gray text-muted small fw-medium">OR</span>
+                    </div>
+
+                    <!-- Social Login -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-white border w-100 rounded-custom py-2 d-flex align-items-center justify-content-center text-dark fw-medium btn-hover-soft">
+                                <i class="bi bi-google text-danger me-2 fs-5"></i> Google
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-white border w-100 rounded-custom py-2 d-flex align-items-center justify-content-center text-dark fw-medium btn-hover-soft">
+                                <i class="bi bi-facebook text-primary me-2 fs-5"></i> Facebook
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Login Link -->
+                    <p class="text-center text-muted mt-2">
+                        Already have an account? <a href="#" class="text-primary text-decoration-none fw-semibold">Log in here</a>
+                    </p>
+                </form>
+            </div>
+
+            <!-- Right Side: Abstract Geometry & Glassmorphism -->
+            <div class="col-lg-7 col-xl-6 d-none d-lg-block position-relative min-vh-50 h-100">
+                <!-- Blurred Background Elements -->
+                <div class="blur-circle bg-primary-gradient position-absolute top-0 start-0 translate-middle"></div>
+                <div class="blur-circle bg-teal-gradient position-absolute bottom-0 end-0 translate-middle"></div>
+
+                <!-- Floating Icons in Background -->
+                <i class="bi bi-airplane position-absolute text-accent opacity-50 float-animation-1" style="top: 10%; right: 10%; font-size: 3rem; transform: rotate(45deg);"></i>
+                <i class="bi bi-map position-absolute text-primary opacity-25 float-animation-2" style="bottom: 10%; left: 0; font-size: 4rem; transform: rotate(-15deg);"></i>
+                <i class="bi bi-calendar-event position-absolute text-muted opacity-25 float-animation-3" style="top: 40%; right: -5%; font-size: 2.5rem;"></i>
+
+                <!-- Glassmorphism Cards Layout -->
+                <div class="row g-4 position-relative z-index-2 pe-4 py-5 align-items-center">
+
+                    <!-- Left Column (Offset) -->
+                    <div class="col-6 mt-5 pt-4">
+                        <!-- Hotels Card -->
+                        <div class="glass-card p-4 rounded-custom mb-4 float-animation-1 interactive-card">
+                            <div class="icon-wrapper bg-white text-primary shadow-sm rounded-circle d-flex align-items-center justify-content-center mb-3">
+                                <i class="bi bi-building"></i>
+                            </div>
+                            <h3 class="fw-bold text-dark mb-1">500+</h3>
+                            <p class="text-muted small mb-0 fw-medium">Premium Hotels</p>
+                        </div>
+
+                        <!-- Tours Card -->
+                        <div class="glass-card p-4 rounded-custom float-animation-2 interactive-card">
+                            <div class="icon-wrapper bg-white text-accent shadow-sm rounded-circle d-flex align-items-center justify-content-center mb-3">
+                                <i class="bi bi-compass"></i>
+                            </div>
+                            <h3 class="fw-bold text-dark mb-1">150+</h3>
+                            <p class="text-muted small mb-0 fw-medium">Exclusive Tours</p>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-6 mb-5 pb-4">
+                        <!-- Restaurants Card -->
+                        <div class="glass-card p-4 rounded-custom mb-4 float-animation-3 interactive-card">
+                            <div class="icon-wrapper bg-white text-primary shadow-sm rounded-circle d-flex align-items-center justify-content-center mb-3">
+                                <i class="bi bi-cup-hot"></i>
+                            </div>
+                            <h3 class="fw-bold text-dark mb-1">300+</h3>
+                            <p class="text-muted small mb-0 fw-medium">Fine Dining</p>
+                        </div>
+
+                        <!-- Car Rentals Card -->
+                        <div class="glass-card p-4 rounded-custom float-animation-1 interactive-card">
+                            <div class="icon-wrapper bg-white text-accent shadow-sm rounded-circle d-flex align-items-center justify-content-center mb-3">
+                                <i class="bi bi-car-front"></i>
+                            </div>
+                            <h3 class="fw-bold text-dark mb-1">100+</h3>
+                            <p class="text-muted small mb-0 fw-medium">Car Rentals</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-5 border-top border-light-subtle">
+        <div class="container">
+            <div class="row align-items-center text-center text-md-start">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <p class="text-muted mb-0 small fw-medium">&copy; 2026 NexusTravel. All rights reserved.</p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0 d-flex justify-content-center gap-4">
+                    <a href="#" class="text-muted text-decoration-none small hover-primary fw-medium">About</a>
+                    <a href="#" class="text-muted text-decoration-none small hover-primary fw-medium">Privacy Policy</a>
+                    <a href="#" class="text-muted text-decoration-none small hover-primary fw-medium">Terms</a>
+                    <a href="#" class="text-muted text-decoration-none small hover-primary fw-medium">Contact</a>
+                </div>
+                <div class="col-md-4 d-flex justify-content-center justify-content-md-end gap-3">
+                    <a href="#" class="text-muted hover-primary fs-5"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="text-muted hover-primary fs-5"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" class="text-muted hover-primary fs-5"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.css"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+<style>
+    /* Color Variables */
+    :root {
+    --primary: #2563EB;
+    --accent: #14B8A6;
+    --dark: #0F172A;
+    --light-gray: #F8FAFC;
+    --white: #FFFFFF;
+    --bs-primary: #2563EB; /* Bootstrap Override */
+    }
+
+    /* Base Styles */
+    body {
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    background-color: var(--light-gray);
+    overflow-x: hidden;
+    }
+
+    .bg-light-gray {
+    background-color: var(--light-gray);
+    }
+
+    .text-dark {
+    color: var(--dark) !important;
+    }
+
+    .text-primary {
+    color: var(--primary) !important;
+    }
+
+    .text-accent {
+    color: var(--accent) !important;
+    }
+
+    .bg-primary {
+    background-color: var(--primary) !important;
+    }
+
+    /* Components & Utilities */
+    .rounded-custom {
+    border-radius: 16px !important;
+    }
+
+    .z-index-2 {
+    z-index: 2;
+    position: relative;
+    }
+
+    .z-index-3 {
+    z-index: 3;
+    position: relative;
+    }
+
+    .soft-shadow-sm {
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+    }
+
+    .shadow-primary {
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+    }
+
+    /* Buttons */
+    .btn-primary {
+    background: var(--primary);
+    border-color: var(--primary);
+    transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+    background-color: #1D4ED8;
+    border-color: #1D4ED8;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+    }
+
+    .btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+    }
+
+    .btn-outline-primary:hover {
+    background-color: var(--primary);
+    color: var(--white);
+    }
+
+    .btn-white {
+    background-color: var(--white);
+    transition: all 0.2s ease;
+    }
+
+    .btn-hover-soft:hover {
+    background-color: var(--light-gray);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+    }
+
+    .hover-primary {
+    transition: color 0.2s;
+    }
+
+    .hover-primary:hover {
+    color: var(--primary) !important;
+    }
+
+    /* Logo Icon */
+    .logo-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    }
+
+    /* Custom Form & Floating Inputs */
+    .form-control {
+    border-color: #E2E8F0;
+    transition: all 0.3s ease;
+    height: calc(3.5rem + 2px);
+    }
+
+    .form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    }
+
+    .form-floating-icon .form-control {
+    padding-left: 3.5rem;
+    }
+
+    .form-floating-icon label {
+    padding-left: 3.5rem;
+    }
+
+    .custom-checkbox:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    }
+
+    /* Divider OR */
+    .divider {
+    position: relative;
+    text-align: center;
+    }
+
+    .divider::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #E2E8F0;
+    z-index: -1;
+    }
+
+    /*
+    =====================================
+    Abstract Right Side & Glassmorphism
+    =====================================
+    */
+
+    /* Blur Background Elements */
+    .blur-circle {
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    z-index: 0;
+    }
+
+    .bg-primary-gradient {
+    background: radial-gradient(circle, var(--primary) 0%, rgba(37,99,235,0) 70%);
+    }
+
+    .bg-teal-gradient {
+    background: radial-gradient(circle, var(--accent) 0%, rgba(20,184,166,0) 70%);
+    }
+
+    /* Glassmorphism Cards */
+    .glass-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 10px 40px rgba(15, 23, 42, 0.06);
+    position: relative;
+    overflow: hidden;
+    }
+
+    /* Card Hover Interactions */
+    .interactive-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: default;
+    }
+
+    .interactive-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(37, 99, 235, 0.12);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(255, 255, 255, 1);
+    }
+
+    .icon-wrapper {
+    width: 64px;
+    height: 64px;
+    font-size: 28px;
+    transition: transform 0.3s ease;
+    }
+
+    .interactive-card:hover .icon-wrapper {
+    transform: scale(1.1);
+    }
+
+    /* Floating Animations */
+    .float-animation-1 {
+    animation: float 6s ease-in-out infinite;
+    }
+
+    .float-animation-2 {
+    animation: float 8s ease-in-out infinite reverse;
+    }
+
+    .float-animation-3 {
+    animation: float 7s ease-in-out infinite 1s;
+    }
+
+    @keyframes float {
+    0% {
+    transform: translateY(0px);
+    }
+
+    50% {
+    transform: translateY(-15px);
+    }
+
+    100% {
+    transform: translateY(0px);
+    }
+    }</style>
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+        // Password Visibility Toggle Logic
+        const toggleButtons = document.querySelectorAll('.toggle-password');
+
+        toggleButtons.forEach(button => {
+        button.addEventListener('click', function() {
+        // Get the target input ID from data attribute
+        const targetId = this.getAttribute('data-target');
+        const passwordInput = document.getElementById(targetId);
+        const icon = this.querySelector('i');
+
+        // Toggle type attribute
+        if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+        } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+        }
+        });
+        });
+
+        // Optional Form Submission Prevention for Demo Purposes
+        const form = document.getElementById('registrationForm');
+        if(form) {
+        form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Handle form submission logic here
+        const btn = form.querySelector('button[type="submit"]');
+        const originalText = btn.innerHTML;
+
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Creating Account...';
+        btn.disabled = true;
+
+        setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        alert('Account generated successfully! Welcome to NexusTravel.');
+        form.reset();
+        }, 1500);
+        });
+        }
+        });
+    </script>

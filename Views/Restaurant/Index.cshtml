@@ -1,0 +1,68 @@
+@model IEnumerable<Restaurant>
+
+@{
+    ViewData["Title"] = "Restaurants";
+}
+
+<section class="management-page position-relative overflow-hidden">
+    <div class="blur-circle bg-teal-gradient position-absolute bottom-0 end-0 translate-middle"></div>
+    <div class="container position-relative z-index-2">
+        <div class="management-hero d-flex flex-column flex-lg-row justify-content-between align-items-lg-end">
+            <div>
+                <span class="management-eyebrow">Dining</span>
+                <h1 class="management-title">Restaurants</h1>
+                <p class="management-subtitle">Manage restaurant listings and their available table inventory.</p>
+            </div>
+            <a asp-controller="Restaurant" asp-action="Add" class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">
+                <i class="bi bi-plus-lg me-1"></i>Add Restaurant
+            </a>
+        </div>
+
+        <div class="management-card">
+            @if (Model?.Any() == true)
+            {
+                <div class="table-responsive">
+                    <table class="table management-table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Restaurant</th>
+                                <th>Business</th>
+                                <th>Location</th>
+                                <th>Tables</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var restaurant in Model)
+                            {
+                                <tr>
+                                    <td data-label="Restaurant"><div class="entity-name">@restaurant.Name</div></td>
+                                    <td data-label="Business">@(restaurant.Business?.BusinessName ?? $"Business #{restaurant.BusinessId}")</td>
+                                    <td data-label="Location">@restaurant.Location</td>
+                                    <td data-label="Tables">@restaurant.Tables.Count</td>
+                                    <td data-label="Actions" class="text-lg-end">
+                                        <div class="action-group">
+                                            <a asp-controller="Restaurant" asp-action="Details" asp-route-id="@restaurant.Id" class="btn btn-outline-primary btn-sm rounded-custom">Details</a>
+                                            <a asp-controller="Restaurant" asp-action="Edit" asp-route-id="@restaurant.Id" class="btn btn-primary btn-sm rounded-custom">Edit</a>
+                                            <form asp-controller="Restaurant" asp-action="Delete" asp-route-id="@restaurant.Id" method="post" class="d-inline">
+                                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-custom">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="empty-state">
+                    <i class="bi bi-cup-hot-fill"></i>
+                    <h2 class="h5 fw-bold mt-3 mb-2">No restaurants yet</h2>
+                    <p class="text-muted mb-0">Restaurant records will show here after they are loaded.</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>
