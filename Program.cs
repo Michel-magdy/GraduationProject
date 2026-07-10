@@ -9,6 +9,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUser, UserService>();
+builder.Services.AddScoped<IBusiness, BusinessService>();
+builder.Services.AddScoped<ICarRentalBooking, CarRentalBookingService>();
+builder.Services.AddScoped<IHotelBooking, HotelBookingService>();
+builder.Services.AddScoped<IImage, ImageService>();
+builder.Services.AddScoped<IRestaurantBooking, RestaurantBookingService>();
+builder.Services.AddScoped<IRestaurant, RestaurantService>();
+builder.Services.AddScoped<IReview, ReviewService>();
+builder.Services.AddScoped<IRoom, RoomService>();
+builder.Services.AddScoped<IRole, RoleService>();
+builder.Services.AddScoped<ITable, TableService>();
+builder.Services.AddScoped<ITourBooking, TourBookingService>();
+builder.Services.AddScoped<ITour, TourService>();
 
 builder.Services.AddDbContext<Context>(
     options => options.UseSqlServer(
