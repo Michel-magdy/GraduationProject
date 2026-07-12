@@ -1,5 +1,6 @@
 using GraduationProject.Interfaces;
 using GraduationProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraduationProject.Services;
 
@@ -11,4 +12,11 @@ public class TableService : GenericService<Table>, ITable
         context = _context;
     }
 
+    public List<Table> GetTables()
+    {
+        return context.Tables
+            .Include(T => T.Restaurant)
+            .Include(T => T.RestaurantBookings)
+            .ToList();
+    }
 }

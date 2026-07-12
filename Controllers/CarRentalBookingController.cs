@@ -14,6 +14,6 @@ public class CarRentalBookingController : Controller
 
     public IActionResult Index()
     {
-        return View(carRentalBookingService.GetAll());
+        return View(carRentalBookingService.GetCarRentalBookings());
     }
 }

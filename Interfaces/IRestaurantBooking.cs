@@ -4,4 +4,5 @@ namespace GraduationProject.Interfaces;
 
 public interface IRestaurantBooking : IService<RestaurantBooking>
 {
+    List<RestaurantBooking> GetRestaurantBookings();
 }

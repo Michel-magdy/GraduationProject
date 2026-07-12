@@ -14,6 +14,6 @@ public class RestaurantController : Controller
 
     public IActionResult Index()
     {
-        return View(RestaurantService.GetWithBusinessAndTable());
+        return View(RestaurantService.GetRestaurants());
     }
 }

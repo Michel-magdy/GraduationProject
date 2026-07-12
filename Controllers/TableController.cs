@@ -14,6 +14,6 @@ public class TableController : Controller
 
     public IActionResult Index()
     {
-        return View(tableService.GetAll());
+        return View(tableService.GetTables());
     }
 }

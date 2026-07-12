@@ -15,6 +15,6 @@ public class UserController : Controller
 
     public IActionResult Index()
     {
-        return View(userService.GetAll());
+        return View(userService.GetUsers());
     }
 }

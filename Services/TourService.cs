@@ -1,5 +1,6 @@
 using GraduationProject.Interfaces;
 using GraduationProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraduationProject.Services;
 
@@ -11,4 +12,11 @@ public class TourService : GenericService<Tour>, ITour
         context = _context;
     }
 
+    public List<Tour> GetTours()
+    {
+        return context.Tours
+            .Include(T => T.Business)
+            .Include(T => T.TourBookings)
+            .ToList();
+    }
 }

@@ -13,7 +13,7 @@ public class RestaurantService : GenericService<Restaurant>, IRestaurant
         context = _context;
     }
 
-    public List<Restaurant> GetWithBusinessAndTable()
+    public List<Restaurant> GetRestaurants()
     {
         return context.Restaurants
             .Include(restaurant => restaurant.Business)

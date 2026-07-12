@@ -14,6 +14,6 @@ public class RestaurantBookingController : Controller
 
     public IActionResult Index()
     {
-        return View(restaurantBookingService.GetAll());
+        return View(restaurantBookingService.GetRestaurantBookings());
     }
 }

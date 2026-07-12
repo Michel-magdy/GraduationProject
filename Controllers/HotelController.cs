@@ -14,6 +14,6 @@ public class HotelController : Controller
 
     public IActionResult Index()
     {
-        return View(hotelservice.GetAll());
+        return View(hotelservice.GetHotels());
     }
 }

@@ -14,6 +14,6 @@ public class ReviewController : Controller
 
     public IActionResult Index()
     {
-        return View(reviewService.GetAll());
+        return View(reviewService.GetReviews());
     }
 }

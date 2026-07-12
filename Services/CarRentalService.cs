@@ -1,5 +1,6 @@
 using GraduationProject.Interfaces;
 using GraduationProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraduationProject.Services;
 
@@ -11,4 +12,11 @@ public class CarRentalService : GenericService<CarRental>, ICarRental
         context = _context;
     }
 
+    public List<CarRental> GetCarRentals()
+    {
+        return context.CarRentals
+            .Include(Cr => Cr.Business)
+            .Include(Cr => Cr.CarRentalBookings)
+            .ToList();
+    }
 }

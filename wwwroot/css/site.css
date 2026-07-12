@@ -470,6 +470,67 @@ Abstract Geometry & Glassmorphism
     font-size: 2.5rem;
 }
 
+.business-image-form {
+    display: flex;
+    gap: .5rem;
+    min-width: min(100%, 28rem);
+}
+
+.business-image-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+
+.business-image-tile,
+.business-image-row {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.business-image-tile img {
+    aspect-ratio: 16 / 10;
+    background: #f8fafc;
+    display: block;
+    object-fit: cover;
+    width: 100%;
+}
+
+.business-image-body {
+    align-items: start;
+    display: grid;
+    gap: .75rem;
+    padding: 1rem;
+}
+
+.business-image-list {
+    display: grid;
+    gap: .75rem;
+}
+
+.business-image-row {
+    align-items: center;
+    display: grid;
+    gap: .75rem;
+    grid-template-columns: 6rem minmax(0, 1fr) auto;
+    padding: .75rem;
+}
+
+.business-image-row img {
+    aspect-ratio: 4 / 3;
+    background: #f8fafc;
+    border-radius: 6px;
+    object-fit: cover;
+    width: 6rem;
+}
+
+.business-image-edit-form {
+    display: flex;
+    gap: .5rem;
+    min-width: 0;
+}
+
 @media (max-width: 767.98px) {
     .management-page {
         padding: 2.5rem 0;
@@ -515,5 +576,17 @@ Abstract Geometry & Glassmorphism
     .action-group {
         display: flex;
         flex-wrap: wrap;
+    }
+
+    .business-image-form,
+    .business-image-edit-form,
+    .business-image-row {
+        align-items: stretch;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .business-image-row img {
+        width: 100%;
     }
 }

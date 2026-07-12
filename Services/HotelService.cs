@@ -1,5 +1,6 @@
 using GraduationProject.Interfaces;
 using GraduationProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraduationProject.Services;
 
@@ -11,4 +12,11 @@ public class HotelService : GenericService<Hotel>, IHotel
         context = _context;
     }
 
+    public List<Hotel> GetHotels()
+    {
+        return context.Hotels
+            .Include(hotel => hotel.Business)
+            .Include(hotel => hotel.Rooms)
+            .ToList();
+    }
 }
