@@ -17,4 +17,14 @@ public class UserController : Controller
     {
         return View(userService.GetUsers());
     }
+
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        userService.Delete(id);
+        return RedirectToAction(nameof(Index));
+    }
+
 }

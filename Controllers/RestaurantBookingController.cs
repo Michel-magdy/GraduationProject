@@ -16,4 +16,12 @@ public class RestaurantBookingController : Controller
     {
         return View(restaurantBookingService.GetRestaurantBookings());
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        restaurantBookingService.Delete(id);
+        return RedirectToAction(nameof(Index));
+    }
 }

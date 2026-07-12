@@ -16,4 +16,12 @@ public class HotelController : Controller
     {
         return View(hotelservice.GetHotels());
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        hotelservice.Delete(id);
+        return RedirectToAction(nameof(Index));
+    }
 }

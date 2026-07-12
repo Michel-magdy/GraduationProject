@@ -18,4 +18,11 @@ public class RoleController : Controller
         return View(roleService.GetRoles());
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        roleService.Delete(id);
+        return RedirectToAction(nameof(Index));
+    }
 }

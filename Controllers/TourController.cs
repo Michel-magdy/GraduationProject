@@ -16,4 +16,12 @@ public class TourController : Controller
     {
         return View(tourService.GetTours());
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        tourService.Delete(id);
+        return RedirectToAction(nameof(Index));
+    }
 }

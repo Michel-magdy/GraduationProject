@@ -1,14 +1,13 @@
 using GraduationProject.Interfaces;
 using GraduationProject.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace GraduationProject.Services;
 
 public class GenericService<TEntity> : IService<TEntity> where TEntity : class
 {
-    readonly Context context;
-    readonly DbSet<TEntity> entity;
+    private readonly Context context;
+    private readonly DbSet<TEntity> entity;
 
     public GenericService(Context _context)
     {
@@ -24,18 +23,37 @@ public class GenericService<TEntity> : IService<TEntity> where TEntity : class
 
     public void Delete(int id)
     {
-        var Obj = GetById(id);
-        if (Obj != null)
+        var obj = GetById(id);
+
+        if (obj == null)
         {
-            entity.Remove(Obj);
-            context.SaveChanges();
+            return;
         }
-        return;
+
+        if (obj is ISoftDelete softDelete)
+        {
+            softDelete.IsDeleted = true;
+            context.Update(obj);
+        }
+        else
+        {
+            entity.Remove(obj);
+        }
+
+        context.SaveChanges();
     }
 
     public List<TEntity> GetAll()
     {
-        return entity.ToList();
+        if (typeof(ISoftDelete).IsAssignableFrom(typeof(TEntity)))
+        {
+            return entity
+                .Where(entity => !EF.Property<bool>(entity, nameof(ISoftDelete.IsDeleted)))
+                .ToList();
+        }
+
+        return entity
+            .ToList();
     }
 
     public TEntity? GetById(int id)

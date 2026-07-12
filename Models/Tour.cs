@@ -1,6 +1,8 @@
+using GraduationProject.Interfaces;
+
 namespace GraduationProject.Models;
 
-public class Tour
+public class Tour : ISoftDelete
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
@@ -8,6 +10,8 @@ public class Tour
     public decimal Price { get; set; }
     public int MaxParticipants { get; set; }
     public int CurrentParticipants { get; set; }
+    public bool IsDeleted { get; set; } = false;
+
 
     public int BusinessId { get; set; }
     public Business? Business { get; set; }

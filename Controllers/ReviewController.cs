@@ -16,4 +16,12 @@ public class ReviewController : Controller
     {
         return View(reviewService.GetReviews());
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        reviewService.Delete(id);
+        return RedirectToAction(nameof(Index));
+    }
 }

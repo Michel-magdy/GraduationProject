@@ -15,6 +15,7 @@ public class UserService : GenericService<User>, IUser
     public List<User> GetUsers()
     {
         return context.Users
+            .Where(user => !user.IsDeleted)
             .Include(user => user.Businesses)
             .Include(user => user.TourBookings)
             .Include(user => user.CarRentalBookings)

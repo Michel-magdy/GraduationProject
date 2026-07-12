@@ -1,6 +1,8 @@
+using GraduationProject.Interfaces;
+
 namespace GraduationProject.Models;
 
-public class User
+public class User : ISoftDelete
 {
     public int Id { get; set; }
     public string FullName { get; set; } = string.Empty;
@@ -8,6 +10,8 @@ public class User
     public string PasswordHash { get; set; } = string.Empty;
     public string Phone { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public bool IsDeleted { get; set; } = false;
+
 
     public int RoleId { get; set; }
     public Role? Role { get; set; }

@@ -16,4 +16,12 @@ public class TableController : Controller
     {
         return View(tableService.GetTables());
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        tableService.Delete(id);
+        return RedirectToAction(nameof(Index));
+    }
 }

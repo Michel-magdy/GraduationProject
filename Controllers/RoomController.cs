@@ -16,4 +16,12 @@ public class RoomController : Controller
     {
         return View(roomService.GetRooms());
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        roomService.Delete(id);
+        return RedirectToAction(nameof(Index));
+    }
 }

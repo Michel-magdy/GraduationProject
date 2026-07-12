@@ -16,4 +16,12 @@ public class CarRentalController : Controller
     {
         return View(carRentalService.GetCarRentals());
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        carRentalService.Delete(id);
+        return RedirectToAction(nameof(Index));
+    }
 }

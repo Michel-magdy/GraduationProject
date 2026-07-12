@@ -16,4 +16,12 @@ public class RestaurantController : Controller
     {
         return View(RestaurantService.GetRestaurants());
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        RestaurantService.Delete(id);
+        return RedirectToAction(nameof(Index));
+    }
 }

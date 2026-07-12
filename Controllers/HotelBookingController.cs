@@ -18,4 +18,12 @@ public class HotelBookingController : Controller
     {
         return View(hotelBookingService.GetHotelBooking());
     }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        hotelBookingService.Delete(id);
+        return RedirectToAction(nameof(Index));
+    }
 }

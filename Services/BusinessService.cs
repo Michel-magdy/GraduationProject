@@ -15,12 +15,16 @@ public class BusinessService : GenericService<Business>, IBusiness
 
     public List<Business> GetBusinessWithOwner()
     {
-        return context.Businesses.Include(business => business.Owner).ToList();
+        return context.Businesses
+            .Where(business => !business.IsDeleted)
+            .Include(business => business.Owner)
+            .ToList();
     }
 
     public List<Business> GetBusinessesForIndex()
     {
         return context.Businesses
+            .Where(business => !business.IsDeleted)
             .Include(business => business.Owner)
             .Include(business => business.Hotels)
             .Include(business => business.Restaurants)
@@ -35,6 +39,7 @@ public class BusinessService : GenericService<Business>, IBusiness
     public Business? GetBusinessDetails(int id)
     {
         return context.Businesses
+            .Where(business => !business.IsDeleted)
             .Include(business => business.Owner)
             .Include(business => business.Images)
             .Include(business => business.Reviews)

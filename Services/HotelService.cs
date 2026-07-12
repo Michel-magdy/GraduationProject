@@ -15,6 +15,7 @@ public class HotelService : GenericService<Hotel>, IHotel
     public List<Hotel> GetHotels()
     {
         return context.Hotels
+            .Where(hotel => !hotel.IsDeleted)
             .Include(hotel => hotel.Business)
             .Include(hotel => hotel.Rooms)
             .ToList();

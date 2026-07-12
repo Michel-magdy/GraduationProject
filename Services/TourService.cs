@@ -15,6 +15,7 @@ public class TourService : GenericService<Tour>, ITour
     public List<Tour> GetTours()
     {
         return context.Tours
+            .Where(tour => !tour.IsDeleted)
             .Include(T => T.Business)
             .Include(T => T.TourBookings)
             .ToList();

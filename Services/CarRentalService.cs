@@ -15,6 +15,7 @@ public class CarRentalService : GenericService<CarRental>, ICarRental
     public List<CarRental> GetCarRentals()
     {
         return context.CarRentals
+            .Where(carRental => !carRental.IsDeleted)
             .Include(Cr => Cr.Business)
             .Include(Cr => Cr.CarRentalBookings)
             .ToList();

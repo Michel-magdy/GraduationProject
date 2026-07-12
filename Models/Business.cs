@@ -1,6 +1,8 @@
+using GraduationProject.Interfaces;
+
 namespace GraduationProject.Models;
 
-public class Business
+public class Business : ISoftDelete
 {
     public int Id { get; set; }
     public string BusinessName { get; set; } = string.Empty;
@@ -8,6 +10,8 @@ public class Business
     public string Address { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
+    public bool IsDeleted { get; set; } = false;
+
 
     public int OwnerId { get; set; }
     public User? Owner { get; set; }

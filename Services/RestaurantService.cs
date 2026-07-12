@@ -16,6 +16,7 @@ public class RestaurantService : GenericService<Restaurant>, IRestaurant
     public List<Restaurant> GetRestaurants()
     {
         return context.Restaurants
+            .Where(restaurant => !restaurant.IsDeleted)
             .Include(restaurant => restaurant.Business)
             .Include(restuarant => restuarant.Tables)
             .ToList();
