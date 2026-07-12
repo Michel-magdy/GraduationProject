@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using GraduationProject.Interfaces;
 
 namespace GraduationProject.Models;
@@ -5,14 +6,24 @@ namespace GraduationProject.Models;
 public class Business : ISoftDelete
 {
     public int Id { get; set; }
+    [Required]
+    [StringLength(100, MinimumLength = 2)]
+
     public string BusinessName { get; set; } = string.Empty;
+
+    [Required]
+    [StringLength(50)]
     public string BusinessType { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
+
+    [Required]
+    [StringLength(20)]
     public string Status { get; set; } = string.Empty;
+    [StringLength(1000)]
     public string Description { get; set; } = string.Empty;
     public bool IsDeleted { get; set; } = false;
 
-
+    [Required]
     public int OwnerId { get; set; }
     public User? Owner { get; set; }
 

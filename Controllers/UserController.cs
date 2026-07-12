@@ -1,5 +1,7 @@
 using GraduationProject.Interfaces;
+using GraduationProject.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GraduationProject.Controllers;
 
@@ -7,15 +9,38 @@ public class UserController : Controller
 {
 
     IUser userService;
+    IRole roleService;
 
-    public UserController(IUser userService)
+    public UserController(IUser userService, IRole role)
     {
         this.userService = userService;
+        roleService = role;
     }
 
     public IActionResult Index()
     {
         return View(userService.GetUsers());
+    }
+
+    public IActionResult Add()
+    {
+        ViewBag.Roles = new SelectList(roleService.GetAll(), "Id", "Name");
+
+        return View(new User());
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Add(User user)
+    {
+        if (!ModelState.IsValid)
+        {
+            ViewBag.Roles = new SelectList(roleService.GetAll(), "Id", "Name");
+            return View(user);
+        }
+
+        userService.Add(user);
+        return RedirectToAction("Index");
     }
 
 

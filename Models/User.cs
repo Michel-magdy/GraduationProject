@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using GraduationProject.Interfaces;
 
 namespace GraduationProject.Models;
@@ -5,8 +6,12 @@ namespace GraduationProject.Models;
 public class User : ISoftDelete
 {
     public int Id { get; set; }
+    [Required]
+    [MinLength(2, ErrorMessage = "Min Length is 2 Characters")]
     public string FullName { get; set; } = string.Empty;
+    [EmailAddress]
     public string Email { get; set; } = string.Empty;
+    [Required]
     public string PasswordHash { get; set; } = string.Empty;
     public string Phone { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
