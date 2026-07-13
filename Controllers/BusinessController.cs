@@ -15,7 +15,7 @@ public class BusinessController : Controller
 
     public IActionResult Index()
     {
-        return View(businessService.GetAll());
+        return View(businessService.GetBusinessData());
     }
 
     public IActionResult Details(int id)

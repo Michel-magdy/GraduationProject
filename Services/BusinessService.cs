@@ -21,19 +21,6 @@ public class BusinessService : GenericService<Business>, IBusiness
             .ToList();
     }
 
-    public List<Business> GetBusinessesForIndex()
-    {
-        return context.Businesses
-            .Where(business => !business.IsDeleted)
-            .Include(business => business.Owner)
-            .Include(business => business.Hotels)
-            .Include(business => business.Restaurants)
-            .Include(business => business.CarRentals)
-            .Include(business => business.Tours)
-            .Include(business => business.Images)
-            .AsSplitQuery()
-            .ToList();
-    }
 
     public Business? GetBusinessDetails(int id)
     {
@@ -141,5 +128,18 @@ public class BusinessService : GenericService<Business>, IBusiness
     public bool BusinessExists(string businessName)
     {
         throw new NotImplementedException();
+    }
+
+    public List<Business> GetBusinessData()
+    {
+        return context.Businesses
+               .Where(b => !b.IsDeleted)
+               .Include(b => b.Owner)
+               .Include(b => b.Images)
+               .Include(b => b.Hotels)
+               .Include(b => b.Restaurants)
+               .Include(b => b.Tours)
+               .Include(b => b.CarRentals)
+               .ToList();
     }
 }
