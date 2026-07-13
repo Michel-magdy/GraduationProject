@@ -133,7 +133,7 @@ public class BusinessService : GenericService<Business>, IBusiness
         throw new NotImplementedException();
     }
 
-    public List<Business> GetBusinessData()
+    public List<Business> GetBusinessesData()
     {
         return context.Businesses
                .Where(b => !b.IsDeleted)

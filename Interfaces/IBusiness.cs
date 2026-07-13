@@ -9,7 +9,7 @@ public interface IBusiness : IService<Business>
     IEnumerable<Business> GetApprovedBusinesses();
 
     IEnumerable<Business> GetRejectedBusinesses();
-    List<Business> GetBusinessData();
+    List<Business> GetBusinessesData();
 
     IEnumerable<Business> GetBusinessesByOwner(int ownerId);
 

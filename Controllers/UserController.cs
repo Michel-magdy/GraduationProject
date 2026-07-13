@@ -15,10 +15,10 @@ public class UserController : Controller
         this.userService = userService;
     }
 
-    // public IActionResult Index()
-    // {
-    //     return View(userService.GetUsers());
-    // }
+    public IActionResult Index()
+    {
+        return View(userService.GetAllUsers());
+    }
 
     // public IActionResult Add()
     // {

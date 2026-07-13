@@ -19,7 +19,7 @@ public class BusinessController : Controller
 
     public IActionResult Index()
     {
-        return View(businessService.GetBusinessData());
+        return View(businessService.GetBusinessesData());
     }
 
     public IActionResult Details(int id)

@@ -22,6 +22,16 @@ public class UserService : GenericService<User>, IUser
         throw new NotImplementedException();
     }
 
+    public List<User>? GetAllUsers()
+    {
+        return context.Users
+            .Include(u => u.Role)
+            .Include(u => u.Businesses)
+            .Where(u => !u.IsDeleted)
+            .ToList();
+
+    }
+
     public IEnumerable<User> GetCustomers()
     {
         throw new NotImplementedException();

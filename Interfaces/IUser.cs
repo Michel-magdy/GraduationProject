@@ -5,6 +5,7 @@ namespace GraduationProject.Interfaces;
 public interface IUser : IService<User>
 {
     List<User>? GetOwners();
+    List<User>? GetAllUsers();
 
     IEnumerable<User> GetCustomers();
 
@@ -15,4 +16,5 @@ public interface IUser : IService<User>
     bool EmailExists(string email);
 
     void ChangeRole(int userId, int roleId);
+
 }
