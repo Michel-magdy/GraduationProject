@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit Business";
+    var images = Model.Images ?? Enumerable.Empty<Image>();
 }
 
 <section class="management-page position-relative overflow-hidden">
@@ -39,7 +40,8 @@
 
                     <div class="mb-3">
                         <label asp-for="Status" class="form-label fw-semibold"></label>
-                        <input asp-for="Status" class="form-control rounded-custom" />
+                        <select asp-for="Status" asp-items="Html.GetEnumSelectList<BusinessStatus>()"
+                                class="form-select rounded-custom"></select>
                         <span asp-validation-for="Status" class="text-danger small"></span>
                     </div>
 
@@ -78,10 +80,10 @@
                             </form>
                         </div>
 
-                        @if (Model.Images.Any())
+                        @if (images.Any())
                         {
                             <div class="business-image-list">
-                                @foreach (var image in Model.Images)
+                                @foreach (var image in images)
                                 {
                                     <div class="business-image-row">
                                         <img src="@image.ImagePath" alt="@Model.BusinessName image" />

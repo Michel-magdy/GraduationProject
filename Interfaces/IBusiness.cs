@@ -15,6 +15,14 @@ public interface IBusiness : IService<Business>
 
     Business? GetBusinessDetails(int businessId);
 
+    void UpdateBusiness(Business business);
+
+    void AddImage(int businessId, string imagePath);
+
+    void UpdateImage(int businessId, int imageId, string imagePath);
+
+    void DeleteImage(int businessId, int imageId);
+
     void ApproveBusiness(int businessId);
 
     void RejectBusiness(int businessId);

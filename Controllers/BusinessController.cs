@@ -42,35 +42,35 @@ public class BusinessController : Controller
         return View(business);
     }
 
-    // [HttpPost]
-    // [ValidateAntiForgeryToken]
-    // public IActionResult Edit(int id, Business business)
-    // {
-    //     if (id != business.Id)
-    //     {
-    //         return BadRequest();
-    //     }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Edit(int id, Business business)
+    {
+        if (id != business.Id)
+        {
+            return BadRequest();
+        }
 
-    //     if (!ModelState.IsValid)
-    //     {
-    //         var existingBusiness = businessService.GetBusinessDetails(id);
+        if (!ModelState.IsValid)
+        {
+            var existingBusiness = businessService.GetBusinessDetails(id);
 
-    //         if (existingBusiness == null)
-    //         {
-    //             return NotFound();
-    //         }
+            if (existingBusiness == null)
+            {
+                return NotFound();
+            }
 
-    //         existingBusiness.BusinessName = business.BusinessName;
-    //         existingBusiness.Address = business.Address;
-    //         existingBusiness.Status = business.Status;
-    //         existingBusiness.Description = business.Description;
+            existingBusiness.BusinessName = business.BusinessName;
+            existingBusiness.Address = business.Address;
+            existingBusiness.Status = business.Status;
+            existingBusiness.Description = business.Description;
 
-    //         return View(existingBusiness);
-    //     }
+            return View(existingBusiness);
+        }
 
-    //     businessService.UpdateBusiness(business);
-    //     return RedirectToAction(nameof(Details), new { id = business.Id });
-    // }
+        businessService.Update(business);
+        return RedirectToAction(nameof(Details), new { id = business.Id });
+    }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
@@ -80,27 +80,27 @@ public class BusinessController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    // [HttpPost]
-    // [ValidateAntiForgeryToken]
-    // public IActionResult AddImage(int businessId, string imagePath, string returnAction = nameof(Details))
-    // {
-    //     businessService.AddImage(businessId, imagePath);
-    //     return RedirectToAction(returnAction, new { id = businessId });
-    // }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult AddImage(int businessId, string imagePath, string returnAction = nameof(Details))
+    {
+        businessService.AddImage(businessId, imagePath);
+        return RedirectToAction(returnAction, new { id = businessId });
+    }
 
-    // [HttpPost]
-    // [ValidateAntiForgeryToken]
-    // public IActionResult UpdateImage(int businessId, int imageId, string imagePath)
-    // {
-    //     businessService.UpdateImage(businessId, imageId, imagePath);
-    //     return RedirectToAction(nameof(Edit), new { id = businessId });
-    // }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult UpdateImage(int businessId, int imageId, string imagePath)
+    {
+        businessService.UpdateImage(businessId, imageId, imagePath);
+        return RedirectToAction(nameof(Edit), new { id = businessId });
+    }
 
-    // [HttpPost]
-    // [ValidateAntiForgeryToken]
-    // public IActionResult DeleteImage(int businessId, int imageId, string returnAction = nameof(Details))
-    // {
-    //     businessService.DeleteImage(businessId, imageId);
-    //     return RedirectToAction(returnAction, new { id = businessId });
-    // }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult DeleteImage(int businessId, int imageId, string returnAction = nameof(Details))
+    {
+        businessService.DeleteImage(businessId, imageId);
+        return RedirectToAction(returnAction, new { id = businessId });
+    }
 }
