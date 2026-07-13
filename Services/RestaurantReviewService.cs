@@ -1,5 +1,6 @@
 using GraduationProject.Interfaces;
 using GraduationProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraduationProject.Services;
 
@@ -12,8 +13,11 @@ public class RestaurantReviewService : GenericService<RestaurantReview>, IRestau
     }
 
 
-    List<RestaurantReview> IRestaurantReview.GetReviews()
+    public List<RestaurantReview> GetReviews()
     {
-        throw new NotImplementedException();
+        return context.RestaurantReviews
+            .Include(review => review.User)
+            .Include(review => review.Restaurant)
+            .ToList();
     }
 }

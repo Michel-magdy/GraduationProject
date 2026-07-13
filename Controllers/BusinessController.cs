@@ -61,7 +61,6 @@ public class BusinessController : Controller
             }
 
             existingBusiness.BusinessName = business.BusinessName;
-            existingBusiness.BusinessType = business.BusinessType;
             existingBusiness.Address = business.Address;
             existingBusiness.Status = business.Status;
             existingBusiness.Description = business.Description;

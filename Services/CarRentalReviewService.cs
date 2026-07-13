@@ -1,5 +1,6 @@
 using GraduationProject.Interfaces;
 using GraduationProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraduationProject.Services;
 
@@ -13,6 +14,9 @@ public class CarRentalReviewService : GenericService<CarRentalReview>, ICarRenta
 
     public List<CarRentalReview> GetReviews()
     {
-        throw new NotImplementedException();
+        return context.CarRentalReviews
+            .Include(review => review.User)
+            .Include(review => review.CarRental)
+            .ToList();
     }
 }

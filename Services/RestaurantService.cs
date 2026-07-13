@@ -18,7 +18,10 @@ public class RestaurantService : GenericService<Restaurant>, IRestaurant
         return context.Restaurants
             .Where(restaurant => !restaurant.IsDeleted)
             .Include(restaurant => restaurant.Business)
+            .Include(restaurant => restaurant.Images)
+            .Include(restaurant => restaurant.Reviews)
             .Include(restuarant => restuarant.Tables)
+            .AsSplitQuery()
             .ToList();
     }
 }

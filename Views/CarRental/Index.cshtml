@@ -11,9 +11,11 @@
             <div>
                 <span class="management-eyebrow">Mobility</span>
                 <h1 class="management-title">Car Rentals</h1>
-                <p class="management-subtitle">Track rental vehicles, daily prices, availability, and booking activity.</p>
+                <p class="management-subtitle">Track rental vehicles, daily prices, availability, and booking activity.
+                </p>
             </div>
-            <a asp-controller="CarRental" asp-action="Add" class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">
+            <a asp-controller="CarRental" asp-action="Add"
+               class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">
                 <i class="bi bi-plus-lg me-1"></i>Add Car
             </a>
         </div>
@@ -39,22 +41,28 @@
                                 <tr>
                                     <td data-label="Vehicle">
                                         <div class="entity-name">@car.Brand @car.Model</div>
-                                        <div class="entity-muted">@car.Image</div>
+                                        <div class="entity-muted">@car.Images</div>
                                     </td>
-                                    <td data-label="Business">@(car.Business?.BusinessName ?? $"Business #{car.BusinessId}")</td>
+                                    <td data-label="Business">@(car.Business?.BusinessName ?? $"Business #{car.BusinessId}")
+                                    </td>
                                     <td data-label="Price">@car.PricePerDay.ToString("C") / day</td>
                                     <td data-label="Status">
                                         <span class="status-pill @(car.Available ? "available" : "unavailable")">
-                                            <i class="bi bi-circle-fill small"></i>@(car.Available ? "Available" : "Unavailable")
+                                            <i class="bi bi-circle-fill small"></i>@(car.Available ? "Available" :
+                                                "Unavailable")
                                         </span>
                                     </td>
                                     <td data-label="Bookings">@car.CarRentalBookings.Count</td>
                                     <td data-label="Actions" class="text-lg-end">
                                         <div class="action-group">
-                                            <a asp-controller="CarRental" asp-action="Details" asp-route-id="@car.Id" class="btn btn-outline-primary btn-sm rounded-custom">Details</a>
-                                            <a asp-controller="CarRental" asp-action="Edit" asp-route-id="@car.Id" class="btn btn-primary btn-sm rounded-custom">Edit</a>
-                                            <form asp-controller="CarRental" asp-action="Delete" asp-route-id="@car.Id" method="post" class="d-inline">
-                                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-custom">Delete</button>
+                                            <a asp-controller="CarRental" asp-action="Details" asp-route-id="@car.Id"
+                                               class="btn btn-outline-primary btn-sm rounded-custom">Details</a>
+                                            <a asp-controller="CarRental" asp-action="Edit" asp-route-id="@car.Id"
+                                               class="btn btn-primary btn-sm rounded-custom">Edit</a>
+                                            <form asp-controller="CarRental" asp-action="Delete" asp-route-id="@car.Id"
+                                                  method="post" class="d-inline">
+                                                <button type="submit"
+                                                        class="btn btn-outline-danger btn-sm rounded-custom">Delete</button>
                                             </form>
                                         </div>
                                     </td>

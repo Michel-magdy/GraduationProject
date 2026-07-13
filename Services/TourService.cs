@@ -17,7 +17,10 @@ public class TourService : GenericService<Tour>, ITour
         return context.Tours
             .Where(tour => !tour.IsDeleted)
             .Include(T => T.Business)
+            .Include(T => T.Images)
+            .Include(T => T.Reviews)
             .Include(T => T.TourBookings)
+            .AsSplitQuery()
             .ToList();
     }
 }

@@ -15,7 +15,7 @@ public class Business : ISoftDelete
     [StringLength(100)]
     public string Address { get; set; } = string.Empty;
 
-    public BusinessStatus status { get; set; }
+    public BusinessStatus Status { get; set; }
 
     [Required]
     [StringLength(1000)]

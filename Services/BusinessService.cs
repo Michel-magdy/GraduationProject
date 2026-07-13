@@ -31,7 +31,6 @@ public class BusinessService : GenericService<Business>, IBusiness
             .Include(business => business.CarRentals)
             .Include(business => business.Tours)
             .Include(business => business.Images)
-            .Include(business => business.Reviews)
             .AsSplitQuery()
             .ToList();
     }
@@ -42,7 +41,6 @@ public class BusinessService : GenericService<Business>, IBusiness
             .Where(business => !business.IsDeleted)
             .Include(business => business.Owner)
             .Include(business => business.Images)
-            .Include(business => business.Reviews)
             .AsSplitQuery()
             .FirstOrDefault(business => business.Id == id);
     }
@@ -57,7 +55,6 @@ public class BusinessService : GenericService<Business>, IBusiness
         }
 
         existingBusiness.BusinessName = business.BusinessName;
-        existingBusiness.BusinessType = business.BusinessType;
         existingBusiness.Address = business.Address;
         existingBusiness.Status = business.Status;
         existingBusiness.Description = business.Description;

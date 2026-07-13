@@ -11,17 +11,21 @@
             <div>
                 <span class="management-eyebrow">Business</span>
                 <h1 class="management-title">Edit @Model.BusinessName</h1>
-                <p class="management-subtitle">Update the business profile and control its images from the same screen.</p>
+                <p class="management-subtitle">Update the business profile and control its images from the same screen.
+                </p>
             </div>
             <div class="action-group mt-3 mt-lg-0">
-                <a asp-controller="Business" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-primary rounded-custom px-4 py-2 fw-semibold">Details</a>
-                <a asp-controller="Business" asp-action="Index" class="btn btn-outline-secondary rounded-custom px-4 py-2 fw-semibold">Back</a>
+                <a asp-controller="Business" asp-action="Details" asp-route-id="@Model.Id"
+                   class="btn btn-outline-primary rounded-custom px-4 py-2 fw-semibold">Details</a>
+                <a asp-controller="Business" asp-action="Index"
+                   class="btn btn-outline-secondary rounded-custom px-4 py-2 fw-semibold">Back</a>
             </div>
         </div>
 
         <div class="row g-4">
             <div class="col-lg-5">
-                <form asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" method="post" class="management-card p-4">
+                <form asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" method="post"
+                      class="management-card p-4">
                     <input asp-for="Id" type="hidden" />
                     <input asp-for="OwnerId" type="hidden" />
 
@@ -31,12 +35,6 @@
                         <label asp-for="BusinessName" class="form-label fw-semibold"></label>
                         <input asp-for="BusinessName" class="form-control rounded-custom" />
                         <span asp-validation-for="BusinessName" class="text-danger small"></span>
-                    </div>
-
-                    <div class="mb-3">
-                        <label asp-for="BusinessType" class="form-label fw-semibold"></label>
-                        <input asp-for="BusinessType" class="form-control rounded-custom" />
-                        <span asp-validation-for="BusinessType" class="text-danger small"></span>
                     </div>
 
                     <div class="mb-3">
@@ -57,64 +55,68 @@
                         <span asp-validation-for="Description" class="text-danger small"></span>
                     </div>
 
-                    <button type="submit" class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">Save Business</button>
-                </form>
-            </div>
+                    <button type="submit" class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">Save
+                        Business</button>
+                    </form>
+                </div>
 
-            <div class="col-lg-7">
-                <div class="management-card p-4">
-                    <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-4">
-                        <div>
-                            <h2 class="h5 fw-bold mb-1">Images</h2>
-                            <p class="entity-muted mb-0">Add, change, or remove image paths for this business.</p>
+                <div class="col-lg-7">
+                    <div class="management-card p-4">
+                        <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-4">
+                            <div>
+                                <h2 class="h5 fw-bold mb-1">Images</h2>
+                                <p class="entity-muted mb-0">Add, change, or remove image paths for this business.</p>
+                            </div>
+                            <form asp-controller="Business" asp-action="AddImage" method="post" class="business-image-form">
+                                <input type="hidden" name="businessId" value="@Model.Id" />
+                                <input type="hidden" name="returnAction" value="Edit" />
+                                <input name="imagePath" class="form-control rounded-custom"
+                                       placeholder="Image path or URL" />
+                                <button type="submit" class="btn btn-primary rounded-custom fw-semibold">
+                                    <i class="bi bi-plus-lg me-1"></i>Add
+                                </button>
+                            </form>
                         </div>
-                        <form asp-controller="Business" asp-action="AddImage" method="post" class="business-image-form">
-                            <input type="hidden" name="businessId" value="@Model.Id" />
-                            <input type="hidden" name="returnAction" value="Edit" />
-                            <input name="imagePath" class="form-control rounded-custom" placeholder="Image path or URL" />
-                            <button type="submit" class="btn btn-primary rounded-custom fw-semibold">
-                                <i class="bi bi-plus-lg me-1"></i>Add
-                            </button>
-                        </form>
+
+                        @if (Model.Images.Any())
+                        {
+                            <div class="business-image-list">
+                                @foreach (var image in Model.Images)
+                                {
+                                    <div class="business-image-row">
+                                        <img src="@image.ImagePath" alt="@Model.BusinessName image" />
+                                        <form asp-controller="Business" asp-action="UpdateImage" method="post"
+                                              class="business-image-edit-form">
+                                            <input type="hidden" name="businessId" value="@Model.Id" />
+                                            <input type="hidden" name="imageId" value="@image.Id" />
+                                            <input name="imagePath" value="@image.ImagePath" class="form-control rounded-custom" />
+                                            <button type="submit" class="btn btn-primary btn-sm rounded-custom">Save</button>
+                                        </form>
+                                        <form asp-controller="Business" asp-action="DeleteImage" method="post">
+                                            <input type="hidden" name="businessId" value="@Model.Id" />
+                                            <input type="hidden" name="imageId" value="@image.Id" />
+                                            <input type="hidden" name="returnAction" value="Edit" />
+                                            <button type="submit"
+                                                    class="btn btn-outline-danger btn-sm rounded-custom">Delete</button>
+                                        </form>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="empty-state">
+                                <i class="bi bi-images"></i>
+                                <h2 class="h5 fw-bold mt-3 mb-2">No images yet</h2>
+                                <p class="text-muted mb-0">Use the add field above to attach images to this business.</p>
+                            </div>
+                        }
                     </div>
-
-                    @if (Model.Images.Any())
-                    {
-                        <div class="business-image-list">
-                            @foreach (var image in Model.Images)
-                            {
-                                <div class="business-image-row">
-                                    <img src="@image.ImagePath" alt="@Model.BusinessName image" />
-                                    <form asp-controller="Business" asp-action="UpdateImage" method="post" class="business-image-edit-form">
-                                        <input type="hidden" name="businessId" value="@Model.Id" />
-                                        <input type="hidden" name="imageId" value="@image.Id" />
-                                        <input name="imagePath" value="@image.ImagePath" class="form-control rounded-custom" />
-                                        <button type="submit" class="btn btn-primary btn-sm rounded-custom">Save</button>
-                                    </form>
-                                    <form asp-controller="Business" asp-action="DeleteImage" method="post">
-                                        <input type="hidden" name="businessId" value="@Model.Id" />
-                                        <input type="hidden" name="imageId" value="@image.Id" />
-                                        <input type="hidden" name="returnAction" value="Edit" />
-                                        <button type="submit" class="btn btn-outline-danger btn-sm rounded-custom">Delete</button>
-                                    </form>
-                                </div>
-                            }
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="empty-state">
-                            <i class="bi bi-images"></i>
-                            <h2 class="h5 fw-bold mt-3 mb-2">No images yet</h2>
-                            <p class="text-muted mb-0">Use the add field above to attach images to this business.</p>
-                        </div>
-                    }
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }

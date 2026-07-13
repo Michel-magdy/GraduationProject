@@ -17,7 +17,10 @@ public class HotelService : GenericService<Hotel>, IHotel
         return context.Hotels
             .Where(hotel => !hotel.IsDeleted)
             .Include(hotel => hotel.Business)
+            .Include(hotel => hotel.Images)
+            .Include(hotel => hotel.Reviews)
             .Include(hotel => hotel.Rooms)
+            .AsSplitQuery()
             .ToList();
     }
 }

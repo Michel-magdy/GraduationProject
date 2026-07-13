@@ -41,8 +41,8 @@
                                     <td data-label="Restaurant">@(table.Restaurant?.Name ?? $"Restaurant #{table.RestaurantId}")</td>
                                     <td data-label="Capacity">@table.Capacity guests</td>
                                     <td data-label="Status">
-                                        <span class="status-pill @(table.Available ? "available" : "unavailable")">
-                                            <i class="bi bi-circle-fill small"></i>@(table.Available ? "Available" : "Unavailable")
+                                        <span class="status-pill @(table.Status)">
+                                            <i class="bi bi-circle-fill small"></i>@(table.Status)
                                         </span>
                                     </td>
                                     <td data-label="Bookings">@table.RestaurantBookings.Count</td>

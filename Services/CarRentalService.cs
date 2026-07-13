@@ -17,7 +17,10 @@ public class CarRentalService : GenericService<CarRental>, ICarRental
         return context.CarRentals
             .Where(carRental => !carRental.IsDeleted)
             .Include(Cr => Cr.Business)
+            .Include(Cr => Cr.Images)
+            .Include(Cr => Cr.Reviews)
             .Include(Cr => Cr.CarRentalBookings)
+            .AsSplitQuery()
             .ToList();
     }
 }

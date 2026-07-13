@@ -2,9 +2,7 @@
 
 @{
     ViewData["Title"] = "Business Details";
-    var statusClass = Model.Status.Equals("approved", StringComparison.OrdinalIgnoreCase) || Model.Status.Equals("active", StringComparison.OrdinalIgnoreCase)
-        ? "approved"
-        : "pending";
+    var statusClass = Model.Status;
 }
 
 <section class="management-page position-relative overflow-hidden">
@@ -17,8 +15,10 @@
                 <p class="management-subtitle">@Model.Description</p>
             </div>
             <div class="action-group mt-3 mt-lg-0">
-                <a asp-controller="Business" asp-action="Index" class="btn btn-outline-primary rounded-custom px-4 py-2 fw-semibold">Back</a>
-                <a asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">Edit</a>
+                <a asp-controller="Business" asp-action="Index"
+                   class="btn btn-outline-primary rounded-custom px-4 py-2 fw-semibold">Back</a>
+                <a asp-controller="Business" asp-action="Edit" asp-route-id="@Model.Id"
+                   class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">Edit</a>
             </div>
         </div>
 
@@ -37,7 +37,6 @@
 
                     <dl class="row mb-0 g-3">
                         <dt class="col-sm-4 entity-muted">Type</dt>
-                        <dd class="col-sm-8 mb-0">@Model.BusinessType</dd>
 
                         <dt class="col-sm-4 entity-muted">Address</dt>
                         <dd class="col-sm-8 mb-0">@Model.Address</dd>
@@ -46,7 +45,6 @@
                         <dd class="col-sm-8 mb-0">@Model.Images.Count</dd>
 
                         <dt class="col-sm-4 entity-muted">Reviews</dt>
-                        <dd class="col-sm-8 mb-0">@Model.Reviews.Count</dd>
                     </dl>
                 </div>
             </div>
@@ -61,7 +59,8 @@
                         <form asp-controller="Business" asp-action="AddImage" method="post" class="business-image-form">
                             <input type="hidden" name="businessId" value="@Model.Id" />
                             <input type="hidden" name="returnAction" value="Details" />
-                            <input name="imagePath" class="form-control rounded-custom" placeholder="Image path or URL" />
+                            <input name="imagePath" class="form-control rounded-custom"
+                                   placeholder="Image path or URL" />
                             <button type="submit" class="btn btn-primary rounded-custom fw-semibold">
                                 <i class="bi bi-plus-lg me-1"></i>Add
                             </button>
@@ -81,7 +80,8 @@
                                             <input type="hidden" name="businessId" value="@Model.Id" />
                                             <input type="hidden" name="imageId" value="@image.Id" />
                                             <input type="hidden" name="returnAction" value="Details" />
-                                            <button type="submit" class="btn btn-outline-danger btn-sm rounded-custom">Delete</button>
+                                            <button type="submit"
+                                                    class="btn btn-outline-danger btn-sm rounded-custom">Delete</button>
                                         </form>
                                     </div>
                                 </div>

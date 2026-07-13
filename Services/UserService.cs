@@ -21,7 +21,6 @@ public class UserService : GenericService<User>, IUser
             .Include(user => user.CarRentalBookings)
             .Include(user => user.HotelBookings)
             .Include(user => user.RestaurantBookings)
-            .Include(user => user.Reviews)
             .Include(user => user.Role)
             .AsSplitQuery().ToList();
     }
