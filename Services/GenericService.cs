@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using GraduationProject.Interfaces;
 using GraduationProject.Models;
 using Microsoft.EntityFrameworkCore;
@@ -56,9 +57,19 @@ public class GenericService<TEntity> : IService<TEntity> where TEntity : class
             .ToList();
     }
 
+    public IEnumerable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includes)
+    {
+        throw new NotImplementedException();
+    }
+
     public TEntity? GetById(int id)
     {
         return entity.Find(id);
+    }
+
+    public TEntity? GetById(int id, params Expression<Func<TEntity, object>>[] includes)
+    {
+        throw new NotImplementedException();
     }
 
     public void Update(TEntity _entity)

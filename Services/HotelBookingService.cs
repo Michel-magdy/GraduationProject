@@ -12,6 +12,31 @@ public class HotelBookingService : GenericService<HotelBooking>, IHotelBooking
         context = _context;
     }
 
+    public decimal CalculateTotalPrice(int roomId, DateTime checkIn, DateTime checkOut)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void CancelBooking(int bookingId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ConfirmBooking(int bookingId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<HotelBooking> GetBookingsByHotel(int hotelId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<HotelBooking> GetBookingsByUser(int userId)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<HotelBooking> GetHotelBooking()
     {
         return context.HotelBookings

@@ -12,6 +12,16 @@ public class CarRentalReviewService : GenericService<CarRentalReview>, ICarRenta
         context = _context;
     }
 
+    public double GetAverageRating(int carId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<CarRentalReview> GetCarReviews(int carId)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<CarRentalReview> GetReviews()
     {
         return context.CarRentalReviews

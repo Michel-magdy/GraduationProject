@@ -12,6 +12,15 @@ public class RestaurantReviewService : GenericService<RestaurantReview>, IRestau
         context = _context;
     }
 
+    public double GetAverageRating(int restaurantId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<RestaurantReview> GetRestaurantReviews(int restaurantId)
+    {
+        throw new NotImplementedException();
+    }
 
     public List<RestaurantReview> GetReviews()
     {

@@ -12,11 +12,21 @@ public class TableService : GenericService<Table>, ITable
         context = _context;
     }
 
+    public IEnumerable<Table> GetAvailableTables(int restaurantId)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<Table> GetTables()
     {
         return context.Tables
             .Include(T => T.Restaurant)
             .Include(T => T.RestaurantBookings)
             .ToList();
+    }
+
+    public IEnumerable<Table> GetTablesByRestaurant(int restaurantId)
+    {
+        throw new NotImplementedException();
     }
 }

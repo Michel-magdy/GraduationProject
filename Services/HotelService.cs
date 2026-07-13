@@ -12,6 +12,11 @@ public class HotelService : GenericService<Hotel>, IHotel
         context = _context;
     }
 
+    public Hotel? GetHotelFullDetails(int hotelId)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<Hotel> GetHotels()
     {
         return context.Hotels
@@ -22,5 +27,15 @@ public class HotelService : GenericService<Hotel>, IHotel
             .Include(hotel => hotel.Rooms)
             .AsSplitQuery()
             .ToList();
+    }
+
+    public IEnumerable<Hotel> GetHotelsByBusiness(int businessId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Hotel? GetHotelWithRooms(int hotelId)
+    {
+        throw new NotImplementedException();
     }
 }

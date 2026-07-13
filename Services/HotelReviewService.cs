@@ -12,6 +12,16 @@ public class HotelReviewService : GenericService<HotelReview>, IHotelReview
         context = _context;
     }
 
+    public double GetAverageRating(int hotelId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<HotelReview> GetHotelReviews(int hotelId)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<HotelReview> GetReviews()
     {
         return context.HotelReviews

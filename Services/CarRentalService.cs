@@ -12,6 +12,11 @@ public class CarRentalService : GenericService<CarRental>, ICarRental
         context = _context;
     }
 
+    public IEnumerable<CarRental> GetAvailableCars()
+    {
+        throw new NotImplementedException();
+    }
+
     public List<CarRental> GetCarRentals()
     {
         return context.CarRentals
@@ -22,5 +27,15 @@ public class CarRentalService : GenericService<CarRental>, ICarRental
             .Include(Cr => Cr.CarRentalBookings)
             .AsSplitQuery()
             .ToList();
+    }
+
+    public IEnumerable<CarRental> GetCarsByBusiness(int businessId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool IsCarAvailable(int carId)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -13,6 +13,11 @@ public class RestaurantService : GenericService<Restaurant>, IRestaurant
         context = _context;
     }
 
+    public Restaurant? GetRestaurantFullDetails(int restaurantId)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<Restaurant> GetRestaurants()
     {
         return context.Restaurants
@@ -23,5 +28,15 @@ public class RestaurantService : GenericService<Restaurant>, IRestaurant
             .Include(restuarant => restuarant.Tables)
             .AsSplitQuery()
             .ToList();
+    }
+
+    public IEnumerable<Restaurant> GetRestaurantsByBusiness(int businessId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Restaurant? GetRestaurantWithTables(int restaurantId)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -12,6 +12,26 @@ public class RestaurantBookingService : GenericService<RestaurantBooking>, IRest
         context = _context;
     }
 
+    public void CancelBooking(int bookingId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ConfirmBooking(int bookingId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<RestaurantBooking> GetBookingsByRestaurant(int restaurantId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<RestaurantBooking> GetBookingsByUser(int userId)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<RestaurantBooking> GetRestaurantBookings()
     {
         return context.RestaurantBookings

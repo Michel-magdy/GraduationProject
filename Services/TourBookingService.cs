@@ -11,4 +11,18 @@ public class TourBookingService : GenericService<TourBooking>, ITourBooking
         context = _context;
     }
 
+    public void CancelBooking(int bookingId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<TourBooking> GetBookingsByTour(int tourId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<TourBooking> GetBookingsByUser(int userId)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -12,6 +12,11 @@ public class TourService : GenericService<Tour>, ITour
         context = _context;
     }
 
+    public int GetRemainingSeats(int tourId)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<Tour> GetTours()
     {
         return context.Tours
@@ -22,5 +27,15 @@ public class TourService : GenericService<Tour>, ITour
             .Include(T => T.TourBookings)
             .AsSplitQuery()
             .ToList();
+    }
+
+    public IEnumerable<Tour> GetToursByBusiness(int businessId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Tour> GetUpcomingTours()
+    {
+        throw new NotImplementedException();
     }
 }

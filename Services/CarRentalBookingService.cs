@@ -12,6 +12,26 @@ public class CarRentalBookingService : GenericService<CarRentalBooking>, ICarRen
         context = _context;
     }
 
+    public decimal CalculateTotalPrice(int carId, DateTime start, DateTime end)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void CancelBooking(int bookingId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<CarRentalBooking> GetBookingsByCar(int carId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<CarRentalBooking> GetBookingsByUser(int userId)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<CarRentalBooking> GetCarRentalBookings()
     {
         return context.CarRentalBookings

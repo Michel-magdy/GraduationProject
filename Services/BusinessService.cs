@@ -107,4 +107,39 @@ public class BusinessService : GenericService<Business>, IBusiness
         context.Images.Remove(image);
         context.SaveChanges();
     }
+
+    public IEnumerable<Business> GetPendingBusinesses()
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Business> GetApprovedBusinesses()
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Business> GetRejectedBusinesses()
+    {
+        throw new NotImplementedException();
+    }
+
+    public IEnumerable<Business> GetBusinessesByOwner(int ownerId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void ApproveBusiness(int businessId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void RejectBusiness(int businessId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool BusinessExists(string businessName)
+    {
+        throw new NotImplementedException();
+    }
 }
