@@ -25,11 +25,14 @@ public class BusinessService : GenericService<Business>, IBusiness
     public Business? GetBusinessDetails(int id)
     {
         return context.Businesses
-            .Where(business => !business.IsDeleted)
-            .Include(business => business.Owner)
-            .Include(business => business.Images)
-            .AsSplitQuery()
-            .FirstOrDefault(business => business.Id == id);
+               .Where(b => !b.IsDeleted)
+               .Include(b => b.Owner)
+               .Include(b => b.Images)
+               .Include(b => b.Hotels)
+               .Include(b => b.Restaurants)
+               .Include(b => b.Tours)
+               .Include(b => b.CarRentals)
+               .FirstOrDefault(b => b.Id == id);
     }
 
     public void UpdateBusiness(Business business)
