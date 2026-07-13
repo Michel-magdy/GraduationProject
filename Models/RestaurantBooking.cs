@@ -10,7 +10,7 @@ public class RestaurantBooking
     [Range(1, 30)]
     public int Guests { get; set; }
     [Required]
-    public string Status { get; set; } = string.Empty;
+    public BookingStatus Status { get; set; }
 
     [Required]
     public int UserId { get; set; }

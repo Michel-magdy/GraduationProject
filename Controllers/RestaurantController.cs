@@ -1,4 +1,5 @@
 using GraduationProject.Interfaces;
+using GraduationProject.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GraduationProject.Controllers;
@@ -15,6 +16,11 @@ public class RestaurantController : Controller
     public IActionResult Index()
     {
         return View(RestaurantService.GetRestaurants());
+    }
+
+    public IActionResult Add()
+    {
+        return View(new Restaurant());
     }
 
     [HttpPost]

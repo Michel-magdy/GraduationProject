@@ -11,7 +11,7 @@ public class HotelBooking
     [Required]
     public DateTime CheckOut { get; set; }
     [Required]
-    public string Status { get; set; } = string.Empty;
+    public BookingStatus Status { get; set; }
     [Range(0, 100000)]
     public decimal TotalPrice { get; set; }
     [Required]
@@ -21,4 +21,11 @@ public class HotelBooking
     [Required]
     public int RoomId { get; set; }
     public Room? Room { get; set; }
+}
+public enum BookingStatus
+{
+    Pending,
+    Confirmed,
+    Cancelled,
+    Completed
 }

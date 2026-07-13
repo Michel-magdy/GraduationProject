@@ -14,10 +14,21 @@ public class Room
     [Range(1, 20)]
 
     public int Capacity { get; set; }
-    public bool Available { get; set; }
+
+    [Required]
+    public RoomStatus status { get; set; }
+
     [Required]
     public int HotelId { get; set; }
     public Hotel? Hotel { get; set; }
 
     public ICollection<HotelBooking> HotelBookings { get; set; } = new List<HotelBooking>();
+}
+
+public enum RoomStatus
+{
+    Available,
+    Occupied,
+    Maintenance,
+    Inactive
 }

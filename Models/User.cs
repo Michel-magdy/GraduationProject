@@ -26,5 +26,15 @@ public class User : ISoftDelete
     public ICollection<RestaurantBooking> RestaurantBookings { get; set; } = new List<RestaurantBooking>();
     public ICollection<CarRentalBooking> CarRentalBookings { get; set; } = new List<CarRentalBooking>();
     public ICollection<TourBooking> TourBookings { get; set; } = new List<TourBooking>();
-    public ICollection<Review> Reviews { get; set; } = new List<Review>();
+    public ICollection<HotelReview> HotelReviews { get; set; }
+        = new List<HotelReview>();
+
+    public ICollection<RestaurantReview> RestaurantReviews { get; set; }
+        = new List<RestaurantReview>();
+
+    public ICollection<TourReview> TourReviews { get; set; }
+        = new List<TourReview>();
+
+    public ICollection<CarRentalReview> CarRentalReviews { get; set; }
+        = new List<CarRentalReview>();
 }

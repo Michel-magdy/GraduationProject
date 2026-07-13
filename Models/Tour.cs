@@ -17,11 +17,13 @@ public class Tour : ISoftDelete
     public int MaxParticipants { get; set; }
     [Range(0, 1000)]
     public int CurrentParticipants { get; set; }
+
+    public int RemainingSeats => MaxParticipants - CurrentParticipants;
     public bool IsDeleted { get; set; } = false;
 
     [Required]
     public int BusinessId { get; set; }
     public Business? Business { get; set; }
-
+    public ICollection<TourReview> Reviews { get; set; } = new List<TourReview>();
     public ICollection<TourBooking> TourBookings { get; set; } = new List<TourBooking>();
 }

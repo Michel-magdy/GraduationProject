@@ -12,13 +12,12 @@ public class Business : ISoftDelete
     public string BusinessName { get; set; } = string.Empty;
 
     [Required]
-    [StringLength(50)]
-    public string BusinessType { get; set; } = string.Empty;
+    [StringLength(100)]
     public string Address { get; set; } = string.Empty;
 
+    public BusinessStatus status { get; set; }
+
     [Required]
-    [StringLength(20)]
-    public string Status { get; set; } = string.Empty;
     [StringLength(1000)]
     public string Description { get; set; } = string.Empty;
     public bool IsDeleted { get; set; } = false;
@@ -33,5 +32,10 @@ public class Business : ISoftDelete
     public ICollection<Tour> Tours { get; set; } = new List<Tour>();
 
     public ICollection<Image> Images { get; set; } = new List<Image>();
-    public ICollection<Review> Reviews { get; set; } = new List<Review>();
+}
+public enum BusinessStatus
+{
+    Pending,
+    Approved,
+    Rejected
 }

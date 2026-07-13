@@ -20,7 +20,10 @@ public class Context : DbContext
     public DbSet<CarRentalBooking> CarRentalBookings { get; set; }
     public DbSet<TourBooking> TourBookings { get; set; }
     public DbSet<Image> Images { get; set; }
-    public DbSet<Review> Reviews { get; set; }
+    public DbSet<HotelReview> HotelReviews { get; set; }
+    public DbSet<RestaurantReview> RestaurantReviews { get; set; }
+    public DbSet<TourReview> TourReviews { get; set; }
+    public DbSet<CarRentalReview> CarRentalReviews { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
