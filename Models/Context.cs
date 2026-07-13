@@ -34,5 +34,29 @@ public class Context : DbContext
         {
             foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
         }
+
+        modelBuilder.Entity<Room>()
+    .Property(r => r.Price)
+    .HasPrecision(18, 2);
+
+        modelBuilder.Entity<Tour>()
+            .Property(t => t.Price)
+            .HasPrecision(18, 2);
+
+        modelBuilder.Entity<CarRental>()
+            .Property(c => c.PricePerDay)
+            .HasPrecision(18, 2);
+
+        modelBuilder.Entity<HotelBooking>()
+            .Property(h => h.TotalPrice)
+            .HasPrecision(18, 2);
+
+        modelBuilder.Entity<CarRentalBooking>()
+            .Property(c => c.TotalPrice)
+            .HasPrecision(18, 2);
+
+        modelBuilder.Entity<TourBooking>()
+            .Property(t => t.TotalPrice)
+            .HasPrecision(18, 2);
     }
 }
