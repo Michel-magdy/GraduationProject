@@ -224,10 +224,11 @@
             <a asp-action="Reject" asp-route-id="@Model.Id" class="btn btn-warning">Reject</a>
         }
 
-        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
 
+        <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+            <button type="submit" class="btn btn-outline-danger w-100">Delete</button>
+        </form>
     </div>
-
 </div>
 
 <style>

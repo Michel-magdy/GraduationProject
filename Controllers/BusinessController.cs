@@ -68,6 +68,31 @@ public class BusinessController : Controller
     }
 
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Edit(Business business)
+    {
+        if (!ModelState.IsValid)
+        {
+            var existingBusiness = businessService.GetBusinessDetails(business.Id);
+
+            if (existingBusiness == null)
+            {
+                return NotFound();
+            }
+
+            existingBusiness.BusinessName = business.BusinessName;
+            existingBusiness.Address = business.Address;
+            existingBusiness.Status = business.Status;
+            existingBusiness.Description = business.Description;
+
+            return View(existingBusiness);
+        }
+
+        businessService.UpdateBusiness(business);
+        return RedirectToAction("Details", new { id = business.Id });
+    }
+
     public IActionResult Approve(int id)
     {
         var business = businessService.GetById(id);
@@ -86,36 +111,6 @@ public class BusinessController : Controller
 
         businessService.Update(business);
         return RedirectToAction("Index");
-    }
-
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Edit(int id, Business business)
-    {
-        if (id != business.Id)
-        {
-            return BadRequest();
-        }
-
-        if (!ModelState.IsValid)
-        {
-            var existingBusiness = businessService.GetBusinessDetails(id);
-
-            if (existingBusiness == null)
-            {
-                return NotFound();
-            }
-
-            existingBusiness.BusinessName = business.BusinessName;
-            existingBusiness.Address = business.Address;
-            existingBusiness.Status = business.Status;
-            existingBusiness.Description = business.Description;
-
-            return View(existingBusiness);
-        }
-
-        businessService.Update(business);
-        return RedirectToAction("Details", new { id = business.Id });
     }
 
     [HttpPost]
