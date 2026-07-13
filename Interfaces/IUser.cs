@@ -4,7 +4,7 @@ namespace GraduationProject.Interfaces;
 
 public interface IUser : IService<User>
 {
-    IEnumerable<User> GetOwners();
+    List<User>? GetOwners();
 
     IEnumerable<User> GetCustomers();
 

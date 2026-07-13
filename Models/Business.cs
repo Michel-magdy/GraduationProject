@@ -8,7 +8,6 @@ public class Business : ISoftDelete
     public int Id { get; set; }
     [Required]
     [StringLength(100, MinimumLength = 2)]
-
     public string BusinessName { get; set; } = string.Empty;
 
     [Required]

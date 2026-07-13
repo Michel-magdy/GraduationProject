@@ -27,9 +27,11 @@ public class UserService : GenericService<User>, IUser
         throw new NotImplementedException();
     }
 
-    public IEnumerable<User> GetOwners()
+    public List<User>? GetOwners()
     {
-        throw new NotImplementedException();
+        return context.Users
+            .Include(u => u.Role)
+            .Where(u => u.Role.Name == "Owner").ToList();
     }
 
     public List<User> GetUsers()

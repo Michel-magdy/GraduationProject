@@ -1,16 +1,20 @@
 using GraduationProject.Interfaces;
 using GraduationProject.Models;
+using GraduationProject.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GraduationProject.Controllers;
 
 public class BusinessController : Controller
 {
     private readonly IBusiness businessService;
+    private readonly IUser UserService;
 
-    public BusinessController(IBusiness business)
+    public BusinessController(IBusiness _business, IUser _userservice)
     {
-        businessService = business;
+        businessService = _business;
+        UserService = _userservice;
     }
 
     public IActionResult Index()
@@ -28,6 +32,27 @@ public class BusinessController : Controller
         }
 
         return View(business);
+    }
+
+    public IActionResult Create()
+    {
+        ViewBag.Owners = new SelectList(UserService.GetOwners(), "Id", "FullName");
+        return View(new Business());
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Business business)
+    {
+        if (!ModelState.IsValid)
+        {
+            ViewBag.Owners = new SelectList(UserService.GetOwners(), "Id", "FullName");
+            return View(business);
+        }
+
+        businessService.Add(business);
+        return RedirectToAction("Index");
+
     }
 
     public IActionResult Edit(int id)
@@ -69,7 +94,7 @@ public class BusinessController : Controller
         }
 
         businessService.Update(business);
-        return RedirectToAction(nameof(Details), new { id = business.Id });
+        return RedirectToAction("Details", new { id = business.Id });
     }
 
     [HttpPost]
@@ -77,7 +102,7 @@ public class BusinessController : Controller
     public IActionResult Delete(int id)
     {
         businessService.Delete(id);
-        return RedirectToAction(nameof(Index));
+        return RedirectToAction("Index");
     }
 
     [HttpPost]

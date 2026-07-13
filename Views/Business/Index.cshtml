@@ -102,7 +102,9 @@
                             </div>
                         }
 
-                        <a asp-action="Delete" asp-route-id="@business.Id" class="btn btn-outline-danger">Delete</a>
+                        <form asp-action="Delete" asp-route-id="@business.Id" method="post">
+                            <button type="submit" class="btn btn-outline-danger w-100">Delete</button>
+                        </form>
                     </div>
                 </div>
             </div>
