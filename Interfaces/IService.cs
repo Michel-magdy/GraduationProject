@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+
 namespace GraduationProject.Interfaces;
 
 public interface IService<T>
@@ -7,4 +9,7 @@ public interface IService<T>
     void Add(T entity);
     void Update(T entity);
     void Delete(int id);
+    IEnumerable<T> GetAll(params Expression<Func<T, object>>[] includes);
+
+    T? GetById(int id, params Expression<Func<T, object>>[] includes);
 }

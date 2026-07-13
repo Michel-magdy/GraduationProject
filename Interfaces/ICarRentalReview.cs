@@ -4,5 +4,7 @@ namespace GraduationProject.Interfaces;
 
 public interface ICarRentalReview : IService<CarRentalReview>
 {
-    List<CarRentalReview> GetReviews();
+    IEnumerable<CarRentalReview> GetCarReviews(int carId);
+
+    double GetAverageRating(int carId);
 }

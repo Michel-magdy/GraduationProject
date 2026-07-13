@@ -4,5 +4,7 @@ namespace GraduationProject.Interfaces;
 
 public interface ITourReview : IService<TourReview>
 {
-    List<TourReview> GetReviews();
+    IEnumerable<TourReview> GetTourReviews(int tourId);
+
+    double GetAverageRating(int tourId);
 }

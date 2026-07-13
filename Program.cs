@@ -28,7 +28,6 @@ builder.Services.AddScoped<ITourReview, TourReviewService>();
 builder.Services.AddScoped<ITourBooking, TourBookingService>();
 
 builder.Services.AddScoped<IRoom, RoomService>();
-builder.Services.AddScoped<IRole, RoleService>();
 builder.Services.AddScoped<ITable, TableService>();
 
 builder.Services.AddDbContext<Context>(

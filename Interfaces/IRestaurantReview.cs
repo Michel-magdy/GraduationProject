@@ -4,5 +4,7 @@ namespace GraduationProject.Interfaces;
 
 public interface IRestaurantReview : IService<RestaurantReview>
 {
-    List<RestaurantReview> GetReviews();
+    IEnumerable<RestaurantReview> GetRestaurantReviews(int restaurantId);
+
+    double GetAverageRating(int restaurantId);
 }

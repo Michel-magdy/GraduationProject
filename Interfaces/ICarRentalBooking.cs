@@ -4,5 +4,11 @@ namespace GraduationProject.Interfaces;
 
 public interface ICarRentalBooking : IService<CarRentalBooking>
 {
-    List<CarRentalBooking> GetCarRentalBookings();
+    IEnumerable<CarRentalBooking> GetBookingsByCar(int carId);
+
+    IEnumerable<CarRentalBooking> GetBookingsByUser(int userId);
+
+    void CancelBooking(int bookingId);
+
+    decimal CalculateTotalPrice(int carId, DateTime start, DateTime end);
 }

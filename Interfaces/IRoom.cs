@@ -4,5 +4,9 @@ namespace GraduationProject.Interfaces;
 
 public interface IRoom : IService<Room>
 {
-    List<Room> GetRooms();
+    IEnumerable<Room> GetRoomsByHotel(int hotelId);
+
+    IEnumerable<Room> GetAvailableRooms(int hotelId);
+
+    bool IsRoomAvailable(int roomId);
 }

@@ -4,5 +4,9 @@ namespace GraduationProject.Interfaces;
 
 public interface ITour : IService<Tour>
 {
-    List<Tour> GetTours();
+    IEnumerable<Tour> GetToursByBusiness(int businessId);
+
+    IEnumerable<Tour> GetUpcomingTours();
+
+    int GetRemainingSeats(int tourId);
 }

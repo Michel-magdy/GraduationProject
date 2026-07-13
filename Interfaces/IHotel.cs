@@ -4,5 +4,9 @@ namespace GraduationProject.Interfaces;
 
 public interface IHotel : IService<Hotel>
 {
-    List<Hotel> GetHotels();
+    IEnumerable<Hotel> GetHotelsByBusiness(int businessId);
+
+    Hotel? GetHotelWithRooms(int hotelId);
+
+    Hotel? GetHotelFullDetails(int hotelId);
 }

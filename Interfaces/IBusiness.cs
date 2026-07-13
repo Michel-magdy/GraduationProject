@@ -4,11 +4,19 @@ namespace GraduationProject.Interfaces;
 
 public interface IBusiness : IService<Business>
 {
-    List<Business> GetBusinessWithOwner();
-    List<Business> GetBusinessesForIndex();
-    Business? GetBusinessDetails(int id);
-    void UpdateBusiness(Business business);
-    void AddImage(int businessId, string imagePath);
-    void UpdateImage(int businessId, int imageId, string imagePath);
-    void DeleteImage(int businessId, int imageId);
+    IEnumerable<Business> GetPendingBusinesses();
+
+    IEnumerable<Business> GetApprovedBusinesses();
+
+    IEnumerable<Business> GetRejectedBusinesses();
+
+    IEnumerable<Business> GetBusinessesByOwner(int ownerId);
+
+    Business? GetBusinessDetails(int businessId);
+
+    void ApproveBusiness(int businessId);
+
+    void RejectBusiness(int businessId);
+
+    bool BusinessExists(string businessName);
 }

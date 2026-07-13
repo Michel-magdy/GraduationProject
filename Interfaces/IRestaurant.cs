@@ -4,5 +4,9 @@ namespace GraduationProject.Interfaces;
 
 public interface IRestaurant : IService<Restaurant>
 {
-    List<Restaurant> GetRestaurants();
+    IEnumerable<Restaurant> GetRestaurantsByBusiness(int businessId);
+
+    Restaurant? GetRestaurantWithTables(int restaurantId);
+
+    Restaurant? GetRestaurantFullDetails(int restaurantId);
 }

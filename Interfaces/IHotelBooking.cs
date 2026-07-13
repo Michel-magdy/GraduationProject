@@ -4,5 +4,13 @@ namespace GraduationProject.Interfaces;
 
 public interface IHotelBooking : IService<HotelBooking>
 {
-    List<HotelBooking> GetHotelBooking();
+    IEnumerable<HotelBooking> GetBookingsByUser(int userId);
+
+    IEnumerable<HotelBooking> GetBookingsByHotel(int hotelId);
+
+    void ConfirmBooking(int bookingId);
+
+    void CancelBooking(int bookingId);
+
+    decimal CalculateTotalPrice(int roomId, DateTime checkIn, DateTime checkOut);
 }

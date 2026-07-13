@@ -4,5 +4,7 @@ namespace GraduationProject.Interfaces;
 
 public interface ITable : IService<Table>
 {
-    List<Table> GetTables();
+    IEnumerable<Table> GetTablesByRestaurant(int restaurantId);
+
+    IEnumerable<Table> GetAvailableTables(int restaurantId);
 }
