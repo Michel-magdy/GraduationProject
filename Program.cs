@@ -10,18 +10,26 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUser, UserService>();
 builder.Services.AddScoped<IBusiness, BusinessService>();
-builder.Services.AddScoped<ICarRentalBooking, CarRentalBookingService>();
+
 builder.Services.AddScoped<ICarRental, CarRentalService>();
-builder.Services.AddScoped<IHotelBooking, HotelBookingService>();
+builder.Services.AddScoped<ICarRentalReview, CarRentalReviewService>();
+builder.Services.AddScoped<ICarRentalBooking, CarRentalBookingService>();
+
 builder.Services.AddScoped<IHotel, HotelService>();
-builder.Services.AddScoped<IRestaurantBooking, RestaurantBookingService>();
+builder.Services.AddScoped<IHotelReview, HotelReviewService>();
+builder.Services.AddScoped<IHotelBooking, HotelBookingService>();
+
 builder.Services.AddScoped<IRestaurant, RestaurantService>();
-builder.Services.AddScoped<IReview, ReviewService>();
+builder.Services.AddScoped<IRestaurantReview, RestaurantReviewService>();
+builder.Services.AddScoped<IRestaurantBooking, RestaurantBookingService>();
+
+builder.Services.AddScoped<ITour, TourService>();
+builder.Services.AddScoped<ITourReview, TourReviewService>();
+builder.Services.AddScoped<ITourBooking, TourBookingService>();
+
 builder.Services.AddScoped<IRoom, RoomService>();
 builder.Services.AddScoped<IRole, RoleService>();
 builder.Services.AddScoped<ITable, TableService>();
-builder.Services.AddScoped<ITourBooking, TourBookingService>();
-builder.Services.AddScoped<ITour, TourService>();
 
 builder.Services.AddDbContext<Context>(
     options => options.UseSqlServer(
