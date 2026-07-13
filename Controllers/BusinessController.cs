@@ -67,6 +67,27 @@ public class BusinessController : Controller
         return View(business);
     }
 
+
+    public IActionResult Approve(int id)
+    {
+        var business = businessService.GetById(id);
+
+        business.Status = BusinessStatus.Approved;
+
+        businessService.Update(business);
+        return RedirectToAction("Index");
+    }
+
+    public IActionResult Reject(int id)
+    {
+        var business = businessService.GetById(id);
+
+        business.Status = BusinessStatus.Rejected;
+
+        businessService.Update(business);
+        return RedirectToAction("Index");
+    }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Edit(int id, Business business)
