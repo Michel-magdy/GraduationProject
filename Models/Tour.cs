@@ -24,7 +24,7 @@ public class Tour : ISoftDelete
     [Required]
     public int BusinessId { get; set; }
     public Business? Business { get; set; }
-    public ICollection<Image> Images { get; set; } = new List<Image>();
-    public ICollection<TourReview> Reviews { get; set; } = new List<TourReview>();
-    public ICollection<TourBooking> TourBookings { get; set; } = new List<TourBooking>();
+    public List<Image> Images { get; set; } = new List<Image>();
+    public List<TourReview> Reviews { get; set; } = new List<TourReview>();
+    public List<TourBooking> TourBookings { get; set; } = new List<TourBooking>();
 }

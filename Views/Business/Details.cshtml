@@ -136,7 +136,7 @@
                     {
                         <li class="list-group-item d-flex justify-content-between">
                             <span>@hotel.Name</span>
-                            <a class="btn btn-sm btn-outline-primary">View</a>
+                            <a asp-controller="Hotel" asp-action="Details" asp-route-id="@hotel.Id" class="btn btn-sm btn-outline-primary">View</a>
                         </li>
                     }
 
@@ -160,7 +160,7 @@
                     {
                         <li class="list-group-item d-flex justify-content-between">
                             <span>@restaurant.Name</span>
-                            <a class="btn btn-sm btn-outline-primary">View</a>
+                            <a asp-controller="Restaurant" asp-action="Details" asp-route-id="@restaurant.Id" class="btn btn-sm btn-outline-primary">View</a>
                         </li>
                     }
 
@@ -220,8 +220,12 @@
 
         @if (Model.Status == BusinessStatus.Pending)
         {
-            <a asp-action="Approve" asp-route-id="@Model.Id" class="btn btn-success">Approve</a>
-            <a asp-action="Reject" asp-route-id="@Model.Id" class="btn btn-warning">Reject</a>
+            <form asp-action="Approve" asp-route-id="@Model.Id" method="post" class="d-inline">
+                <button type="submit" class="btn btn-success">Approve</button>
+            </form>
+            <form asp-action="Reject" asp-route-id="@Model.Id" method="post" class="d-inline">
+                <button type="submit" class="btn btn-warning">Reject</button>
+            </form>
         }
 
 

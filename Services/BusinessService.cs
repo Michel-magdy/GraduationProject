@@ -37,7 +37,9 @@ public class BusinessService : GenericService<Business>, IBusiness
 
     public void UpdateBusiness(Business business)
     {
-        var existingBusiness = context.Businesses.Find(business.Id);
+        var existingBusiness = context.Businesses
+            .Include(b => b.Images)
+            .FirstOrDefault(b => b.Id == business.Id);
 
         if (existingBusiness == null)
         {
@@ -48,6 +50,48 @@ public class BusinessService : GenericService<Business>, IBusiness
         existingBusiness.Address = business.Address;
         existingBusiness.Status = business.Status;
         existingBusiness.Description = business.Description;
+
+        // Filter out submitted images with empty paths
+        var submittedImages = business.Images
+            .Where(i => !string.IsNullOrWhiteSpace(i.ImagePath))
+            .ToList();
+
+        // Delete images that were removed in the form
+        var submittedImageIds = submittedImages
+            .Where(i => i.Id != 0)
+            .Select(i => i.Id)
+            .ToHashSet();
+
+        var imagesToRemove = existingBusiness.Images
+            .Where(i => !submittedImageIds.Contains(i.Id))
+            .ToList();
+
+        foreach (var imageToRemove in imagesToRemove)
+        {
+            context.Images.Remove(imageToRemove);
+        }
+
+        // Update existing images
+        foreach (var existingImage in existingBusiness.Images)
+        {
+            var editedImage = submittedImages
+                .FirstOrDefault(i => i.Id == existingImage.Id);
+
+            if (editedImage != null)
+            {
+                existingImage.ImagePath = editedImage.ImagePath.Trim();
+            }
+        }
+
+        // Add new images (Id == 0 means they were added in the form)
+        foreach (var newImage in submittedImages.Where(i => i.Id == 0))
+        {
+            existingBusiness.Images.Add(new Image
+            {
+                BusinessId = existingBusiness.Id,
+                ImagePath = newImage.ImagePath.Trim()
+            });
+        }
 
         context.SaveChanges();
     }

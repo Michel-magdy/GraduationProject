@@ -21,7 +21,7 @@ public class CarRental : ISoftDelete
     public int BusinessId { get; set; }
     public Business? Business { get; set; }
 
-    public ICollection<Image> Images { get; set; } = new List<Image>();
-    public ICollection<CarRentalReview> Reviews { get; set; } = new List<CarRentalReview>();
-    public ICollection<CarRentalBooking> CarRentalBookings { get; set; } = new List<CarRentalBooking>();
+    public List<Image> Images { get; set; } = new List<Image>();
+    public List<CarRentalReview> Reviews { get; set; } = new List<CarRentalReview>();
+    public List<CarRentalBooking> CarRentalBookings { get; set; } = new List<CarRentalBooking>();
 }

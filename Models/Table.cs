@@ -15,7 +15,7 @@ public class Table
     public int RestaurantId { get; set; }
     public Restaurant? Restaurant { get; set; }
 
-    public ICollection<RestaurantBooking> RestaurantBookings { get; set; } = new List<RestaurantBooking>();
+    public List<RestaurantBooking> RestaurantBookings { get; set; } = new List<RestaurantBooking>();
 }
 
 public enum TableStatus

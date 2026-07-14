@@ -1,17 +1,16 @@
 @using GraduationProject.Models
-@model Business
-
+@model Hotel
 
 @{
-    ViewData["Title"] = "Edit Business";
+    ViewData["Title"] = "Edit Hotel";
 }
 
 <div class="container py-4">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="fw-bold">Edit Business</h2>
-            <p class="text-muted">Update business information and manage images.</p>
+            <h2 class="fw-bold">Edit Hotel</h2>
+            <p class="text-muted">Update hotel information and manage images.</p>
         </div>
 
         <a asp-action="Index" class="btn btn-outline-secondary rounded-pill">
@@ -22,7 +21,8 @@
     <form asp-action="Edit" method="post">
 
         <input asp-for="Id" type="hidden" />
-        <input asp-for="OwnerId" type="hidden" />
+        <input asp-for="BusinessId" type="hidden" />
+
         <div class="row g-4">
 
             <div class="col-lg-8">
@@ -30,28 +30,21 @@
                 <div class="card border-0 shadow rounded-4">
 
                     <div class="card-header bg-white border-0">
-                        <h4 class="fw-bold mb-0">Business Information</h4>
+                        <h4 class="fw-bold mb-0">Hotel Information</h4>
                     </div>
 
                     <div class="card-body">
 
                         <div class="mb-3">
-                            <label asp-for="BusinessName" class="form-label"></label>
-                            <input asp-for="BusinessName" class="form-control rounded-3" />
-                            <span asp-validation-for="BusinessName" class="text-danger"></span>
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" class="form-control rounded-3" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="Address" class="form-label"></label>
-                            <input asp-for="Address" class="form-control rounded-3" />
-                            <span asp-validation-for="Address" class="text-danger"></span>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="Status" class="form-label"></label>
-                            <select asp-for="Status" asp-items="Html.GetEnumSelectList<BusinessStatus>()"
-                                    class="form-select rounded-3">
-                            </select>
+                            <label asp-for="Location" class="form-label"></label>
+                            <input asp-for="Location" class="form-control rounded-3" />
+                            <span asp-validation-for="Location" class="text-danger"></span>
                         </div>
 
                         <div class="mb-3">
@@ -71,7 +64,7 @@
                 <div class="card border-0 shadow rounded-4">
 
                     <div class="card-header bg-white border-0">
-                        <h5 class="fw-bold">Business Images</h5>
+                        <h5 class="fw-bold">Hotel Images</h5>
                     </div>
 
                     <div class="card-body">
@@ -81,19 +74,19 @@
                             {
                                 @for (int i = 0; i < Model.Images.Count; i++)
                                 {
-                                    <div class="image-item border rounded p-3 mb-3">
+                                    <div class="image-item mb-3 border rounded p-3">
 
                                         <input name="Images[@i].Id" type="hidden" value="@Model.Images[i].Id" />
-                                        <input name="Images[@i].BusinessId" type="hidden" value="@Model.Id" />
+                                        <input name="Images[@i].HotelId" type="hidden" value="@Model.Id" />
 
                                         <label class="form-label">Image URL</label>
 
                                         <input name="Images[@i].ImagePath" class="form-control mb-2" value="@Model.Images[i].ImagePath" />
 
-                                        <img src="@Model.Images[i].ImagePath" class="img-thumbnail" style="max-height:150px;" />
+                                        <img src="@Model.Images[i].ImagePath" class="img-fluid rounded-3" style="max-height:150px;" />
 
-                                        <button type="button" class="btn btn-danger mt-2 remove-image">
-                                            Remove
+                                        <button type="button" class="btn btn-outline-danger btn-sm w-100 mt-2 remove-image">
+                                            <i class="bi bi-trash"></i> Remove
                                         </button>
                                     </div>
                                 }
@@ -155,10 +148,10 @@
 
     .card {
         border-radius: 22px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, .08) !important;
     }
 
     .form-control,
-    .form-select,
     .btn {
         border-radius: 14px;
     }
@@ -168,10 +161,6 @@
         height: 170px;
         object-fit: cover;
         box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
-    }
-
-    .card {
-        box-shadow: 0 10px 25px rgba(0, 0, 0, .08) !important;
     }
 </style>
 
@@ -189,7 +178,6 @@
             });
         });
 
-        // Show/hide no-images message
         var noImagesMsg = container.querySelector('.no-images-msg');
         if (items.length === 0 && !noImagesMsg) {
             var msg = document.createElement('div');
@@ -218,21 +206,20 @@
 
         var container = document.getElementById('imageContainer');
 
-        // Remove "no images" message if present
         var noImagesMsg = container.querySelector('.no-images-msg');
         if (noImagesMsg) noImagesMsg.remove();
 
         var index = container.querySelectorAll('.image-item').length;
 
         var div = document.createElement('div');
-        div.className = 'image-item border rounded p-3 mb-3';
+        div.className = 'image-item mb-3 border rounded p-3';
         div.innerHTML =
             '<input name="Images[' + index + '].Id" type="hidden" value="0" />' +
-            '<input name="Images[' + index + '].BusinessId" type="hidden" value="@Model.Id" />' +
+            '<input name="Images[' + index + '].HotelId" type="hidden" value="@Model.Id" />' +
             '<label class="form-label">Image URL</label>' +
             '<input name="Images[' + index + '].ImagePath" class="form-control mb-2" value="' + url.replace(/"/g, '&quot;') + '" />' +
-            '<img src="' + url.replace(/"/g, '&quot;') + '" class="img-thumbnail" style="max-height:150px;" />' +
-            '<button type="button" class="btn btn-danger mt-2 remove-image">Remove</button>';
+            '<img src="' + url.replace(/"/g, '&quot;') + '" class="img-fluid rounded-3" style="max-height:150px;" />' +
+            '<button type="button" class="btn btn-outline-danger btn-sm w-100 mt-2 remove-image"><i class="bi bi-trash"></i> Remove</button>';
 
         container.appendChild(div);
         urlInput.value = '';

@@ -18,8 +18,8 @@ public class Restaurant : ISoftDelete
     [Required]
     public int BusinessId { get; set; }
     public Business? Business { get; set; }
-    public ICollection<Image> Images { get; set; } = new List<Image>();
-    public ICollection<RestaurantReview> Reviews { get; set; } = new List<RestaurantReview>();
+    public List<Image> Images { get; set; } = new List<Image>();
+    public List<RestaurantReview> Reviews { get; set; } = new List<RestaurantReview>();
 
-    public ICollection<Table> Tables { get; set; } = new List<Table>();
+    public List<Table> Tables { get; set; } = new List<Table>();
 }

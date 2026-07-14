@@ -42,7 +42,7 @@ public class BusinessController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Create(Business business)
+    public IActionResult Create(Business business, List<string> ImageUrls)
     {
         if (!ModelState.IsValid)
         {
@@ -51,8 +51,19 @@ public class BusinessController : Controller
         }
 
         businessService.Add(business);
-        return RedirectToAction("Index");
 
+        if (ImageUrls != null)
+        {
+            foreach (var url in ImageUrls)
+            {
+                if (!string.IsNullOrWhiteSpace(url))
+                {
+                    businessService.AddImage(business.Id, url);
+                }
+            }
+        }
+
+        return RedirectToAction("Index");
     }
 
     public IActionResult Edit(int id)
@@ -67,35 +78,28 @@ public class BusinessController : Controller
         return View(business);
     }
 
-
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult Edit(Business business)
     {
         if (!ModelState.IsValid)
         {
-            var existingBusiness = businessService.GetBusinessDetails(business.Id);
-
-            if (existingBusiness == null)
-            {
-                return NotFound();
-            }
-
-            existingBusiness.BusinessName = business.BusinessName;
-            existingBusiness.Address = business.Address;
-            existingBusiness.Status = business.Status;
-            existingBusiness.Description = business.Description;
-
-            return View(existingBusiness);
+            return View(business);
         }
 
         businessService.UpdateBusiness(business);
-        return RedirectToAction("Details", new { id = business.Id });
+
+        return RedirectToAction(nameof(Details), new { id = business.Id });
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Approve(int id)
     {
         var business = businessService.GetById(id);
+
+        if (business == null)
+            return NotFound();
 
         business.Status = BusinessStatus.Approved;
 
@@ -103,9 +107,14 @@ public class BusinessController : Controller
         return RedirectToAction("Index");
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Reject(int id)
     {
         var business = businessService.GetById(id);
+
+        if (business == null)
+            return NotFound();
 
         business.Status = BusinessStatus.Rejected;
 

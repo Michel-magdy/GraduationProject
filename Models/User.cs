@@ -21,20 +21,20 @@ public class User : ISoftDelete
     public int RoleId { get; set; }
     public Role? Role { get; set; }
 
-    public ICollection<Business> Businesses { get; set; } = new List<Business>();
-    public ICollection<HotelBooking> HotelBookings { get; set; } = new List<HotelBooking>();
-    public ICollection<RestaurantBooking> RestaurantBookings { get; set; } = new List<RestaurantBooking>();
-    public ICollection<CarRentalBooking> CarRentalBookings { get; set; } = new List<CarRentalBooking>();
-    public ICollection<TourBooking> TourBookings { get; set; } = new List<TourBooking>();
-    public ICollection<HotelReview> HotelReviews { get; set; }
+    public List<Business> Businesses { get; set; } = new List<Business>();
+    public List<HotelBooking> HotelBookings { get; set; } = new List<HotelBooking>();
+    public List<RestaurantBooking> RestaurantBookings { get; set; } = new List<RestaurantBooking>();
+    public List<CarRentalBooking> CarRentalBookings { get; set; } = new List<CarRentalBooking>();
+    public List<TourBooking> TourBookings { get; set; } = new List<TourBooking>();
+    public List<HotelReview> HotelReviews { get; set; }
         = new List<HotelReview>();
 
-    public ICollection<RestaurantReview> RestaurantReviews { get; set; }
+    public List<RestaurantReview> RestaurantReviews { get; set; }
         = new List<RestaurantReview>();
 
-    public ICollection<TourReview> TourReviews { get; set; }
+    public List<TourReview> TourReviews { get; set; }
         = new List<TourReview>();
 
-    public ICollection<CarRentalReview> CarRentalReviews { get; set; }
+    public List<CarRentalReview> CarRentalReviews { get; set; }
         = new List<CarRentalReview>();
 }

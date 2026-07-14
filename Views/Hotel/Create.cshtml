@@ -1,0 +1,107 @@
+@model Hotel
+@{
+    ViewData["Title"] = "Add Hotel";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">Add New Hotel</h2>
+            <p class="text-muted">Create a hotel for <strong>@ViewBag.BusinessName</strong>.</p>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-secondary rounded-pill">
+            <i class="bi bi-arrow-left"></i> Back
+        </a>
+    </div>
+
+    <form asp-action="Create" method="post">
+
+        <input asp-for="BusinessId" type="hidden" />
+
+        <div class="card border-0 shadow rounded-4">
+            <div class="card-body p-4">
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" class="form-control rounded-3" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Location" class="form-label"></label>
+                        <input asp-for="Location" class="form-control rounded-3" />
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label"></label>
+                    <textarea asp-for="Description" rows="6" class="form-control rounded-3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <h5 class="mt-4 mb-3">Hotel Images</h5>
+
+                <div id="images">
+                    <div class="input-group mb-3">
+                        <input type="text" name="ImageUrls" class="form-control"
+                               placeholder="https://example.com/image.jpg" />
+                        <button class="btn btn-outline-primary addImage" type="button">
+                            <i class="bi bi-plus-circle"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+                    <button class="btn btn-primary">
+                        <i class="bi bi-check-circle"></i> Add Hotel
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<style>
+    body {
+        background: #f8fafc
+    }
+
+    .card {
+        border-radius: 22px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, .08) !important
+    }
+
+    .form-control,
+    .btn {
+        border-radius: 14px
+    }
+
+    .btn-primary {
+        background: #2563eb;
+        border-color: #2563eb
+    }
+</style>
+
+<script>
+    document.addEventListener('click', function (e) {
+        if (e.target.closest('.addImage')) {
+            var c = document.getElementById('images');
+            var d = document.createElement('div');
+            d.className = 'input-group mb-3';
+            d.innerHTML = '<input type="text" name="ImageUrls" class="form-control" placeholder="https://example.com/image.jpg"/><button type="button" class="btn btn-outline-danger removeImage"><i class="bi bi-trash"></i></button>';
+            c.appendChild(d);
+        }
+        if (e.target.closest('.removeImage')) {
+            e.target.closest('.input-group').remove();
+        }
+    });
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

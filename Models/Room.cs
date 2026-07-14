@@ -22,7 +22,7 @@ public class Room
     public int HotelId { get; set; }
     public Hotel? Hotel { get; set; }
 
-    public ICollection<HotelBooking> HotelBookings { get; set; } = new List<HotelBooking>();
+    public List<HotelBooking> HotelBookings { get; set; } = new List<HotelBooking>();
 }
 
 public enum RoomStatus

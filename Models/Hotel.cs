@@ -17,8 +17,8 @@ public class Hotel : ISoftDelete
 
     public int BusinessId { get; set; }
     public Business? Business { get; set; }
-    public ICollection<Image> Images { get; set; } = new List<Image>();
+    public List<Image> Images { get; set; } = new List<Image>();
 
-    public ICollection<HotelReview> Reviews { get; set; } = new List<HotelReview>();
-    public ICollection<Room> Rooms { get; set; } = new List<Room>();
+    public List<HotelReview> Reviews { get; set; } = new List<HotelReview>();
+    public List<Room> Rooms { get; set; } = new List<Room>();
 }

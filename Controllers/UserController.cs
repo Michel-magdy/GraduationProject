@@ -9,10 +9,12 @@ public class UserController : Controller
 {
 
     IUser userService;
+    Context context;
 
-    public UserController(IUser userService)
+    public UserController(IUser userService, Context context)
     {
         this.userService = userService;
+        this.context = context;
     }
 
     public IActionResult Index()
@@ -20,34 +22,34 @@ public class UserController : Controller
         return View(userService.GetAllUsers());
     }
 
-    // public IActionResult Add()
-    // {
-    //     ViewBag.Roles = new SelectList(roleService.GetAll(), "Id", "Name");
+    public IActionResult Add()
+    {
+        ViewBag.Roles = new SelectList(context.Roles.ToList(), "Id", "Name");
 
-    //     return View(new User());
-    // }
+        return View(new User());
+    }
 
-    // [HttpPost]
-    // [ValidateAntiForgeryToken]
-    // public IActionResult Add(User user)
-    // {
-    //     if (!ModelState.IsValid)
-    //     {
-    //         ViewBag.Roles = new SelectList(roleService.GetAll(), "Id", "Name");
-    //         return View(user);
-    //     }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Add(User user)
+    {
+        if (!ModelState.IsValid)
+        {
+            ViewBag.Roles = new SelectList(context.Roles.ToList(), "Id", "Name");
+            return View(user);
+        }
 
-    //     userService.Add(user);
-    //     return RedirectToAction("Index");
-    // }
+        userService.Add(user);
+        return RedirectToAction("Index");
+    }
 
 
-    // [HttpPost]
-    // [ValidateAntiForgeryToken]
-    // public IActionResult Delete(int id)
-    // {
-    //     userService.Delete(id);
-    //     return RedirectToAction(nameof(Index));
-    // }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        userService.Delete(id);
+        return RedirectToAction(nameof(Index));
+    }
 
 }

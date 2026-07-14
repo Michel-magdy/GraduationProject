@@ -60,7 +60,7 @@
         {
             <div class="col-lg-4 col-md-6">
                 <div class="card business-card border-0 h-100">
-                    <img class="business-img"
+                    <img class="business-img w-100"
                          src="@(business.Images.FirstOrDefault()?.ImagePath ?? "/images/no-image.png")" />
 
                     <div class="card-body">
@@ -96,9 +96,12 @@
                         @if (business.Status == BusinessStatus.Pending)
                         {
                             <div class="d-flex gap-2">
-                                <a asp-action="Approve" asp-route-id="@business.Id"
-                                   class="btn btn-success flex-fill">Approve</a>
-                                <a asp-action="Reject" asp-route-id="@business.Id" class="btn btn-warning flex-fill">Reject</a>
+                                <form asp-action="Approve" asp-route-id="@business.Id" method="post" class="flex-fill">
+                                    <button type="submit" class="btn btn-success w-100">Approve</button>
+                                </form>
+                                <form asp-action="Reject" asp-route-id="@business.Id" method="post" class="flex-fill">
+                                    <button type="submit" class="btn btn-warning w-100">Reject</button>
+                                </form>
                             </div>
                         }
 
