@@ -1,68 +1,132 @@
-@model IEnumerable<Restaurant>
+@model List<Restaurant>
 
 @{
-    ViewData["Title"] = "Restaurants";
+    ViewData["Title"] = "Hotels";
+    var businessId = ViewBag.BusinessId as int?;
+    var isBusinessScoped = businessId.HasValue;
 }
 
-<section class="management-page position-relative overflow-hidden">
-    <div class="blur-circle bg-teal-gradient position-absolute bottom-0 end-0 translate-middle"></div>
-    <div class="container position-relative z-index-2">
-        <div class="management-hero d-flex flex-column flex-lg-row justify-content-between align-items-lg-end">
-            <div>
-                <span class="management-eyebrow">Dining</span>
-                <h1 class="management-title">Restaurants</h1>
-                <p class="management-subtitle">Manage restaurant listings and their available table inventory.</p>
-            </div>
-            <a asp-controller="Restaurant" asp-action="Add" class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">
-                <i class="bi bi-plus-lg me-1"></i>Add Restaurant
-            </a>
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">@ViewBag.BusinessName Hotels</h2>
+            <p class="text-muted">Manage hotels belonging to this business.</p>
         </div>
 
-        <div class="management-card">
-            @if (Model?.Any() == true)
+        <div>
+            @if (isBusinessScoped)
             {
-                <div class="table-responsive">
-                    <table class="table management-table align-middle">
-                        <thead>
-                            <tr>
-                                <th>Restaurant</th>
-                                <th>Business</th>
-                                <th>Location</th>
-                                <th>Tables</th>
-                                <th class="text-end">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var restaurant in Model)
-                            {
-                                <tr>
-                                    <td data-label="Restaurant"><div class="entity-name">@restaurant.Name</div></td>
-                                    <td data-label="Business">@(restaurant.Business?.BusinessName ?? $"Business #{restaurant.BusinessId}")</td>
-                                    <td data-label="Location">@restaurant.Location</td>
-                                    <td data-label="Tables">@restaurant.Tables.Count</td>
-                                    <td data-label="Actions" class="text-lg-end">
-                                        <div class="action-group">
-                                            <a asp-controller="Restaurant" asp-action="Details" asp-route-id="@restaurant.Id" class="btn btn-outline-primary btn-sm rounded-custom">Details</a>
-                                            <a asp-controller="Restaurant" asp-action="Edit" asp-route-id="@restaurant.Id" class="btn btn-primary btn-sm rounded-custom">Edit</a>
-                                            <form asp-controller="Restaurant" asp-action="Delete" asp-route-id="@restaurant.Id" method="post" class="d-inline">
-                                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-custom">Delete</button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
-            else
-            {
-                <div class="empty-state">
-                    <i class="bi bi-cup-hot-fill"></i>
-                    <h2 class="h5 fw-bold mt-3 mb-2">No restaurants yet</h2>
-                    <p class="text-muted mb-0">Restaurant records will show here after they are loaded.</p>
-                </div>
+                <a asp-controller="Business" asp-action="Details" asp-route-id="@businessId"
+                   class="btn btn-outline-secondary rounded-pill me-2">
+                    <i class="bi bi-arrow-left"></i> Business
+                </a>
+
+                <a asp-action="Create" asp-route-businessId="@businessId" class="btn btn-primary rounded-pill">
+                    <i class="bi bi-plus-circle"></i> Add Hotel
+                </a>
             }
         </div>
     </div>
-</section>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="stat-card">
+                <h6>Total Hotels</h6>
+                <h2>@Model.Count()</h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <h6>Total Rooms</h6>
+                <h2>@Model.Sum(x => x.Tables.Count)</h2>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card">
+                <h6>Total Images</h6>
+                <h2>@Model.Sum(x => x.Images.Count)</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="input-group mb-4">
+        <input class="form-control rounded-start-pill" placeholder="Search hotel..." />
+        <button class="btn btn-primary rounded-end-pill"><i class="bi bi-search"></i></button>
+    </div>
+
+    <div class="row g-4">
+        @foreach (var hotel in Model)
+        {
+            <div class="col-lg-4 col-md-6">
+                <div class="card hotel-card border-0 h-100">
+
+                    <img src="@(hotel.Images.FirstOrDefault()?.ImagePath ?? "/images/no-image.png")" class="hotel-image" />
+
+                    <div class="card-body">
+                        <h4>@hotel.Name</h4>
+                        <p class="text-muted"><i class="bi bi-geo-alt-fill"></i> @hotel.Location</p>
+                        <p>@hotel.Description</p>
+
+                        <div class="row text-center mt-3">
+                            <div class="col"><strong>@hotel.Tables.Count</strong><br /><small>Rooms</small></div>
+                            <div class="col"><strong>@hotel.Images.Count</strong><br /><small>Images</small></div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-white border-0 d-grid gap-2">
+                        <a asp-action="Details" asp-route-id="@hotel.Id" class="btn btn-outline-primary">Details</a>
+                        <a asp-controller="Room" asp-action="Index" asp-route-hotelId="@hotel.Id"
+                           class="btn btn-primary">Manage Rooms</a>
+                        <div class="d-flex gap-2">
+                            <a asp-action="Edit" asp-route-id="@hotel.Id" class="btn btn-outline-warning flex-fill">Edit</a>
+
+                            
+                            <form asp-action="Delete" asp-route-id="@hotel.Id" method="post">
+                                <button type="submit" class="btn btn-outline-danger w-100">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+<style>
+    body {
+        background: #f8fafc
+    }
+
+    .stat-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 24px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, .08)
+    }
+
+    .hotel-card {
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+        transition: .3s
+    }
+
+    .hotel-card:hover {
+        transform: translateY(-6px)
+    }
+
+    .hotel-image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover
+    }
+
+    .btn-primary {
+        background: #2563eb;
+        border-color: #2563eb
+    }
+</style>
