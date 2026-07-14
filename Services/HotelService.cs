@@ -97,12 +97,22 @@ public class HotelService : GenericService<Hotel>, IHotel
 
     public IEnumerable<Hotel> GetHotelsByBusiness(int businessId)
     {
-        throw new NotImplementedException();
+        return context.Hotels
+            .Where(hotel => !hotel.IsDeleted && hotel.BusinessId == businessId)
+            .Include(hotel => hotel.Business)
+            .Include(hotel => hotel.Images)
+            .Include(hotel => hotel.Reviews)
+            .Include(hotel => hotel.Rooms)
+            .AsSplitQuery()
+            .ToList();
     }
 
     public Hotel? GetHotelWithRooms(int hotelId)
     {
-        throw new NotImplementedException();
+        return context.Hotels
+            .Where(hotel => !hotel.IsDeleted)
+            .Include(hotel => hotel.Rooms)
+            .FirstOrDefault(hotel => hotel.Id == hotelId);
     }
 
     public void AddImage(int hotelId, string imagePath)

@@ -21,8 +21,23 @@ public class HotelController : Controller
     }
 
 
-    public IActionResult Index()
+    public IActionResult Index(int? businessId)
     {
+        if (businessId.HasValue)
+        {
+            var business = BusinessService.GetById(businessId.Value);
+
+            if (business == null)
+                return NotFound();
+
+            ViewBag.BusinessId = business.Id;
+            ViewBag.BusinessName = business.BusinessName;
+
+            var businessHotels = HotelService.GetHotelsByBusiness(business.Id).ToList();
+            return View(businessHotels);
+        }
+
+        ViewBag.BusinessName = "All";
         var hotels = HotelService.GetHotels();
         return View(hotels);
     }
@@ -75,7 +90,7 @@ public class HotelController : Controller
             }
         }
 
-        return RedirectToAction(nameof(Details), new { id = hotel.Id });
+        return RedirectToAction(nameof(Index), new { businessId = hotel.BusinessId });
     }
 
     [HttpPost]

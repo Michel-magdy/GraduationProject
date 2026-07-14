@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Hotels";
+    var businessId = ViewBag.BusinessId as int?;
+    var isBusinessScoped = businessId.HasValue;
 }
 
 <div class="container py-4">
@@ -13,14 +15,17 @@
         </div>
 
         <div>
-            <a asp-controller="Business" asp-action="Details" asp-route-id="@ViewBag.BusinessId"
-               class="btn btn-outline-secondary rounded-pill me-2">
-                <i class="bi bi-arrow-left"></i> Business
-            </a>
+            @if (isBusinessScoped)
+            {
+                <a asp-controller="Business" asp-action="Details" asp-route-id="@businessId"
+                   class="btn btn-outline-secondary rounded-pill me-2">
+                    <i class="bi bi-arrow-left"></i> Business
+                </a>
 
-            <a asp-action="Create" asp-route-businessId="@ViewBag.BusinessId" class="btn btn-primary rounded-pill">
-                <i class="bi bi-plus-circle"></i> Add Hotel
-            </a>
+                <a asp-action="Create" asp-route-businessId="@businessId" class="btn btn-primary rounded-pill">
+                    <i class="bi bi-plus-circle"></i> Add Hotel
+                </a>
+            }
         </div>
     </div>
 
