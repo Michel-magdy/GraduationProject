@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Car Rentals";
+    var userRole = Context.Session.GetString("UserRole");
+    var isManager = userRole == "Admin" || userRole == "Owner";
 }
 
 <section class="management-page position-relative overflow-hidden">
@@ -11,13 +13,16 @@
             <div>
                 <span class="management-eyebrow">Mobility</span>
                 <h1 class="management-title">Car Rentals</h1>
-                <p class="management-subtitle">Track rental vehicles, daily prices, availability, and booking activity.
+                <p class="management-subtitle">@(isManager ? "Track rental vehicles, daily prices, availability, and booking activity." : "Browse rental vehicles, daily prices, and availability.")
                 </p>
             </div>
-            <a asp-controller="CarRental" asp-action="Add"
-               class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">
-                <i class="bi bi-plus-lg me-1"></i>Add Car
-            </a>
+            @if (isManager)
+            {
+                <a asp-controller="CarRental" asp-action="Add"
+                   class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">
+                    <i class="bi bi-plus-lg me-1"></i>Add Car
+                </a>
+            }
         </div>
 
         <div class="management-card">
@@ -32,7 +37,7 @@
                                 <th>Price</th>
                                 <th>Status</th>
                                 <th>Bookings</th>
-                                <th class="text-end">Actions</th>
+                                <th class="text-end">@(isManager ? "Actions" : "")</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,13 +62,16 @@
                                         <div class="action-group">
                                             <a asp-controller="CarRental" asp-action="Details" asp-route-id="@car.Id"
                                                class="btn btn-outline-primary btn-sm rounded-custom">Details</a>
-                                            <a asp-controller="CarRental" asp-action="Edit" asp-route-id="@car.Id"
-                                               class="btn btn-primary btn-sm rounded-custom">Edit</a>
-                                            <form asp-controller="CarRental" asp-action="Delete" asp-route-id="@car.Id"
-                                                  method="post" class="d-inline">
-                                                <button type="submit"
-                                                        class="btn btn-outline-danger btn-sm rounded-custom">Delete</button>
-                                            </form>
+                                            @if (isManager)
+                                            {
+                                                <a asp-controller="CarRental" asp-action="Edit" asp-route-id="@car.Id"
+                                                   class="btn btn-primary btn-sm rounded-custom">Edit</a>
+                                                <form asp-controller="CarRental" asp-action="Delete" asp-route-id="@car.Id"
+                                                      method="post" class="d-inline">
+                                                    <button type="submit"
+                                                            class="btn btn-outline-danger btn-sm rounded-custom">Delete</button>
+                                                </form>
+                                            }
                                         </div>
                                     </td>
                                 </tr>

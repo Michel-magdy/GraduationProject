@@ -1,3 +1,4 @@
+using GraduationProject.Filters;
 using GraduationProject.Interfaces;
 using GraduationProject.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -5,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GraduationProject.Controllers;
 
+[TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin" } })]
 public class UserController : Controller
 {
 

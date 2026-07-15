@@ -590,3 +590,16 @@ Abstract Geometry & Glassmorphism
         width: 100%;
     }
 }
+
+/* User Avatar (Navbar) */
+.user-avatar-sm {
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 14px;
+}

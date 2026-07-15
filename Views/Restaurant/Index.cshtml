@@ -4,6 +4,8 @@
     ViewData["Title"] = "Restaurants";
     var businessId = ViewBag.BusinessId as int?;
     var isBusinessScoped = businessId.HasValue;
+    var userRole = Context.Session.GetString("UserRole");
+    var isManager = userRole == "Admin" || userRole == "Owner";
 }
 
 <div class="container py-4">
@@ -11,7 +13,7 @@
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h2 class="fw-bold">@ViewBag.BusinessName Restaurants</h2>
-            <p class="text-muted">Manage Restaurants belonging to this business.</p>
+            <p class="text-muted">@(isManager ? "Manage restaurants belonging to this business." : "Explore available restaurants.")</p>
         </div>
 
         <div>
@@ -22,9 +24,12 @@
                     <i class="bi bi-arrow-left"></i> Business
                 </a>
 
-                <a asp-action="Create" asp-route-businessId="@businessId" class="btn btn-primary rounded-pill">
-                    <i class="bi bi-plus-circle"></i> Add Restaurant
-                </a>
+                @if (isManager)
+                {
+                    <a asp-action="Create" asp-route-businessId="@businessId" class="btn btn-primary rounded-pill">
+                        <i class="bi bi-plus-circle"></i> Add Restaurant
+                    </a>
+                }
             }
         </div>
     </div>
@@ -77,17 +82,19 @@
 
                     <div class="card-footer bg-white border-0 d-grid gap-2">
                         <a asp-action="Details" asp-route-id="@Restaurant.Id" class="btn btn-outline-primary">Details</a>
-                        <a asp-controller="Table" asp-action="Index" asp-route-RestaurantId="@Restaurant.Id"
-                           class="btn btn-primary">Manage Tables</a>
-                        <div class="d-flex gap-2">
-                            <a asp-action="Edit" asp-route-id="@Restaurant.Id"
-                               class="btn btn-outline-warning flex-fill">Edit</a>
+                        @if (isManager)
+                        {
+                            <a asp-controller="Table" asp-action="Index" asp-route-RestaurantId="@Restaurant.Id"
+                               class="btn btn-primary">Manage Tables</a>
+                            <div class="d-flex gap-2">
+                                <a asp-action="Edit" asp-route-id="@Restaurant.Id"
+                                   class="btn btn-outline-warning flex-fill">Edit</a>
 
-                            
-                            <form asp-action="Delete" asp-route-id="@Restaurant.Id" method="post">
-                                <button type="submit" class="btn btn-outline-danger w-100">Delete</button>
-                            </form>
-                        </div>
+                                <form asp-action="Delete" asp-route-id="@Restaurant.Id" method="post">
+                                    <button type="submit" class="btn btn-outline-danger w-100">Delete</button>
+                                </form>
+                            </div>
+                        }
                     </div>
 
                 </div>

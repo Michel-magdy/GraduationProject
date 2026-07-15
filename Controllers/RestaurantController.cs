@@ -1,3 +1,4 @@
+using GraduationProject.Filters;
 using GraduationProject.Interfaces;
 using GraduationProject.Models;
 using GraduationProject.Services;
@@ -49,6 +50,7 @@ public class RestaurantController : Controller
 
         return View(Restaurant);
     }
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult Create(int businessId)
     {
         var business = BusinessService.GetById(businessId);
@@ -65,6 +67,7 @@ public class RestaurantController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult Create(Restaurant restaurant, List<string> ImageUrls)
     {
         if (!ModelState.IsValid)
@@ -91,6 +94,7 @@ public class RestaurantController : Controller
         return RedirectToAction(nameof(Index), new { businessId = restaurant.BusinessId });
     }
 
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult Edit(int id)
     {
         var restaurant = RestaurantService.GetRestaurantFullDetails(id);
@@ -103,6 +107,7 @@ public class RestaurantController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult Edit(Restaurant restaurant)
     {
         if (!ModelState.IsValid)
@@ -116,6 +121,7 @@ public class RestaurantController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult Delete(int id)
     {
         var restaurant = RestaurantService.GetById(id);
@@ -129,6 +135,7 @@ public class RestaurantController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult AddImage(int retstaurantId, string imagePath, string returnAction = nameof(Details))
     {
         RestaurantService.AddImage(retstaurantId, imagePath);
@@ -137,6 +144,7 @@ public class RestaurantController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult UpdateImage(int retstaurantId, int imageId, string imagePath)
     {
         RestaurantService.UpdateImage(retstaurantId, imageId, imagePath);
@@ -145,6 +153,7 @@ public class RestaurantController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult DeleteImage(int retstaurantId, int imageId, string returnAction = nameof(Details))
     {
         RestaurantService.DeleteImage(retstaurantId, imageId);

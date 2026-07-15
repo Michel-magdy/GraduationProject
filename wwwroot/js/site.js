@@ -3,7 +3,8 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     const bookingTabs = document.querySelectorAll("#bookingTab .nav-link");
-    const searchBtn = document.querySelector(".btn-primary.w-100");
+    const destinationInput = document.getElementById("destination");
+    const searchBtn = destinationInput?.closest("form")?.querySelector("button[type='button']");
 
     bookingTabs.forEach((tab) => {
         tab.addEventListener("click", (event) => {
@@ -20,7 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
     searchBtn.addEventListener("click", (event) => {
         event.preventDefault();
 
-        const destinationInput = document.getElementById("destination");
         const destination = destinationInput ? destinationInput.value.trim() : "";
         const originalText = searchBtn.innerHTML;
 

@@ -1,3 +1,4 @@
+using GraduationProject.Filters;
 using GraduationProject.Interfaces;
 using GraduationProject.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -52,6 +53,7 @@ public class HotelController : Controller
         return View(hotel);
     }
 
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult Create(int businessId)
     {
         var business = BusinessService.GetById(businessId);
@@ -67,6 +69,7 @@ public class HotelController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult Create(Hotel hotel, List<string> ImageUrls)
     {
         if (!ModelState.IsValid)
@@ -95,6 +98,7 @@ public class HotelController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult Delete(int id)
     {
         var hotel = HotelService.GetById(id);
@@ -106,6 +110,7 @@ public class HotelController : Controller
         return RedirectToAction("Index");
     }
 
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult Edit(int id)
     {
         var hotel = HotelService.GetHotelFullDetails(id);
@@ -119,6 +124,7 @@ public class HotelController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult Edit(Hotel hotel)
     {
         if (!ModelState.IsValid)
@@ -133,6 +139,7 @@ public class HotelController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult AddImage(int hotelId, string imagePath, string returnAction = nameof(Details))
     {
         HotelService.AddImage(hotelId, imagePath);
@@ -141,6 +148,7 @@ public class HotelController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult UpdateImage(int hotelId, int imageId, string imagePath)
     {
         HotelService.UpdateImage(hotelId, imageId, imagePath);
@@ -149,6 +157,7 @@ public class HotelController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
+    [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult DeleteImage(int hotelId, int imageId, string returnAction = nameof(Details))
     {
         HotelService.DeleteImage(hotelId, imageId);

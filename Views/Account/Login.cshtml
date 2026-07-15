@@ -1,0 +1,187 @@
+@model GraduationProject.ViewModels.LoginVM
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<section class="auth-section">
+    <div class="container">
+        <div class="row justify-content-center align-items-center min-vh-85">
+            <div class="col-lg-5 col-md-7">
+
+                <div class="auth-card">
+
+                    <!-- Logo -->
+                    <div class="text-center mb-4">
+                        <div class="auth-logo mx-auto">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+                        <h2 class="fw-bold mt-3 mb-1">Welcome Back</h2>
+                        <p class="text-muted">Sign in to your NexusTravel account</p>
+                    </div>
+
+                    <!-- Error Summary -->
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3" role="alert"></div>
+
+                    <form asp-action="Login" method="post">
+                        <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-semibold">
+                                <i class="bi bi-envelope me-1 text-primary"></i> Email Address
+                            </label>
+                            <input asp-for="Email" class="form-control auth-input" placeholder="you@example.com" />
+                            <span asp-validation-for="Email" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label fw-semibold">
+                                <i class="bi bi-lock me-1 text-primary"></i> Password
+                            </label>
+                            <div class="position-relative">
+                                <input asp-for="Password" type="password" class="form-control auth-input" 
+                                       placeholder="Enter your password" id="passwordInput" />
+                                <button type="button" class="btn btn-link position-absolute end-0 top-50 translate-middle-y text-muted pe-3"
+                                        onclick="togglePassword()" tabindex="-1" style="text-decoration: none;">
+                                    <i class="bi bi-eye" id="toggleIcon"></i>
+                                </button>
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger small"></span>
+                        </div>
+
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-primary w-100 auth-btn mt-3">
+                            <i class="bi bi-box-arrow-in-right me-2"></i> Sign In
+                        </button>
+
+                    </form>
+
+                    <!-- Divider -->
+                    <div class="auth-divider">
+                        <span>New to NexusTravel?</span>
+                    </div>
+
+                    <!-- Register Link -->
+                    <a asp-action="Register" class="btn btn-outline-primary w-100 auth-btn-outline">
+                        <i class="bi bi-person-plus me-2"></i> Create an Account
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .auth-section {
+        background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 50%, #dbeafe 100%);
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+
+    .min-vh-85 {
+        min-height: 85vh;
+    }
+
+    .auth-card {
+        background: white;
+        border-radius: 24px;
+        padding: 40px 36px;
+        box-shadow: 0 20px 60px rgba(15, 23, 42, .08), 0 4px 20px rgba(15, 23, 42, .04);
+        border: 1px solid rgba(226, 232, 240, .6);
+    }
+
+    .auth-logo {
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, #2563eb, #3b82f6);
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 28px;
+        box-shadow: 0 8px 24px rgba(37, 99, 235, .25);
+    }
+
+    .auth-input {
+        border-radius: 14px !important;
+        padding: 12px 16px !important;
+        border: 1.5px solid #e2e8f0;
+        font-size: .95rem;
+        transition: all .3s ease;
+        height: auto !important;
+    }
+
+    .auth-input:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 4px rgba(37, 99, 235, .1);
+    }
+
+    .auth-btn {
+        border-radius: 14px;
+        padding: 12px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all .3s ease;
+    }
+
+    .auth-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(37, 99, 235, .3);
+    }
+
+    .auth-btn-outline {
+        border-radius: 14px;
+        padding: 12px;
+        font-weight: 600;
+        font-size: .95rem;
+        border-width: 1.5px;
+    }
+
+    .auth-divider {
+        text-align: center;
+        margin: 24px 0;
+        position: relative;
+    }
+
+    .auth-divider::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #e2e8f0;
+    }
+
+    .auth-divider span {
+        background: white;
+        padding: 0 16px;
+        position: relative;
+        color: #64748b;
+        font-size: .88rem;
+        font-weight: 500;
+    }
+</style>
+
+<script>
+    function togglePassword() {
+        var input = document.getElementById('passwordInput');
+        var icon = document.getElementById('toggleIcon');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.className = 'bi bi-eye-slash';
+        } else {
+            input.type = 'password';
+            icon.className = 'bi bi-eye';
+        }
+    }
+</script>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,3 +1,4 @@
+using GraduationProject.Filters;
 using GraduationProject.Interfaces;
 using GraduationProject.Models;
 using GraduationProject.Services;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GraduationProject.Controllers;
 
+[TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
 public class BusinessController : Controller
 {
     private readonly IBusiness businessService;

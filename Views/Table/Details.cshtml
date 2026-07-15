@@ -1,0 +1,294 @@
+@model GraduationProject.Models.Table
+
+@{
+    ViewData["Title"] = "Table Details";
+    var userRole = Context.Session.GetString("UserRole");
+    var isManager = userRole == "Admin" || userRole == "Owner";
+}
+
+<div class="container py-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a asp-action="Index" asp-route-restaurantId="@Model.RestaurantId"
+           class="btn btn-outline-secondary rounded-pill">
+            <i class="bi bi-arrow-left"></i> Back to Tables
+        </a>
+
+        @if (isManager)
+        {
+            <div class="d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning rounded-pill">
+                    <i class="bi bi-pencil"></i> Edit
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger rounded-pill">
+                    <i class="bi bi-trash"></i> Delete
+                </a>
+            </div>
+        }
+    </div>
+
+    <!-- Table Info Card -->
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-4">
+
+        <div class="table-detail-header status-@Model.Status.ToString().ToLower()">
+            <i class="bi bi-grid-3x3-gap-fill"></i>
+            <h1 class="mt-2 mb-0">Table @Model.TableNumber</h1>
+            <div class="mt-2">
+                @switch (Model.Status)
+                {
+                    case TableStatus.Available:
+                        <span class="detail-status-badge available">
+                            <i class="bi bi-check-circle-fill"></i> Available
+                        </span>
+                        break;
+                    case TableStatus.Occupied:
+                        <span class="detail-status-badge occupied">
+                            <i class="bi bi-x-circle-fill"></i> Occupied
+                        </span>
+                        break;
+                    case TableStatus.Reserved:
+                        <span class="detail-status-badge reserved">
+                            <i class="bi bi-clock-fill"></i> Reserved
+                        </span>
+                        break;
+                }
+            </div>
+        </div>
+
+        <div class="card-body p-4">
+
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="detail-stat">
+                        <i class="bi bi-hash text-primary"></i>
+                        <span class="detail-stat-label">Table Number</span>
+                        <span class="detail-stat-value">@Model.TableNumber</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="detail-stat">
+                        <i class="bi bi-people-fill text-info"></i>
+                        <span class="detail-stat-label">Capacity</span>
+                        <span class="detail-stat-value">@Model.Capacity Seats</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="detail-stat">
+                        <i class="bi bi-shop text-success"></i>
+                        <span class="detail-stat-label">Restaurant</span>
+                        <span class="detail-stat-value">@(Model.Restaurant?.Name ?? "N/A")</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="detail-stat">
+                        <i class="bi bi-calendar-check text-warning"></i>
+                        <span class="detail-stat-label">Total Bookings</span>
+                        <span class="detail-stat-value">@Model.RestaurantBookings.Count</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    @if (isManager)
+    {
+        <!-- Quick Actions -->
+        <div class="card border-0 shadow rounded-4 mb-4">
+            <div class="card-header bg-white border-0 pt-3">
+                <h5 class="fw-bold mb-0">
+                    <i class="bi bi-lightning text-warning"></i> Quick Actions
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex gap-2 flex-wrap">
+                    <form asp-action="ToggleStatus" asp-route-id="@Model.Id" method="post">
+                        @if (Model.Status == TableStatus.Available)
+                        {
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-arrow-repeat"></i> Mark as Occupied
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-outline-success">
+                                <i class="bi bi-arrow-repeat"></i> Mark as Available
+                            </button>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Bookings History -->
+    <div class="card border-0 shadow rounded-4">
+
+        <div class="card-header bg-white border-0 pt-3">
+            <h5 class="fw-bold mb-0">
+                <i class="bi bi-clock-history text-primary"></i> Booking History
+            </h5>
+        </div>
+
+        <div class="card-body p-0">
+
+            @if (Model.RestaurantBookings.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0 align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Booking #</th>
+                                <th>Guest</th>
+                                <th>Reservation Time</th>
+                                <th>Guests</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var booking in Model.RestaurantBookings)
+                            {
+                                <tr>
+                                    <td><span class="fw-semibold">#@booking.Id</span></td>
+                                    <td>
+                                        <i class="bi bi-person-circle text-muted me-1"></i>
+                                        @(booking.User?.FullName ?? "Unknown")
+                                    </td>
+                                    <td>@booking.ReservationTime.ToString("MMM dd, yyyy hh:mm tt")</td>
+                                    <td>
+                                        <span class="badge bg-light text-dark">
+                                            <i class="bi bi-people"></i> @booking.Guests
+                                        </span>
+                                    </td>
+                                    <td>
+                                        @switch (booking.Status)
+                                        {
+                                            case BookingStatus.Pending:
+                                                <span class="badge bg-warning text-dark">Pending</span>
+                                                break;
+                                            case BookingStatus.Confirmed:
+                                                <span class="badge bg-success">Confirmed</span>
+                                                break;
+                                            case BookingStatus.Cancelled:
+                                                <span class="badge bg-danger">Cancelled</span>
+                                                break;
+                                            case BookingStatus.Completed:
+                                                <span class="badge bg-info">Completed</span>
+                                                break;
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5">
+                    <i class="bi bi-calendar-x text-muted" style="font-size: 3rem;"></i>
+                    <p class="text-muted mt-2 mb-0">No bookings yet for this table.</p>
+                </div>
+            }
+
+        </div>
+
+    </div>
+
+</div>
+
+<style>
+    body {
+        background: #f0f4f8;
+    }
+
+    .table-detail-header {
+        padding: 40px;
+        text-align: center;
+        color: white;
+        font-size: 60px;
+    }
+
+    .table-detail-header.status-available {
+        background: linear-gradient(135deg, #059669, #10b981);
+    }
+
+    .table-detail-header.status-occupied {
+        background: linear-gradient(135deg, #dc2626, #ef4444);
+    }
+
+    .table-detail-header.status-reserved {
+        background: linear-gradient(135deg, #d97706, #f59e0b);
+    }
+
+    .table-detail-header h1 {
+        font-weight: 800;
+        font-size: 2rem;
+    }
+
+    .detail-status-badge {
+        display: inline-block;
+        padding: 6px 18px;
+        border-radius: 20px;
+        font-size: .85rem;
+        font-weight: 600;
+    }
+
+    .detail-status-badge.available {
+        background: rgba(255, 255, 255, .25);
+        color: white;
+    }
+
+    .detail-status-badge.occupied {
+        background: rgba(255, 255, 255, .25);
+        color: white;
+    }
+
+    .detail-status-badge.reserved {
+        background: rgba(255, 255, 255, .25);
+        color: white;
+    }
+
+    .detail-stat {
+        background: #f8fafc;
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        transition: transform .2s;
+    }
+
+    .detail-stat:hover {
+        transform: translateY(-3px);
+    }
+
+    .detail-stat i {
+        font-size: 1.5rem;
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    .detail-stat-label {
+        display: block;
+        font-size: .78rem;
+        color: #6b7280;
+        margin-bottom: 4px;
+    }
+
+    .detail-stat-value {
+        display: block;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #1e293b;
+    }
+
+    .card {
+        border-radius: 22px;
+    }
+
+    .btn {
+        border-radius: 12px;
+        font-weight: 500;
+    }
+</style>

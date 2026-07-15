@@ -21,5 +21,6 @@ public class Table
 public enum TableStatus
 {
     Available,
-    Occupied
+    Occupied,
+    Reserved
 }

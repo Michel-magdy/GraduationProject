@@ -1,8 +1,8 @@
+using GraduationProject.Data;
 using GraduationProject.Interfaces;
 using GraduationProject.Models;
 using GraduationProject.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +30,15 @@ builder.Services.AddScoped<ITourBooking, TourBookingService>();
 builder.Services.AddScoped<IRoom, RoomService>();
 builder.Services.AddScoped<ITable, TableService>();
 
+// Session configuration
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(60);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 builder.Services.AddDbContext<Context>(
     options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("CS")
@@ -37,6 +46,13 @@ builder.Services.AddDbContext<Context>(
 );
 
 var app = builder.Build();
+
+// Seed the database with default roles and admin
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<Context>();
+    DbSeeder.Seed(context);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -49,6 +65,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseSession();
 app.UseAuthorization();
 
 app.MapStaticAssets();
