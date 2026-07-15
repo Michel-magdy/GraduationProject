@@ -49,7 +49,47 @@ public class RestaurantController : Controller
 
         return View(Restaurant);
     }
+    public IActionResult Create(int businessId)
+    {
+        var business = BusinessService.GetById(businessId);
 
+        if (business == null)
+            return NotFound();
+
+        ViewBag.BusinessId = businessId;
+        ViewBag.BusinessName = business.BusinessName;
+
+        return View(new Restaurant { BusinessId = businessId });
+    }
+
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Create(Restaurant restaurant, List<string> ImageUrls)
+    {
+        if (!ModelState.IsValid)
+        {
+            var business = BusinessService.GetById(restaurant.BusinessId);
+            ViewBag.BusinessId = restaurant.BusinessId;
+            ViewBag.BusinessName = business?.BusinessName;
+            return View(restaurant);
+        }
+
+        RestaurantService.Add(restaurant);
+
+        if (ImageUrls != null)
+        {
+            foreach (var url in ImageUrls)
+            {
+                if (!string.IsNullOrWhiteSpace(url))
+                {
+                    RestaurantService.AddImage(restaurant.Id, url);
+                }
+            }
+        }
+
+        return RedirectToAction(nameof(Index), new { businessId = restaurant.BusinessId });
+    }
 
     public IActionResult Edit(int id)
     {
@@ -74,6 +114,18 @@ public class RestaurantController : Controller
         return RedirectToAction(nameof(Details), new { id = restaurant.Id });
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Delete(int id)
+    {
+        var restaurant = RestaurantService.GetById(id);
+
+        if (restaurant == null)
+            return NotFound();
+
+        RestaurantService.Delete(id);
+        return RedirectToAction("Index");
+    }
 
     [HttpPost]
     [ValidateAntiForgeryToken]

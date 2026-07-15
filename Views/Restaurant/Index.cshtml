@@ -1,7 +1,7 @@
 @model List<Restaurant>
 
 @{
-    ViewData["Title"] = "Hotels";
+    ViewData["Title"] = "Restaurants";
     var businessId = ViewBag.BusinessId as int?;
     var isBusinessScoped = businessId.HasValue;
 }
@@ -10,8 +10,8 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h2 class="fw-bold">@ViewBag.BusinessName Hotels</h2>
-            <p class="text-muted">Manage hotels belonging to this business.</p>
+            <h2 class="fw-bold">@ViewBag.BusinessName Restaurants</h2>
+            <p class="text-muted">Manage Restaurants belonging to this business.</p>
         </div>
 
         <div>
@@ -23,7 +23,7 @@
                 </a>
 
                 <a asp-action="Create" asp-route-businessId="@businessId" class="btn btn-primary rounded-pill">
-                    <i class="bi bi-plus-circle"></i> Add Hotel
+                    <i class="bi bi-plus-circle"></i> Add Restaurant
                 </a>
             }
         </div>
@@ -32,13 +32,13 @@
     <div class="row g-3 mb-4">
         <div class="col-md-4">
             <div class="stat-card">
-                <h6>Total Hotels</h6>
+                <h6>Total Restaurants</h6>
                 <h2>@Model.Count()</h2>
             </div>
         </div>
         <div class="col-md-4">
             <div class="stat-card">
-                <h6>Total Rooms</h6>
+                <h6>Total Tables</h6>
                 <h2>@Model.Sum(x => x.Tables.Count)</h2>
             </div>
         </div>
@@ -51,38 +51,40 @@
     </div>
 
     <div class="input-group mb-4">
-        <input class="form-control rounded-start-pill" placeholder="Search hotel..." />
+        <input class="form-control rounded-start-pill" placeholder="Search Restaurant..." />
         <button class="btn btn-primary rounded-end-pill"><i class="bi bi-search"></i></button>
     </div>
 
     <div class="row g-4">
-        @foreach (var hotel in Model)
+        @foreach (var Restaurant in Model)
         {
             <div class="col-lg-4 col-md-6">
-                <div class="card hotel-card border-0 h-100">
+                <div class="card Restaurant-card border-0 h-100">
 
-                    <img src="@(hotel.Images.FirstOrDefault()?.ImagePath ?? "/images/no-image.png")" class="hotel-image" />
+                    <img src="@(Restaurant.Images.FirstOrDefault()?.ImagePath ?? "/images/no-image.png")"
+                         class="Restaurant-image" />
 
                     <div class="card-body">
-                        <h4>@hotel.Name</h4>
-                        <p class="text-muted"><i class="bi bi-geo-alt-fill"></i> @hotel.Location</p>
-                        <p>@hotel.Description</p>
+                        <h4>@Restaurant.Name</h4>
+                        <p class="text-muted"><i class="bi bi-geo-alt-fill"></i> @Restaurant.Location</p>
+                        <p>@Restaurant.Description</p>
 
                         <div class="row text-center mt-3">
-                            <div class="col"><strong>@hotel.Tables.Count</strong><br /><small>Rooms</small></div>
-                            <div class="col"><strong>@hotel.Images.Count</strong><br /><small>Images</small></div>
+                            <div class="col"><strong>@Restaurant.Tables.Count</strong><br /><small>Tables</small></div>
+                            <div class="col"><strong>@Restaurant.Images.Count</strong><br /><small>Images</small></div>
                         </div>
                     </div>
 
                     <div class="card-footer bg-white border-0 d-grid gap-2">
-                        <a asp-action="Details" asp-route-id="@hotel.Id" class="btn btn-outline-primary">Details</a>
-                        <a asp-controller="Room" asp-action="Index" asp-route-hotelId="@hotel.Id"
-                           class="btn btn-primary">Manage Rooms</a>
+                        <a asp-action="Details" asp-route-id="@Restaurant.Id" class="btn btn-outline-primary">Details</a>
+                        <a asp-controller="Table" asp-action="Index" asp-route-RestaurantId="@Restaurant.Id"
+                           class="btn btn-primary">Manage Tables</a>
                         <div class="d-flex gap-2">
-                            <a asp-action="Edit" asp-route-id="@hotel.Id" class="btn btn-outline-warning flex-fill">Edit</a>
+                            <a asp-action="Edit" asp-route-id="@Restaurant.Id"
+                               class="btn btn-outline-warning flex-fill">Edit</a>
 
                             
-                            <form asp-action="Delete" asp-route-id="@hotel.Id" method="post">
+                            <form asp-action="Delete" asp-route-id="@Restaurant.Id" method="post">
                                 <button type="submit" class="btn btn-outline-danger w-100">Delete</button>
                             </form>
                         </div>
@@ -108,18 +110,18 @@
         box-shadow: 0 10px 25px rgba(0, 0, 0, .08)
     }
 
-    .hotel-card {
+    .Restaurant-card {
         border-radius: 22px;
         overflow: hidden;
         box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
         transition: .3s
     }
 
-    .hotel-card:hover {
+    .Restaurant-card:hover {
         transform: translateY(-6px)
     }
 
-    .hotel-image {
+    .Restaurant-image {
         width: 100%;
         height: 220px;
         object-fit: cover
