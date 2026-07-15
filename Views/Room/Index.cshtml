@@ -1,0 +1,468 @@
+@model IEnumerable<GraduationProject.Models.Room>
+
+@{
+    ViewData["Title"] = "Rooms";
+    var userRole = Context.Session.GetString("UserRole");
+    var isManager = userRole == "Admin" || userRole == "Owner";
+}
+
+<div class="container py-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">
+                <i class="bi bi-grid-3x3-gap-fill text-primary me-2"></i>
+                @ViewBag.RestaurantName Rooms
+            </h2>
+            <p class="text-muted mb-0">
+                @(isManager ? "Manage restaurant Rooms and monitor their availability." : "Browse restaurant Rooms and availability.")
+            </p>
+        </div>
+
+        <div class="d-flex gap-2">
+            @if (ViewBag.RestaurantId != null)
+            {
+                <a asp-controller="Restaurant" asp-action="Details" asp-route-id="@ViewBag.RestaurantId"
+                   class="btn btn-outline-secondary rounded-pill">
+                    <i class="bi bi-arrow-left"></i> Back to Restaurant
+                </a>
+                @if (isManager)
+                {
+                    <a asp-action="Create" asp-route-restaurantId="@ViewBag.RestaurantId" class="btn btn-primary rounded-pill">
+                        <i class="bi bi-plus-circle"></i> Add Room
+                    </a>
+                }
+            }
+        </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-3">
+            <div class="stat-card stat-total">
+                <div class="stat-icon">
+                    <i class="bi bi-grid-3x3-gap-fill"></i>
+                </div>
+                <h2>@Model.Count()</h2>
+                <span>Total Rooms</span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card stat-available">
+                <div class="stat-icon">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <h2>@Model.Count(t => t.status == RoomStatus.Available)</h2>
+                <span>Available</span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card stat-occupied">
+                <div class="stat-icon">
+                    <i class="bi bi-x-circle-fill"></i>
+                </div>
+                <h2>@Model.Count(t => t.status == RoomStatus.Occupied)</h2>
+                <span>Occupied</span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card stat-reserved">
+                <div class="stat-icon">
+                    <i class="bi bi-clock-fill"></i>
+                </div>
+                <h2>@Model.Count(t => t.status == RoomStatus.Inactive)</h2>
+                <span>Inactive</span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card stat-reserved">
+                <div class="stat-icon">
+                    <i class="bi bi-clock-fill"></i>
+                </div>
+                <h2>@Model.Count(t => t.status == RoomStatus.Maintenance)</h2>
+                <span>Maintenance</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Filter & Search -->
+    <div class="filter-bar mb-4">
+        <div class="row align-items-center g-3">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0">
+                        <i class="bi bi-search text-muted"></i>
+                    </span>
+                    <input id="searchInput" type="text" class="form-control border-start-0"
+                           placeholder="Search by Room number, capacity..." />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex gap-2 justify-content-md-end">
+                    <button class="btn btn-filter active" data-filter="all">All</button>
+                    <button class="btn btn-filter" data-filter="Available">
+                        <i class="bi bi-check-circle"></i> Available
+                    </button>
+                    <button class="btn btn-filter" data-filter="Occupied">
+                        <i class="bi bi-x-circle"></i> Occupied
+                    </button>
+                    <button class="btn btn-filter" data-filter="Reserved">
+                        <i class="bi bi-clock"></i> Reserved
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="row g-4" id="RoomContainer">
+
+        @foreach (var Room in Model)
+        {
+            <div class="col-lg-4 col-md-6 Room-item" data-status="@Room.status">
+
+                <div class="card Room-card h-100">
+
+                    <div class="Room-icon-header status-@Room.status.ToString().ToLower()">
+                        <i class="bi bi-grid-3x3-gap-fill"></i>
+                        <span class="Room-number-badge">R-@Room.RoomNumber</span>
+                    </div>
+
+                    <div class="card-body text-center">
+
+                        <h4 class="fw-bold mb-1">Room @Room.RoomNumber</h4>
+
+                        @if (Room.Hotel != null)
+                        {
+                            <p class="text-muted small mb-2">
+                                <i class="bi bi-shop"></i> @Room.Hotel.Name
+                            </p>
+                        }
+
+                        <div class="mb-3">
+                            @switch (Room.status)
+                            {
+                                case RoomStatus.Available:
+                                    <span class="status-badge status-available">
+                                        <i class="bi bi-check-circle-fill"></i> Available
+                                    </span>
+                                    break;
+                                case RoomStatus.Occupied:
+                                    <span class="status-badge status-occupied">
+                                        <i class="bi bi-x-circle-fill"></i> Occupied
+                                    </span>
+                                    break;
+                                case RoomStatus.Maintenance:
+                                    <span class="status-badge status-reserved">
+                                        <i class="bi bi-clock-fill"></i> Maintenance
+                                    </span>
+                                    break;
+                            }
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col">
+                                <div class="mini-stat">
+                                    <h5 class="mb-0">@Room.Capacity</h5>
+                                    <small class="text-muted">Capacity</small>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="mini-stat">
+                                    <h5 class="mb-0">@Room.HotelBookings.Count</h5>
+                                    <small class="text-muted">Bookings</small>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer bg-white border-0 p-3">
+                        <div class="d-flex gap-2">
+                            <a asp-action="Details" asp-route-id="@Room.Id"
+                               class="btn btn-outline-primary btn-sm flex-fill">
+                                <i class="bi bi-eye"></i> Details
+                            </a>
+                            @if (isManager)
+                            {
+                                <a asp-action="Edit" asp-route-id="@Room.Id" class="btn btn-outline-warning btn-sm flex-fill">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@Room.Id" class="btn btn-outline-danger btn-sm flex-fill">
+                                    <i class="bi bi-trash"></i> Delete
+                                </a>
+                            }
+                        </div>
+                        @if (isManager)
+                        {
+                            <form asp-action="ToggleStatus" asp-route-id="@Room.Id" method="post" class="mt-2">
+                                @if (Room.status == RoomStatus.Available)
+                                {
+                                    <button type="submit" class="btn btn-success btn-sm w-100">
+                                        <i class="bi bi-arrow-repeat"></i> Mark as Occupied
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-outline-success btn-sm w-100">
+                                        <i class="bi bi-arrow-repeat"></i> Mark as Available
+                                    </button>
+                                }
+                            </form>
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5">
+            <i class="bi bi-grid-3x3-gap text-muted" style="font-size: 4rem;"></i>
+            <h4 class="text-muted mt-3">No Rooms found</h4>
+            <p class="text-muted">@(isManager ? "Add your first Room to get started." : "Rooms will appear here once they are available.")</p>
+            @if (isManager && ViewBag.RestaurantId != null)
+            {
+                <a asp-action="Create" asp-route-restaurantId="@ViewBag.RestaurantId" class="btn btn-primary rounded-pill">
+                    <i class="bi bi-plus-circle"></i> Add Room
+                </a>
+            }
+        </div>
+    }
+
+</div>
+
+<style>
+    body {
+        background: #f0f4f8;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 18px;
+        padding: 24px;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, .06);
+        transition: transform .3s, box-shadow .3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, .12);
+    }
+
+    .stat-card .stat-icon {
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+    }
+
+    .stat-card h2 {
+        font-weight: 800;
+        font-size: 2rem;
+    }
+
+    .stat-card span {
+        color: #6b7280;
+        font-size: .85rem;
+        font-weight: 500;
+    }
+
+    .stat-total .stat-icon {
+        color: #3b82f6;
+    }
+
+    .stat-total h2 {
+        color: #1e40af;
+    }
+
+    .stat-available .stat-icon {
+        color: #10b981;
+    }
+
+    .stat-available h2 {
+        color: #065f46;
+    }
+
+    .stat-occupied .stat-icon {
+        color: #ef4444;
+    }
+
+    .stat-occupied h2 {
+        color: #991b1b;
+    }
+
+    .stat-reserved .stat-icon {
+        color: #f59e0b;
+    }
+
+    .stat-reserved h2 {
+        color: #92400e;
+    }
+
+    .filter-bar {
+        background: white;
+        border-radius: 16px;
+        padding: 16px 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, .05);
+    }
+
+    .filter-bar .input-group {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .filter-bar .form-control {
+        border-radius: 0 12px 12px 0;
+    }
+
+    .filter-bar .input-group-text {
+        border-radius: 12px 0 0 12px;
+    }
+
+    .btn-filter {
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        color: #64748b;
+        font-size: .85rem;
+        font-weight: 500;
+        padding: 6px 14px;
+        transition: all .2s;
+    }
+
+    .btn-filter:hover,
+    .btn-filter.active {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #fff;
+    }
+
+    .Room-card {
+        border: none;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 6px 25px rgba(0, 0, 0, .07);
+        transition: transform .3s, box-shadow .3s;
+    }
+
+    .Room-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, .12);
+    }
+
+    .Room-icon-header {
+        height: 140px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 56px;
+        position: relative;
+    }
+
+    .Room-icon-header.status-available {
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        color: #065f46;
+    }
+
+    .Room-icon-header.status-occupied {
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        color: #991b1b;
+    }
+
+    .Room-icon-header.status-reserved {
+        background: linear-gradient(135deg, #fef3c7, #fde68a);
+        color: #92400e;
+    }
+
+    .Room-number-badge {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background: rgba(255, 255, 255, .85);
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: .8rem;
+        font-weight: 700;
+        backdrop-filter: blur(6px);
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: .82rem;
+        font-weight: 600;
+    }
+
+    .status-badge.status-available {
+        background: #d1fae5;
+        color: #065f46;
+    }
+
+    .status-badge.status-occupied {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    .status-badge.status-reserved {
+        background: #fef3c7;
+        color: #92400e;
+    }
+
+    .mini-stat {
+        background: #f8fafc;
+        border-radius: 12px;
+        padding: 10px 6px;
+    }
+
+    .card-footer .btn {
+        border-radius: 10px;
+        font-size: .8rem;
+        font-weight: 500;
+    }
+</style>
+
+@section Scripts {
+
+    <script>
+        // Search
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+            let value = this.value.toLowerCase();
+            document.querySelectorAll(".Room-item").forEach(function (card) {
+                let text = card.innerText.toLowerCase();
+                card.style.display = text.includes(value) ? "" : "none";
+            });
+        });
+
+        // Filter by status
+        document.querySelectorAll(".btn-filter").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+                document.querySelectorAll(".btn-filter").forEach(b => b.classList.remove("active"));
+                this.classList.add("active");
+
+                let filter = this.dataset.filter;
+                document.querySelectorAll(".Room-item").forEach(function (card) {
+                    if (filter === "all") {
+                        card.style.display = "";
+                    } else {
+                        card.style.display = card.dataset.status === filter ? "" : "none";
+                    }
+                });
+            });
+        });
+    </script>
+
+}

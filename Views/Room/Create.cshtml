@@ -1,0 +1,138 @@
+@model GraduationProject.Models.Room
+
+@{
+    ViewData["Title"] = "Add Room";
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">
+                <i class="bi bi-plus-circle text-primary me-2"></i> Add New Room
+            </h2>
+            <p class="text-muted">
+                Create a new Room for <strong>@ViewBag.HotelName</strong>.
+            </p>
+        </div>
+        <a asp-action="Index" asp-route-HotelId="@Model.HotelId" class="btn btn-outline-secondary rounded-pill">
+            <i class="bi bi-arrow-left"></i> Back
+        </a>
+    </div>
+
+    <form asp-action="Create" method="post">
+
+        <input asp-for="HotelId" type="hidden" />
+
+        <div class="card border-0 shadow rounded-4">
+            <div class="card-body p-4">
+
+                <div class="form-section-title mb-3">
+                    <i class="bi bi-info-circle text-primary"></i> Room Information
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="RoomNumber" class="form-label fw-semibold">Room Number</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">
+                                <i class="bi bi-hash"></i>
+                            </span>
+                            <input asp-for="RoomNumber" class="form-control" placeholder="e.g. A1, 101" />
+                        </div>
+                        <span asp-validation-for="RoomNumber" class="text-danger small"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Capacity" class="form-label fw-semibold"> Capacity</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light">
+                                <i class="bi bi-people"></i>
+                            </span>
+                            <input asp-for="Capacity" type="number" min="1" max="20" class="form-control"
+                                   placeholder="Number of seats" />
+                        </div>
+                        <span asp-validation-for="Capacity" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="status" class="form-label fw-semibold">Initial status</label>
+                        <select asp-for="status" asp-items="Html.GetEnumSelectList<RoomStatus>()" class="form-select">
+                        </select>
+                        <span asp-validation-for="status" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <hr class="my-4" />
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="bi bi-check-circle"></i> Create Room
+                    </button>
+                    <a asp-action="Index" asp-route-HotelId="@Model.HotelId"
+                       class="btn btn-outline-secondary">Cancel</a>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<style>
+    body {
+        background: #f0f4f8;
+    }
+
+    .card {
+        border-radius: 22px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .07) !important;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 12px;
+        padding: 10px 14px;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, .15);
+    }
+
+    .input-group-text {
+        border-radius: 12px 0 0 12px;
+        border-right: none;
+    }
+
+    .input-group .form-control {
+        border-radius: 0 12px 12px 0;
+    }
+
+    .btn {
+        border-radius: 12px;
+        font-weight: 500;
+    }
+
+    .btn-primary {
+        background: #2563eb;
+        border-color: #2563eb;
+    }
+
+    .btn-primary:hover {
+        background: #1d4ed8;
+        border-color: #1d4ed8;
+    }
+
+    .form-section-title {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #1e293b;
+    }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,273 @@
+@model GraduationProject.Models.Room
+
+@{
+    ViewData["Title"] = "Room Details";
+    var userRole = Context.Session.GetString("UserRole");
+    var isManager = userRole == "Admin" || userRole == "Owner";
+}
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a asp-action="Index" asp-route-hotelId="@Model.HotelId"
+           class="btn btn-outline-secondary rounded-pill">
+            <i class="bi bi-arrow-left"></i> Back to Rooms
+        </a>
+
+        @if (isManager)
+        {
+            <div class="d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning rounded-pill">
+                    <i class="bi bi-pencil"></i> Edit
+                </a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger rounded-pill">
+                    <i class="bi bi-trash"></i> Delete
+                </a>
+            </div>
+        }
+    </div>
+
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-4">
+        <div class="room-detail-header status-@Model.status.ToString().ToLower()">
+            <i class="bi bi-door-open-fill"></i>
+            <h1 class="mt-2 mb-0">Room @Model.RoomNumber</h1>
+            <div class="mt-2">
+                @switch (Model.status)
+                {
+                    case RoomStatus.Available:
+                        <span class="detail-status-badge">
+                            <i class="bi bi-check-circle-fill"></i> Available
+                        </span>
+                        break;
+                    case RoomStatus.Occupied:
+                        <span class="detail-status-badge">
+                            <i class="bi bi-x-circle-fill"></i> Occupied
+                        </span>
+                        break;
+                    case RoomStatus.Maintenance:
+                        <span class="detail-status-badge">
+                            <i class="bi bi-tools"></i> Maintenance
+                        </span>
+                        break;
+                    case RoomStatus.Inactive:
+                        <span class="detail-status-badge">
+                            <i class="bi bi-slash-circle-fill"></i> Inactive
+                        </span>
+                        break;
+                }
+            </div>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="detail-stat">
+                        <i class="bi bi-hash text-primary"></i>
+                        <span class="detail-stat-label">Room Number</span>
+                        <span class="detail-stat-value">@Model.RoomNumber</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="detail-stat">
+                        <i class="bi bi-people-fill text-info"></i>
+                        <span class="detail-stat-label">Capacity</span>
+                        <span class="detail-stat-value">@Model.Capacity Guests</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="detail-stat">
+                        <i class="bi bi-cash-stack text-success"></i>
+                        <span class="detail-stat-label">Price</span>
+                        <span class="detail-stat-value">@Model.Price.ToString("C")</span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="detail-stat">
+                        <i class="bi bi-calendar-check text-warning"></i>
+                        <span class="detail-stat-label">Bookings</span>
+                        <span class="detail-stat-value">@Model.HotelBookings.Count</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-stat mt-3 text-start">
+                <i class="bi bi-building text-primary"></i>
+                <span class="detail-stat-label">Hotel</span>
+                <span class="detail-stat-value">@(Model.Hotel?.Name ?? "N/A")</span>
+            </div>
+        </div>
+    </div>
+
+    @if (isManager)
+    {
+        <div class="card border-0 shadow rounded-4 mb-4">
+            <div class="card-header bg-white border-0 pt-3">
+                <h5 class="fw-bold mb-0">
+                    <i class="bi bi-lightning text-warning"></i> Quick Actions
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex gap-2 flex-wrap">
+                    <form asp-action="ToggleStatus" asp-route-id="@Model.Id" method="post">
+                        @if (Model.status == RoomStatus.Available)
+                        {
+                            <button type="submit" class="btn btn-success">
+                                <i class="bi bi-arrow-repeat"></i> Mark as Occupied
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-outline-success">
+                                <i class="bi bi-arrow-repeat"></i> Mark as Available
+                            </button>
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="card border-0 shadow rounded-4">
+        <div class="card-header bg-white border-0 pt-3">
+            <h5 class="fw-bold mb-0">
+                <i class="bi bi-clock-history text-primary"></i> Booking History
+            </h5>
+        </div>
+
+        <div class="card-body p-0">
+            @if (Model.HotelBookings.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0 align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Booking #</th>
+                                <th>Guest</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var booking in Model.HotelBookings)
+                            {
+                                <tr>
+                                    <td><span class="fw-semibold">#@booking.Id</span></td>
+                                    <td>
+                                        <i class="bi bi-person-circle text-muted me-1"></i>
+                                        @(booking.User?.FullName ?? "Unknown")
+                                    </td>
+                                    <td>@booking.CheckIn.ToString("MMM dd, yyyy")</td>
+                                    <td>@booking.CheckOut.ToString("MMM dd, yyyy")</td>
+                                    <td>@booking.TotalPrice.ToString("C")</td>
+                                    <td>
+                                        @switch (booking.Status)
+                                        {
+                                            case BookingStatus.Pending:
+                                                <span class="badge bg-warning text-dark">Pending</span>
+                                                break;
+                                            case BookingStatus.Confirmed:
+                                                <span class="badge bg-success">Confirmed</span>
+                                                break;
+                                            case BookingStatus.Cancelled:
+                                                <span class="badge bg-danger">Cancelled</span>
+                                                break;
+                                            case BookingStatus.Completed:
+                                                <span class="badge bg-info">Completed</span>
+                                                break;
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="text-center py-5">
+                    <i class="bi bi-calendar-x text-muted" style="font-size: 3rem;"></i>
+                    <p class="text-muted mt-2 mb-0">No bookings yet for this room.</p>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
+<style>
+    body {
+        background: #f0f4f8;
+    }
+
+    .room-detail-header {
+        padding: 40px;
+        text-align: center;
+        color: white;
+        font-size: 60px;
+    }
+
+    .room-detail-header.status-available {
+        background: linear-gradient(135deg, #059669, #10b981);
+    }
+
+    .room-detail-header.status-occupied {
+        background: linear-gradient(135deg, #dc2626, #ef4444);
+    }
+
+    .room-detail-header.status-maintenance {
+        background: linear-gradient(135deg, #d97706, #f59e0b);
+    }
+
+    .room-detail-header.status-inactive {
+        background: linear-gradient(135deg, #475569, #64748b);
+    }
+
+    .room-detail-header h1 {
+        font-weight: 800;
+        font-size: 2rem;
+    }
+
+    .detail-status-badge {
+        display: inline-block;
+        padding: 6px 18px;
+        border-radius: 20px;
+        font-size: .85rem;
+        font-weight: 600;
+        background: rgba(255, 255, 255, .25);
+        color: white;
+    }
+
+    .detail-stat {
+        background: #f8fafc;
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        transition: transform .2s;
+    }
+
+    .detail-stat:hover {
+        transform: translateY(-2px);
+    }
+
+    .detail-stat i {
+        display: block;
+        font-size: 1.7rem;
+        margin-bottom: 8px;
+    }
+
+    .detail-stat-label {
+        display: block;
+        color: #64748b;
+        font-size: .85rem;
+        margin-bottom: 4px;
+    }
+
+    .detail-stat-value {
+        display: block;
+        color: #0f172a;
+        font-weight: 700;
+        font-size: 1rem;
+    }
+</style>

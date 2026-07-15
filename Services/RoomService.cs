@@ -14,7 +14,10 @@ public class RoomService : GenericService<Room>, IRoom
 
     public IEnumerable<Room> GetAvailableRooms(int hotelId)
     {
-        throw new NotImplementedException();
+        return context.Rooms
+            .Where(r => r.HotelId == hotelId && r.status == RoomStatus.Available)
+            .Include(r => r.Hotel)
+            .ToList();
     }
 
     public List<Room> GetRooms()
@@ -27,11 +30,25 @@ public class RoomService : GenericService<Room>, IRoom
 
     public IEnumerable<Room> GetRoomsByHotel(int hotelId)
     {
-        throw new NotImplementedException();
+        return context.Rooms
+            .Where(r => r.HotelId == hotelId)
+            .Include(r => r.Hotel)
+            .Include(r => r.HotelBookings)
+            .ToList();
     }
 
     public bool IsRoomAvailable(int roomId)
     {
-        throw new NotImplementedException();
+        var room = context.Rooms.Find(roomId);
+        return room != null && room.status == RoomStatus.Available;
+    }
+
+    public Room? GetRoomWithDetails(int roomId)
+    {
+        return context.Rooms
+            .Include(r => r.Hotel)
+            .Include(r => r.HotelBookings)
+                .ThenInclude(hb => hb.User)
+            .FirstOrDefault(r => r.Id == roomId);
     }
 }
