@@ -128,12 +128,19 @@ public class RoomController : Controller
     [TypeFilter(typeof(RoleFilter), Arguments = new object[] { new string[] { "Admin", "Owner" } })]
     public IActionResult DeleteConfirmed(int id)
     {
-        var room = _roomService.GetById(id);
+        var room = _roomService.GetRoomWithDetails(id);
         if (room == null)
             return NotFound();
 
+        if (room.HotelBookings.Any())
+        {
+            TempData["ErrorMessage"] = "Cannot delete this room because it has existing hotel bookings.";
+            return RedirectToAction(nameof(Index), new { hotelId = room.HotelId });
+        }
+
         var hotelId = room.HotelId;
         _roomService.Delete(id);
+        TempData["SuccessMessage"] = "Room deleted successfully.";
         return RedirectToAction(nameof(Index), new { hotelId });
     }
 
