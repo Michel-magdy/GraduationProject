@@ -14,29 +14,50 @@ public class CarRentalBookingService : GenericService<CarRentalBooking>, ICarRen
 
     public decimal CalculateTotalPrice(int carId, DateTime start, DateTime end)
     {
-        throw new NotImplementedException();
+        var car = context.CarRentals.Find(carId);
+        if (car == null || end <= start)
+            return 0m;
+
+        var days = (end.Date - start.Date).Days;
+        return days > 0 ? days * car.PricePerDay : 0m;
     }
 
     public void CancelBooking(int bookingId)
     {
-        throw new NotImplementedException();
+        Delete(bookingId);
+    }
+
+    public List<CarRentalBooking> GetBookings()
+    {
+        return context.CarRentalBookings
+            .Include(b => b.Car)
+            .Include(b => b.User)
+            .ToList();
     }
 
     public IEnumerable<CarRentalBooking> GetBookingsByCar(int carId)
     {
-        throw new NotImplementedException();
+        return context.CarRentalBookings
+            .Include(b => b.Car)
+            .Include(b => b.User)
+            .Where(b => b.CarId == carId)
+            .ToList();
     }
 
     public IEnumerable<CarRentalBooking> GetBookingsByUser(int userId)
     {
-        throw new NotImplementedException();
+        return context.CarRentalBookings
+            .Include(b => b.Car)
+            .Include(b => b.User)
+            .Where(b => b.UserId == userId)
+            .ToList();
     }
 
-    public List<CarRentalBooking> GetCarRentalBookings()
+    public CarRentalBooking? GetBookingWithDetails(int id)
     {
         return context.CarRentalBookings
-            .Include(Crb => Crb.Car)
-            .Include(Crb => Crb.User)
-            .ToList();
+            .Include(b => b.Car)
+            .Include(b => b.User)
+            .FirstOrDefault(b => b.Id == id);
     }
 }

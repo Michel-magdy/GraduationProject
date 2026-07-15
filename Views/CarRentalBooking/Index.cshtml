@@ -1,68 +1,296 @@
-@model IEnumerable<CarRentalBooking>
+@model IEnumerable<GraduationProject.Models.CarRentalBooking>
 
 @{
     ViewData["Title"] = "Car Rental Bookings";
+
+    var userRole = Context.Session.GetString("UserRole");
+    var isManager = userRole == "Admin" || userRole == "Owner";
 }
 
-<section class="management-page position-relative overflow-hidden">
-    <div class="blur-circle bg-primary-gradient position-absolute top-0 start-0 translate-middle"></div>
-    <div class="container position-relative z-index-2">
-        <div class="management-hero d-flex flex-column flex-lg-row justify-content-between align-items-lg-end">
-            <div>
-                <span class="management-eyebrow">Bookings</span>
-                <h1 class="management-title">Car Rental Bookings</h1>
-                <p class="management-subtitle">Manage rental periods, assigned vehicles, guests, and totals.</p>
-            </div>
-            <a asp-controller="CarRentalBooking" asp-action="Add" class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">
-                <i class="bi bi-plus-lg me-1"></i>Add Booking
-            </a>
+<div class="container py-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h2 class="fw-bold">
+                <i class="bi bi-calendar-check text-primary me-2"></i>
+                Car Rental Bookings
+            </h2>
+
+            <p class="text-muted">
+                @(isManager
+                    ? "Manage all car rental bookings."
+                    : "View your rental bookings.")
+            </p>
         </div>
 
-        <div class="management-card">
-            @if (Model?.Any() == true)
+    </div>
+
+
+    <!-- Statistics -->
+
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <i class="bi bi-journal-check fs-2 text-primary"></i>
+                <h2>@Model.Count()</h2>
+                <span>Total Bookings</span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <i class="bi bi-play-circle-fill fs-2 text-success"></i>
+                <h2>
+                    @Model.Count(x =>
+                        x.StartDate.Date <= DateTime.Today &&
+                        x.EndDate.Date >= DateTime.Today)
+                </h2>
+
+                <span>Active Rentals</span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <i class="bi bi-clock-history fs-2 text-warning"></i>
+
+                <h2>
+                    @Model.Count(x =>
+                        x.StartDate.Date > DateTime.Today)
+                </h2>
+
+                <span>Upcoming</span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card">
+                <i class="bi bi-check-circle-fill fs-2 text-secondary"></i>
+
+                <h2>
+                    @Model.Count(x =>
+                        x.EndDate.Date < DateTime.Today)
+                </h2>
+
+                <span>Completed</span>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Search -->
+
+    <div class="input-group mb-4">
+
+        <span class="input-group-text bg-white">
+            <i class="bi bi-search"></i>
+        </span>
+
+        <input id="searchInput" class="form-control" placeholder="Search by customer or car..." />
+
+    </div>
+
+
+
+    <!-- Cards -->
+
+    <div class="row g-4" id="bookingContainer">
+
+        @foreach (var booking in Model)
+        {
+
+            string badgeClass;
+            string badgeText;
+
+            if (booking.EndDate.Date < DateTime.Today)
             {
-                <div class="table-responsive">
-                    <table class="table management-table align-middle">
-                        <thead>
-                            <tr>
-                                <th>Guest</th>
-                                <th>Vehicle</th>
-                                <th>Dates</th>
-                                <th>Total</th>
-                                <th class="text-end">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var booking in Model)
-                            {
-                                <tr>
-                                    <td data-label="Guest"><div class="entity-name">@(booking.User?.FullName ?? $"User #{booking.UserId}")</div></td>
-                                    <td data-label="Vehicle">@(booking.Car is null ? $"Car #{booking.CarId}" : $"{booking.Car.Brand} {booking.Car.Model}")</td>
-                                    <td data-label="Dates">@booking.StartDate.ToString("MMM dd") - @booking.EndDate.ToString("MMM dd, yyyy")</td>
-                                    <td data-label="Total">@booking.TotalPrice.ToString("C")</td>
-                                    <td data-label="Actions" class="text-lg-end">
-                                        <div class="action-group">
-                                            <a asp-controller="CarRentalBooking" asp-action="Details" asp-route-id="@booking.Id" class="btn btn-outline-primary btn-sm rounded-custom">Details</a>
-                                            <a asp-controller="CarRentalBooking" asp-action="Edit" asp-route-id="@booking.Id" class="btn btn-primary btn-sm rounded-custom">Edit</a>
-                                            <form asp-controller="CarRentalBooking" asp-action="Delete" asp-route-id="@booking.Id" method="post" class="d-inline">
-                                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-custom">Delete</button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                badgeClass = "bg-secondary";
+                badgeText = "Completed";
+            }
+            else if (booking.StartDate.Date > DateTime.Today)
+            {
+                badgeClass = "bg-primary";
+                badgeText = "Upcoming";
             }
             else
             {
-                <div class="empty-state">
-                    <i class="bi bi-key-fill"></i>
-                    <h2 class="h5 fw-bold mt-3 mb-2">No car bookings yet</h2>
-                    <p class="text-muted mb-0">Car rental bookings will appear here once loaded.</p>
-                </div>
+                badgeClass = "bg-success";
+                badgeText = "Active";
             }
-        </div>
+
+            <div class="col-lg-4 col-md-6 booking-card">
+
+                <div class="card shadow-sm border-0 h-100">
+
+                    <div class="card-header bg-white border-0">
+
+                        <div class="d-flex justify-content-between">
+
+                            <h5 class="fw-bold">
+
+                                @(booking.Car?.Brand)
+                                @(booking.Car?.Model)
+
+                            </h5>
+
+                            <span class="badge @badgeClass">
+                                @badgeText
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <p>
+                            <i class="bi bi-person-fill text-primary"></i>
+
+                            <strong>Customer:</strong>
+
+                            @booking.User?.FullName
+                        </p>
+
+                        <p>
+                            <i class="bi bi-calendar-event"></i>
+
+                            <strong>Start:</strong>
+
+                            @booking.StartDate.ToShortDateString()
+                        </p>
+
+                        <p>
+                            <i class="bi bi-calendar-check"></i>
+
+                            <strong>End:</strong>
+
+                            @booking.EndDate.ToShortDateString()
+                        </p>
+
+                        <p class="mb-0">
+
+                            <i class="bi bi-cash-stack text-success"></i>
+
+                            <strong>Total:</strong>
+
+                            @booking.TotalPrice.ToString("C")
+
+                        </p>
+
+                    </div>
+
+                    <div class="card-footer bg-white border-0">
+
+                        <div class="d-flex gap-2">
+
+                            <a asp-action="Details" asp-route-id="@booking.Id" class="btn btn-outline-primary flex-fill">
+
+                                Details
+
+                            </a>
+
+                            @if (isManager)
+                            {
+                                <a asp-action="Edit" asp-route-id="@booking.Id" class="btn btn-outline-warning flex-fill">
+
+                                    Edit
+
+                                </a>
+
+                                <form asp-action="Delete" asp-route-id="@booking.Id" method="post" class="flex-fill">
+
+                                    <button class="btn btn-outline-danger w-100"
+                                            onclick="return confirm('Delete this booking?')">
+
+                                        Delete
+
+                                    </button>
+
+                                </form>
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
     </div>
-</section>
+
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5">
+
+            <i class="bi bi-calendar-x fs-1 text-muted"></i>
+
+            <h4 class="mt-3 text-muted">
+                No bookings found
+            </h4>
+
+        </div>
+    }
+
+</div>
+
+
+<style>
+    body {
+        background: #f8fafc;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 18px;
+        text-align: center;
+        padding: 24px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+    }
+
+    .stat-card h2 {
+        font-weight: 700;
+        margin-top: 10px;
+    }
+
+    .card {
+        border-radius: 18px;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        transition: .25s;
+    }
+</style>
+
+
+@section Scripts {
+
+    <script>
+
+        document.getElementById("searchInput")
+            .addEventListener("keyup", function () {
+
+                let value = this.value.toLowerCase();
+
+                document.querySelectorAll(".booking-card")
+                    .forEach(function (card) {
+
+                        card.style.display =
+                            card.innerText.toLowerCase().includes(value)
+                                ? ""
+                                : "none";
+
+                    });
+
+            });
+
+    </script>
+
+}

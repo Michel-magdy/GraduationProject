@@ -1,93 +1,254 @@
-@model IEnumerable<CarRental>
+@model List<CarRental>
 
 @{
-    ViewData["Title"] = "Car Rentals";
+    ViewData["Title"] = "Cars";
+
+    var businessId = ViewBag.BusinessId as int?;
+    var isBusinessScoped = businessId.HasValue;
+
     var userRole = Context.Session.GetString("UserRole");
     var isManager = userRole == "Admin" || userRole == "Owner";
 }
 
-<section class="management-page position-relative overflow-hidden">
-    <div class="blur-circle bg-primary-gradient position-absolute top-0 start-0 translate-middle"></div>
-    <div class="container position-relative z-index-2">
-        <div class="management-hero d-flex flex-column flex-lg-row justify-content-between align-items-lg-end">
-            <div>
-                <span class="management-eyebrow">Mobility</span>
-                <h1 class="management-title">Car Rentals</h1>
-                <p class="management-subtitle">@(isManager ? "Track rental vehicles, daily prices, availability, and booking activity." : "Browse rental vehicles, daily prices, and availability.")
-                </p>
-            </div>
-            @if (isManager)
+<div class="container py-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">@ViewBag.BusinessName Cars</h2>
+            <p class="text-muted">@(isManager ? "Manage restaurants belonging to this business." : "Explore available restaurants.")</p>
+        </div>
+        <div>
+
+            @if (isBusinessScoped)
             {
-                <a asp-controller="CarRental" asp-action="Add"
-                   class="btn btn-primary rounded-custom px-4 py-2 fw-semibold shadow-sm">
-                    <i class="bi bi-plus-lg me-1"></i>Add Car
+                <a asp-controller="Business" asp-action="Details" asp-route-id="@businessId"
+                   class="btn btn-outline-secondary rounded-pill me-2">
+                    <i class="bi bi-arrow-left"></i>
+                    Business
                 </a>
+
+                @if (isManager)
+                {
+                    <a asp-action="Create" asp-route-businessId="@businessId" class="btn btn-primary rounded-pill">
+                        <i class="bi bi-plus-circle"></i>
+                        Add Car
+                    </a>
+                }
             }
         </div>
 
-        <div class="management-card">
-            @if (Model?.Any() == true)
-            {
-                <div class="table-responsive">
-                    <table class="table management-table align-middle">
-                        <thead>
-                            <tr>
-                                <th>Vehicle</th>
-                                <th>Business</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                                <th>Bookings</th>
-                                <th class="text-end">@(isManager ? "Actions" : "")</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var car in Model)
-                            {
-                                <tr>
-                                    <td data-label="Vehicle">
-                                        <div class="entity-name">@car.Brand @car.Model</div>
-                                        <div class="entity-muted">@car.Images.Count images</div>
-                                    </td>
-                                    <td data-label="Business">@(car.Business?.BusinessName ?? $"Business #{car.BusinessId}")
-                                    </td>
-                                    <td data-label="Price">@car.PricePerDay.ToString("C") / day</td>
-                                    <td data-label="Status">
-                                        <span class="status-pill @(car.Available ? "available" : "unavailable")">
-                                            <i class="bi bi-circle-fill small"></i>@(car.Available ? "Available" :
-                                                "Unavailable")
-                                        </span>
-                                    </td>
-                                    <td data-label="Bookings">@car.CarRentalBookings.Count</td>
-                                    <td data-label="Actions" class="text-lg-end">
-                                        <div class="action-group">
-                                            <a asp-controller="CarRental" asp-action="Details" asp-route-id="@car.Id"
-                                               class="btn btn-outline-primary btn-sm rounded-custom">Details</a>
-                                            @if (isManager)
-                                            {
-                                                <a asp-controller="CarRental" asp-action="Edit" asp-route-id="@car.Id"
-                                                   class="btn btn-primary btn-sm rounded-custom">Edit</a>
-                                                <form asp-controller="CarRental" asp-action="Delete" asp-route-id="@car.Id"
-                                                      method="post" class="d-inline">
-                                                    <button type="submit"
-                                                            class="btn btn-outline-danger btn-sm rounded-custom">Delete</button>
-                                                </form>
-                                            }
-                                        </div>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
-            else
-            {
-                <div class="empty-state">
-                    <i class="bi bi-car-front-fill"></i>
-                    <h2 class="h5 fw-bold mt-3 mb-2">No cars yet</h2>
-                    <p class="text-muted mb-0">Rental vehicles will appear here once loaded.</p>
-                </div>
-            }
-        </div>
     </div>
-</section>
+
+
+    <!-- Statistics -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-4">
+            <div class="stat-card">
+                <h6>Total Cars</h6>
+                <h2>@Model.Count</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stat-card">
+                <h6>Available</h6>
+                <h2>@Model.Count(c => c.Available)</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stat-card">
+                <h6>Total Bookings</h6>
+                <h2>@Model.Sum(c => c.CarRentalBookings.Count)</h2>
+            </div>
+        </div>
+
+    </div>
+
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center p-5">
+
+            <h4>No Cars Found</h4>
+
+            <p class="text-muted mb-3">
+                There are currently no cars available.
+            </p>
+
+            @if (isManager)
+            {
+                <a asp-action="Create" asp-route-businessId="@businessId" class="btn btn-primary">
+                    Add First Car
+                </a>
+            }
+
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+
+            @foreach (var car in Model)
+            {
+                var avgRating = car.Reviews.Any()
+                    ? car.Reviews.Average(r => r.Rate)
+                    : 0;
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="card car-card border-0 h-100">
+
+                        <img src="@(car.Images.FirstOrDefault()?.ImagePath ?? "/images/no-image.png")" class="car-image" />
+
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+
+                                <h4 class="fw-bold mb-0">
+                                    @car.Brand @car.Model
+                                </h4>
+
+                                @if (car.Available)
+                                {
+                                    <span class="badge bg-success">
+                                        Available
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">
+                                        Unavailable
+                                    </span>
+                                }
+
+                            </div>
+
+                            <h5 class="text-primary fw-bold mb-3">
+                                @car.PricePerDay.ToString("C") / day
+                            </h5>
+
+                            @if (car.Reviews.Any())
+                            {
+                                <p class="text-warning mb-3">
+                                    ★ @avgRating.ToString("0.0")
+                                    <span class="text-muted">
+                                        (@car.Reviews.Count Reviews)
+                                    </span>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-3">
+                                    No Reviews
+                                </p>
+                            }
+
+                            <div class="row text-center">
+
+                                <div class="col">
+                                    <strong>@car.CarRentalBookings.Count</strong>
+                                    <br />
+                                    <small>Bookings</small>
+                                </div>
+
+                                <div class="col">
+                                    <strong>@car.Images.Count</strong>
+                                    <br />
+                                    <small>Images</small>
+                                </div>
+
+                                <div class="col">
+                                    <strong>@car.Reviews.Count</strong>
+                                    <br />
+                                    <small>Reviews</small>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer bg-white border-0">
+
+                            <div class="d-grid gap-2">
+
+                                <a asp-action="Details" asp-route-id="@car.Id" class="btn btn-outline-primary">
+                                    Details
+                                </a>
+
+                                @if (isManager)
+                                {
+                                    <a asp-controller="CarRentalBooking" asp-action="Index" asp-route-carId="@car.Id"
+                                       class="btn btn-primary">
+                                        Manage Bookings
+                                    </a>
+
+                                    <div class="d-flex gap-2">
+
+                                        <a asp-action="Edit" asp-route-id="@car.Id" class="btn btn-outline-warning flex-fill">
+                                            Edit
+                                        </a>
+
+                                        <form asp-action="Delete" asp-route-id="@car.Id" method="post" class="flex-fill">
+
+                                            <button type="submit" class="btn btn-outline-danger w-100"
+                                                    onclick="return confirm('Delete this car?');">
+                                                Delete
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>
+
+<style>
+    body {
+        background: #f8fafc;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+    }
+
+    .car-card {
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+        transition: .25s;
+    }
+
+    .car-card:hover {
+        transform: translateY(-6px);
+    }
+
+    .car-image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+
+    .btn-primary {
+        background: #2563eb;
+        border-color: #2563eb;
+    }
+</style>

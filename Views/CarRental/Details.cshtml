@@ -1,0 +1,248 @@
+@model CarRental
+
+@{
+    ViewData["Title"] = "Car Details";
+}
+
+<div class="container py-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">@Model.Brand @Model.Model</h2>
+            <span class="badge @(Model.Available ? "bg-success" : "bg-danger")">
+                @(Model.Available ? "Available" : "Unavailable")
+            </span>
+        </div>
+
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">
+                <i class="bi bi-pencil-square"></i> Edit
+            </a>
+
+            <a asp-action="Index" class="btn btn-secondary">
+                Back
+            </a>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <!-- Images -->
+        <div class="col-lg-5">
+
+            @if (Model.Images.Any())
+            {
+                <img src="@Model.Images.First().ImagePath" class="img-fluid rounded shadow-sm mb-3"
+                     style="height:350px; width:100%; object-fit:cover;" />
+
+                <div class="row g-2">
+                    @foreach (var img in Model.Images.Skip(1))
+                    {
+                        <div class="col-4">
+                            <img src="@img.ImagePath" class="img-fluid rounded border"
+                                 style="height:90px;width:100%;object-fit:cover;" />
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="border rounded text-center p-5 bg-light">
+                    <h5 class="text-muted">No Images</h5>
+                </div>
+            }
+
+        </div>
+
+
+        <!-- Car Info -->
+        <div class="col-lg-7">
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-header fw-bold">
+                    Car Information
+                </div>
+
+                <div class="card-body">
+
+                    <dl class="row">
+
+                        <dt class="col-sm-4">
+                            Brand
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Model.Brand
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            Model
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Model.Model
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            Business
+                        </dt>
+                        <dd class="col-sm-8">
+                            @(Model.Business?.BusinessName ?? "-")
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            Price / Day
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Model.PricePerDay.ToString("C")
+                        </dd>
+
+                        <dt class="col-sm-4">
+                            Status
+                        </dt>
+                        <dd class="col-sm-8">
+                            @if (Model.Available)
+                            {
+                                <span class="badge bg-success">Available</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Unavailable</span>
+                            }
+                        </dd>
+
+                    </dl>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Reviews -->
+    <div class="card shadow-sm mt-4">
+
+        <div class="card-header fw-bold">
+            Reviews (@Model.Reviews.Count)
+        </div>
+
+        <div class="card-body">
+
+            @if (Model.Reviews.Any())
+            {
+                <table class="table table-hover align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Rating</th>
+                            <th>Comment</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var review in Model.Reviews.OrderByDescending(r => r.CreatedAt))
+                        {
+                            <tr>
+
+                                <td>@review.User?.FullName</td>
+
+                                <td>
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        if (i <= review.Rate)
+                                        {
+                                            <span class="text-warning">★</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-secondary">☆</span>
+                                        }
+                                    }
+                                </td>
+
+                                <td>@review.Comment</td>
+
+                                <td>@review.CreatedAt.ToShortDateString()</td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+            }
+            else
+            {
+                <p class="text-muted mb-0">No reviews yet.</p>
+            }
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Bookings -->
+    <div class="card shadow-sm mt-4">
+
+        <div class="card-header fw-bold">
+            Bookings (@Model.CarRentalBookings.Count)
+        </div>
+
+        <div class="card-body">
+
+            @if (Model.CarRentalBookings.Any())
+            {
+
+                <table class="table table-bordered align-middle">
+
+                    <thead>
+
+                        <tr>
+                            <th>User</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Total Price</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var booking in Model.CarRentalBookings.OrderByDescending(b => b.StartDate))
+                        {
+
+                            <tr>
+
+                                <td>@booking.User?.FullName</td>
+
+                                <td>@booking.StartDate.ToShortDateString()</td>
+
+                                <td>@booking.EndDate.ToShortDateString()</td>
+
+                                <td>@booking.TotalPrice.ToString("C")</td>
+
+                            </tr>
+
+                        }
+
+                    </tbody>
+
+                </table>
+
+            }
+            else
+            {
+                <p class="text-muted mb-0">No bookings yet.</p>
+            }
+
+        </div>
+
+    </div>
+
+</div>
