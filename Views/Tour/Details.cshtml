@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Tour Details";
+    var userRole = Context.Session.GetString("UserRole");
+    var isManager = userRole == "Admin" || userRole == "Owner";
 }
 
 <div class="container py-4">
@@ -27,17 +29,21 @@
         </div>
 
         <div>
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">
-
-                <i class="bi bi-pencil-square"></i>
-                Edit
-
-            </a>
-
+            @if (isManager)
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-2">
+                    <i class="bi bi-pencil-square"></i>
+                    Edit
+                </a>
+            }
+            else if (Context.Session.GetInt32("UserId") != null && Model.RemainingSeats > 0)
+            {
+                <a asp-controller="UserBooking" asp-action="BookTour" asp-route-tourId="@Model.Id" class="btn btn-success me-2">
+                    <i class="bi bi-calendar-plus"></i> Book Tour
+                </a>
+            }
             <a asp-action="Index" asp-route-businessId="@Model.BusinessId" class="btn btn-secondary">
-
                 Back
-
             </a>
         </div>
 
@@ -179,10 +185,14 @@
 
     <div class="card shadow-sm mt-4">
 
-        <div class="card-header fw-bold">
-
-            Reviews (@Model.Reviews.Count)
-
+        <div class="card-header fw-bold d-flex justify-content-between align-items-center">
+            <span>Reviews (@Model.Reviews.Count)</span>
+            @if (Context.Session.GetInt32("UserId") != null && !isManager)
+            {
+                <a asp-controller="Review" asp-action="AddTourReview" asp-route-tourId="@Model.Id" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-pencil"></i> Write a Review
+                </a>
+            }
         </div>
 
         <div class="card-body">

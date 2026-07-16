@@ -1,0 +1,202 @@
+@{
+    ViewData["Title"] = "My Bookings";
+    var hotelBookings = ViewBag.HotelBookings as IEnumerable<GraduationProject.Models.HotelBooking>;
+    var restaurantBookings = ViewBag.RestaurantBookings as IEnumerable<GraduationProject.Models.RestaurantBooking>;
+    var tourBookings = ViewBag.TourBookings as IEnumerable<GraduationProject.Models.TourBooking>;
+    var carRentalBookings = ViewBag.CarRentalBookings as IEnumerable<GraduationProject.Models.CarRentalBooking>;
+}
+
+<div class="container py-5">
+    <h1 class="mb-4">My Bookings</h1>
+
+    <ul class="nav nav-pills mb-4" id="bookingTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel" type="button" role="tab" aria-controls="hotel" aria-selected="true">Hotels</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="restaurant-tab" data-bs-toggle="tab" data-bs-target="#restaurant" type="button" role="tab" aria-controls="restaurant" aria-selected="false">Restaurants</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tour-tab" data-bs-toggle="tab" data-bs-target="#tour" type="button" role="tab" aria-controls="tour" aria-selected="false">Tours</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="car-tab" data-bs-toggle="tab" data-bs-target="#car" type="button" role="tab" aria-controls="car" aria-selected="false">Car Rentals</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="bookingTabContent">
+        <!-- Hotel Bookings -->
+        <div class="tab-pane fade show active" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
+            @if (hotelBookings != null && hotelBookings.Any())
+            {
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Hotel</th>
+                            <th>Room</th>
+                            <th>Check-In</th>
+                            <th>Check-Out</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var booking in hotelBookings)
+                        {
+                            <tr>
+                                <td>@(booking.Room?.Hotel?.Name ?? "N/A")</td>
+                                <td>@booking.Room?.RoomNumber</td>
+                                <td>@booking.CheckIn.ToShortDateString()</td>
+                                <td>@booking.CheckOut.ToShortDateString()</td>
+                                <td>@booking.TotalPrice.ToString("C")</td>
+                                <td>@booking.Status</td>
+                                <td>
+                                    @if (booking.Status == GraduationProject.Models.BookingStatus.Pending)
+                                    {
+                                        <form asp-action="CancelBooking" method="post" class="d-inline">
+                                            <input type="hidden" name="type" value="Hotel" />
+                                            <input type="hidden" name="id" value="@booking.Id" />
+                                            <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                                        </form>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No hotel bookings found.</p>
+            }
+        </div>
+
+        <!-- Restaurant Bookings -->
+        <div class="tab-pane fade" id="restaurant" role="tabpanel" aria-labelledby="restaurant-tab">
+            @if (restaurantBookings != null && restaurantBookings.Any())
+            {
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Restaurant</th>
+                            <th>Table</th>
+                            <th>Time</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var booking in restaurantBookings)
+                        {
+                            <tr>
+                                <td>@(booking.Table?.Restaurant?.Name ?? "N/A")</td>
+                                <td>@booking.Table?.TableNumber</td>
+                                <td>@booking.ReservationTime.ToString("g")</td>
+                                <td>@booking.Status</td>
+                                <td>
+                                    @if (booking.Status == GraduationProject.Models.BookingStatus.Pending)
+                                    {
+                                        <form asp-action="CancelBooking" method="post" class="d-inline">
+                                            <input type="hidden" name="type" value="Restaurant" />
+                                            <input type="hidden" name="id" value="@booking.Id" />
+                                            <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                                        </form>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No restaurant bookings found.</p>
+            }
+        </div>
+
+        <!-- Tour Bookings -->
+        <div class="tab-pane fade" id="tour" role="tabpanel" aria-labelledby="tour-tab">
+            @if (tourBookings != null && tourBookings.Any())
+            {
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Tour</th>
+                            <th>Date</th>
+                            <th>People</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var booking in tourBookings)
+                        {
+                            <tr>
+                                <td>@booking.Tour?.Name</td>
+                                <td>@(booking.Tour?.TripDate.ToShortDateString() ?? "N/A")</td>
+                                <td>@booking.Persons</td>
+                                <td>@booking.TotalPrice.ToString("C")</td>
+                                <td>Confirmed</td>
+                                <td>
+                                    <form asp-action="CancelBooking" method="post" class="d-inline">
+                                        <input type="hidden" name="type" value="Tour" />
+                                        <input type="hidden" name="id" value="@booking.Id" />
+                                        <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No tour bookings found.</p>
+            }
+        </div>
+
+        <!-- Car Rental Bookings -->
+        <div class="tab-pane fade" id="car" role="tabpanel" aria-labelledby="car-tab">
+            @if (carRentalBookings != null && carRentalBookings.Any())
+            {
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Car</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var booking in carRentalBookings)
+                        {
+                            <tr>
+                                <td>@(booking.Car != null ? $"{booking.Car.Brand} {booking.Car.Model}" : "N/A")</td>
+                                <td>@booking.StartDate.ToShortDateString()</td>
+                                <td>@booking.EndDate.ToShortDateString()</td>
+                                <td>@booking.TotalPrice.ToString("C")</td>
+                                <td>Confirmed</td>
+                                <td>
+                                    <form asp-action="CancelBooking" method="post" class="d-inline">
+                                        <input type="hidden" name="type" value="CarRental" />
+                                        <input type="hidden" name="id" value="@booking.Id" />
+                                        <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>No car rental bookings found.</p>
+            }
+        </div>
+    </div>
+</div>

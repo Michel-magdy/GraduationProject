@@ -1,0 +1,29 @@
+@model GraduationProject.Models.RestaurantBooking
+
+@{
+    ViewData["Title"] = "Book Table";
+}
+
+<div class="container py-5">
+    <div class="card shadow border-0 rounded-4 mx-auto" style="max-width: 500px;">
+        <div class="card-body p-5">
+            <h2 class="fw-bold mb-4">Book Table: @ViewBag.TableNumber</h2>
+
+            <form asp-action="BookTable" method="post">
+                <input type="hidden" asp-for="TableId" />
+                
+                <div class="mb-3">
+                    <label asp-for="ReservationTime" class="form-label fw-bold"></label>
+                    <input asp-for="ReservationTime" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="ReservationTime" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 rounded-pill py-2">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

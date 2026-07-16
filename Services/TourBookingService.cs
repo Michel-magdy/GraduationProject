@@ -1,5 +1,6 @@
 using GraduationProject.Interfaces;
 using GraduationProject.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace GraduationProject.Services;
 
@@ -13,16 +14,23 @@ public class TourBookingService : GenericService<TourBooking>, ITourBooking
 
     public void CancelBooking(int bookingId)
     {
-        throw new NotImplementedException();
+        Delete(bookingId);
     }
 
     public IEnumerable<TourBooking> GetBookingsByTour(int tourId)
     {
-        throw new NotImplementedException();
+        return context.TourBookings
+            .Include(b => b.Tour)
+            .Include(b => b.User)
+            .Where(b => b.TourId == tourId)
+            .ToList();
     }
 
     public IEnumerable<TourBooking> GetBookingsByUser(int userId)
     {
-        throw new NotImplementedException();
+        return context.TourBookings
+            .Include(b => b.Tour)
+            .Where(b => b.UserId == userId)
+            .ToList();
     }
 }

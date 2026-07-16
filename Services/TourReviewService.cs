@@ -14,7 +14,8 @@ public class TourReviewService : GenericService<TourReview>, ITourReview
 
     public double GetAverageRating(int tourId)
     {
-        throw new NotImplementedException();
+        var reviews = context.TourReviews.Where(r => r.TourId == tourId).ToList();
+        return reviews.Any() ? reviews.Average(r => r.Rate) : 0;
     }
 
     public List<TourReview> GetReviews()
@@ -27,6 +28,10 @@ public class TourReviewService : GenericService<TourReview>, ITourReview
 
     public IEnumerable<TourReview> GetTourReviews(int tourId)
     {
-        throw new NotImplementedException();
+        return context.TourReviews
+            .Include(r => r.User)
+            .Where(r => r.TourId == tourId)
+            .OrderByDescending(r => r.CreatedAt)
+            .ToList();
     }
 }

@@ -14,12 +14,17 @@ public class CarRentalReviewService : GenericService<CarRentalReview>, ICarRenta
 
     public double GetAverageRating(int carId)
     {
-        throw new NotImplementedException();
+        var reviews = context.CarRentalReviews.Where(r => r.CarRentalId == carId).ToList();
+        return reviews.Any() ? reviews.Average(r => r.Rate) : 0;
     }
 
     public IEnumerable<CarRentalReview> GetCarReviews(int carId)
     {
-        throw new NotImplementedException();
+        return context.CarRentalReviews
+            .Include(r => r.User)
+            .Where(r => r.CarRentalId == carId)
+            .OrderByDescending(r => r.CreatedAt)
+            .ToList();
     }
 
     public List<CarRentalReview> GetReviews()

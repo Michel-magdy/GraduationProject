@@ -26,6 +26,12 @@
                 </a>
             </div>
         }
+        else if (Context.Session.GetInt32("UserId") != null && Model.Status == TableStatus.Available)
+        {
+            <a asp-controller="UserBooking" asp-action="BookTable" asp-route-tableId="@Model.Id" class="btn btn-success rounded-pill">
+                <i class="bi bi-calendar-plus"></i> Book Table
+            </a>
+        }
     </div>
 
     <!-- Table Info Card -->

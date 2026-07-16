@@ -14,27 +14,51 @@ public class HotelBookingService : GenericService<HotelBooking>, IHotelBooking
 
     public decimal CalculateTotalPrice(int roomId, DateTime checkIn, DateTime checkOut)
     {
-        throw new NotImplementedException();
+        var room = context.Rooms.Find(roomId);
+        if (room == null) return 0;
+        
+        int days = (int)(checkOut.Date - checkIn.Date).TotalDays;
+        if (days <= 0) days = 1;
+        
+        return room.Price * days;
     }
 
     public void CancelBooking(int bookingId)
     {
-        throw new NotImplementedException();
+        var booking = context.HotelBookings.Find(bookingId);
+        if (booking != null)
+        {
+            booking.Status = BookingStatus.Cancelled;
+            context.SaveChanges();
+        }
     }
 
     public void ConfirmBooking(int bookingId)
     {
-        throw new NotImplementedException();
+        var booking = context.HotelBookings.Find(bookingId);
+        if (booking != null)
+        {
+            booking.Status = BookingStatus.Confirmed;
+            context.SaveChanges();
+        }
     }
 
     public IEnumerable<HotelBooking> GetBookingsByHotel(int hotelId)
     {
-        throw new NotImplementedException();
+        return context.HotelBookings
+            .Include(b => b.Room)
+            .Include(b => b.User)
+            .Where(b => b.Room != null && b.Room.HotelId == hotelId)
+            .ToList();
     }
 
     public IEnumerable<HotelBooking> GetBookingsByUser(int userId)
     {
-        throw new NotImplementedException();
+        return context.HotelBookings
+            .Include(b => b.Room)
+                .ThenInclude(r => r != null ? r.Hotel : null)
+            .Where(b => b.UserId == userId)
+            .ToList();
     }
 
     public List<HotelBooking> GetHotelBooking()

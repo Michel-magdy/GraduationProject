@@ -1,0 +1,78 @@
+@model GraduationProject.Models.ReviewViewModel
+
+@{
+    ViewData["Title"] = "Add Review";
+    string formAction = $"Add{Model.EntityType}Review";
+}
+
+<div class="container py-5">
+    <div class="card shadow border-0 rounded-4 mx-auto" style="max-width: 500px;">
+        <div class="card-body p-5">
+            <h2 class="fw-bold mb-4">Write a Review</h2>
+
+            <form asp-action="@formAction" method="post">
+                <input type="hidden" asp-for="EntityId" />
+                <input type="hidden" asp-for="EntityType" />
+                
+                <div class="mb-4 text-center">
+                    <label class="form-label fw-bold d-block">Rating</label>
+                    <div class="rating-stars" style="font-size: 2rem; cursor: pointer; color: #ffc107;">
+                        <i class="bi bi-star" data-val="1"></i>
+                        <i class="bi bi-star" data-val="2"></i>
+                        <i class="bi bi-star" data-val="3"></i>
+                        <i class="bi bi-star" data-val="4"></i>
+                        <i class="bi bi-star" data-val="5"></i>
+                    </div>
+                    <input type="hidden" asp-for="Rate" id="RateInput" />
+                    <span asp-validation-for="Rate" class="text-danger d-block mt-2"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label asp-for="Comment" class="form-label fw-bold"></label>
+                    <textarea asp-for="Comment" class="form-control" rows="4" placeholder="Share your experience..."></textarea>
+                    <span asp-validation-for="Comment" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 rounded-pill py-2">Submit Review</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const stars = document.querySelectorAll('.rating-stars .bi');
+            const rateInput = document.getElementById('RateInput');
+            
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const rating = this.getAttribute('data-val');
+                    rateInput.value = rating;
+                    
+                    stars.forEach(s => {
+                        if (parseInt(s.getAttribute('data-val')) <= rating) {
+                            s.classList.remove('bi-star');
+                            s.classList.add('bi-star-fill');
+                        } else {
+                            s.classList.remove('bi-star-fill');
+                            s.classList.add('bi-star');
+                        }
+                    });
+                });
+            });
+            
+            // Pre-fill if value exists
+            if (rateInput.value) {
+                const initialRating = rateInput.value;
+                stars.forEach(s => {
+                    if (parseInt(s.getAttribute('data-val')) <= initialRating) {
+                        s.classList.remove('bi-star');
+                        s.classList.add('bi-star-fill');
+                    }
+                });
+            }
+        });
+    </script>
+}

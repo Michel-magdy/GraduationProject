@@ -1,0 +1,32 @@
+@model GraduationProject.Models.TourBooking
+
+@{
+    ViewData["Title"] = "Book Tour";
+}
+
+<div class="container py-5">
+    <div class="card shadow border-0 rounded-4 mx-auto" style="max-width: 500px;">
+        <div class="card-body p-5">
+            <h2 class="fw-bold mb-4">Book Tour: @ViewBag.TourName</h2>
+            <p class="text-muted">Price per person: @(((decimal?)ViewBag.Price)?.ToString("C") ?? "N/A")</p>
+
+            <form asp-action="BookTour" method="post">
+                <input type="hidden" asp-for="TourId" />
+                
+
+
+                <div class="mb-3">
+                    <label asp-for="Persons" class="form-label fw-bold"></label>
+                    <input asp-for="Persons" class="form-control" type="number" min="1" />
+                    <span asp-validation-for="Persons" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 rounded-pill py-2">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

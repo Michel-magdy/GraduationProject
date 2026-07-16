@@ -14,12 +14,17 @@ public class RestaurantReviewService : GenericService<RestaurantReview>, IRestau
 
     public double GetAverageRating(int restaurantId)
     {
-        throw new NotImplementedException();
+        var reviews = context.RestaurantReviews.Where(r => r.RestaurantId == restaurantId).ToList();
+        return reviews.Any() ? reviews.Average(r => r.Rate) : 0;
     }
 
     public IEnumerable<RestaurantReview> GetRestaurantReviews(int restaurantId)
     {
-        throw new NotImplementedException();
+        return context.RestaurantReviews
+            .Include(r => r.User)
+            .Where(r => r.RestaurantId == restaurantId)
+            .OrderByDescending(r => r.CreatedAt)
+            .ToList();
     }
 
     public List<RestaurantReview> GetReviews()

@@ -1,0 +1,160 @@
+@{
+    ViewData["Title"] = "My Reviews";
+    var hotelReviews = ViewBag.HotelReviews as IEnumerable<GraduationProject.Models.HotelReview>;
+    var restaurantReviews = ViewBag.RestaurantReviews as IEnumerable<GraduationProject.Models.RestaurantReview>;
+    var tourReviews = ViewBag.TourReviews as IEnumerable<GraduationProject.Models.TourReview>;
+    var carRentalReviews = ViewBag.CarRentalReviews as IEnumerable<GraduationProject.Models.CarRentalReview>;
+}
+
+<div class="container py-5">
+    <h1 class="mb-4">My Reviews</h1>
+
+    <ul class="nav nav-pills mb-4" id="reviewTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="hotel-tab" data-bs-toggle="tab" data-bs-target="#hotel" type="button" role="tab" aria-controls="hotel" aria-selected="true">Hotels</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="restaurant-tab" data-bs-toggle="tab" data-bs-target="#restaurant" type="button" role="tab" aria-controls="restaurant" aria-selected="false">Restaurants</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="tour-tab" data-bs-toggle="tab" data-bs-target="#tour" type="button" role="tab" aria-controls="tour" aria-selected="false">Tours</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="car-tab" data-bs-toggle="tab" data-bs-target="#car" type="button" role="tab" aria-controls="car" aria-selected="false">Car Rentals</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="reviewTabContent">
+        <!-- Hotel Reviews -->
+        <div class="tab-pane fade show active" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
+            @if (hotelReviews != null && hotelReviews.Any())
+            {
+                <div class="list-group">
+                    @foreach (var review in hotelReviews)
+                    {
+                        <div class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@(review.Hotel?.Name ?? "N/A")</h5>
+                                <small class="text-muted">@review.CreatedAt.ToShortDateString()</small>
+                            </div>
+                            <p class="mb-1">
+                                @for (int i = 0; i < review.Rate; i++)
+                                {
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                }
+                                @for (int i = review.Rate; i < 5; i++)
+                                {
+                                    <i class="bi bi-star text-warning"></i>
+                                }
+                            </p>
+                            <small>@review.Comment</small>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>No hotel reviews found.</p>
+            }
+        </div>
+
+        <!-- Restaurant Reviews -->
+        <div class="tab-pane fade" id="restaurant" role="tabpanel" aria-labelledby="restaurant-tab">
+            @if (restaurantReviews != null && restaurantReviews.Any())
+            {
+                <div class="list-group">
+                    @foreach (var review in restaurantReviews)
+                    {
+                        <div class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@(review.Restaurant?.Name ?? "N/A")</h5>
+                                <small class="text-muted">@review.CreatedAt.ToShortDateString()</small>
+                            </div>
+                            <p class="mb-1">
+                                @for (int i = 0; i < review.Rate; i++)
+                                {
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                }
+                                @for (int i = review.Rate; i < 5; i++)
+                                {
+                                    <i class="bi bi-star text-warning"></i>
+                                }
+                            </p>
+                            <small>@review.Comment</small>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>No restaurant reviews found.</p>
+            }
+        </div>
+
+        <!-- Tour Reviews -->
+        <div class="tab-pane fade" id="tour" role="tabpanel" aria-labelledby="tour-tab">
+            @if (tourReviews != null && tourReviews.Any())
+            {
+                <div class="list-group">
+                    @foreach (var review in tourReviews)
+                    {
+                        <div class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@(review.Tour?.Name ?? "N/A")</h5>
+                                <small class="text-muted">@review.CreatedAt.ToShortDateString()</small>
+                            </div>
+                            <p class="mb-1">
+                                @for (int i = 0; i < review.Rate; i++)
+                                {
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                }
+                                @for (int i = review.Rate; i < 5; i++)
+                                {
+                                    <i class="bi bi-star text-warning"></i>
+                                }
+                            </p>
+                            <small>@review.Comment</small>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>No tour reviews found.</p>
+            }
+        </div>
+
+        <!-- Car Rental Reviews -->
+        <div class="tab-pane fade" id="car" role="tabpanel" aria-labelledby="car-tab">
+            @if (carRentalReviews != null && carRentalReviews.Any())
+            {
+                <div class="list-group">
+                    @foreach (var review in carRentalReviews)
+                    {
+                        <div class="list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">@(review.CarRental != null ? $"{review.CarRental.Brand} {review.CarRental.Model}" : "N/A")</h5>
+                                <small class="text-muted">@review.CreatedAt.ToShortDateString()</small>
+                            </div>
+                            <p class="mb-1">
+                                @for (int i = 0; i < review.Rate; i++)
+                                {
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                }
+                                @for (int i = review.Rate; i < 5; i++)
+                                {
+                                    <i class="bi bi-star text-warning"></i>
+                                }
+                            </p>
+                            <small>@review.Comment</small>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>No car rental reviews found.</p>
+            }
+        </div>
+    </div>
+</div>

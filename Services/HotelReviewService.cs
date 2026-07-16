@@ -14,12 +14,17 @@ public class HotelReviewService : GenericService<HotelReview>, IHotelReview
 
     public double GetAverageRating(int hotelId)
     {
-        throw new NotImplementedException();
+        var reviews = context.HotelReviews.Where(r => r.HotelId == hotelId).ToList();
+        return reviews.Any() ? reviews.Average(r => r.Rate) : 0;
     }
 
     public IEnumerable<HotelReview> GetHotelReviews(int hotelId)
     {
-        throw new NotImplementedException();
+        return context.HotelReviews
+            .Include(r => r.User)
+            .Where(r => r.HotelId == hotelId)
+            .OrderByDescending(r => r.CreatedAt)
+            .ToList();
     }
 
     public List<HotelReview> GetReviews()

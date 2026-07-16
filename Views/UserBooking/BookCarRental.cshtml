@@ -1,0 +1,36 @@
+@model GraduationProject.Models.CarRentalBooking
+
+@{
+    ViewData["Title"] = "Book Car Rental";
+}
+
+<div class="container py-5">
+    <div class="card shadow border-0 rounded-4 mx-auto" style="max-width: 500px;">
+        <div class="card-body p-5">
+            <h2 class="fw-bold mb-4">Rent Car: @ViewBag.CarName</h2>
+            <p class="text-muted">Price per day: @(((decimal?)ViewBag.Price)?.ToString("C") ?? "N/A")</p>
+
+            <form asp-action="BookCarRental" method="post">
+                <input type="hidden" asp-for="CarId" />
+                
+                <div class="mb-3">
+                    <label asp-for="StartDate" class="form-label fw-bold"></label>
+                    <input asp-for="StartDate" class="form-control" type="date" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="EndDate" class="form-label fw-bold"></label>
+                    <input asp-for="EndDate" class="form-control" type="date" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 rounded-pill py-2">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

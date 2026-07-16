@@ -25,6 +25,12 @@
                 </a>
             </div>
         }
+        else if (Context.Session.GetInt32("UserId") != null && Model.status == RoomStatus.Available)
+        {
+            <a asp-controller="UserBooking" asp-action="BookRoom" asp-route-roomId="@Model.Id" class="btn btn-success rounded-pill">
+                <i class="bi bi-calendar-plus"></i> Book Room
+            </a>
+        }
     </div>
 
     <div class="card border-0 shadow-lg rounded-4 overflow-hidden mb-4">
