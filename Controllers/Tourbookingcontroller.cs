@@ -35,7 +35,7 @@ public class TourBookingController : Controller
                 return NotFound();
 
             ViewBag.TourId = tour.Id;
-            ViewBag.TourName = tour.Title; // TODO: rename to the real display-name property on your Tour model (e.g. Name)
+            ViewBag.TourName = tour.Name; // TODO: rename to the real display-name property on your Tour model (e.g. Name)
 
             bookings = _bookingService
                 .GetBookingsByTour(tour.Id)
@@ -44,7 +44,7 @@ public class TourBookingController : Controller
         else
         {
             ViewBag.TourName = "All Tours";
-            bookings = _bookingService.GetBookings();
+            bookings = _bookingService.GetBookings().ToList();
         }
 
         return View(bookings);
@@ -71,7 +71,7 @@ public class TourBookingController : Controller
             return NotFound();
 
         ViewBag.TourId = tour.Id;
-        ViewBag.TourName = tour.Title;
+        ViewBag.TourName = tour.Name;
 
         ViewBag.Users = new SelectList(
             _userService.GetAll(),
@@ -95,7 +95,7 @@ public class TourBookingController : Controller
             var tour = _tourService.GetById(booking.TourId);
 
             ViewBag.TourId = booking.TourId;
-            ViewBag.TourName = tour?.Title;
+            ViewBag.TourName = tour?.Name;
             ViewBag.Users = new SelectList(
                 _userService.GetAll(),
                 "Id",
@@ -120,7 +120,7 @@ public class TourBookingController : Controller
         if (booking == null)
             return NotFound();
 
-        ViewBag.TourName = booking.Tour?.Title;
+        ViewBag.TourName = booking.Tour?.Name;
 
         ViewBag.Users = new SelectList(
             _userService.GetAll(),
@@ -141,7 +141,7 @@ public class TourBookingController : Controller
         {
             var tour = _tourService.GetById(booking.TourId);
 
-            ViewBag.TourName = tour?.Title;
+            ViewBag.TourName = tour?.Name;
 
             ViewBag.Users = new SelectList(
                 _userService.GetAll(),
