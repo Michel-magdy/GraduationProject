@@ -1,0 +1,201 @@
+@model GraduationProject.Models.Tour
+
+@{
+    ViewData["Title"] = "Create Tour";
+}
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">Create Tour</h2>
+            <p class="text-muted">@Model.Name</p>
+        </div>
+
+        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary rounded-pill">
+            <i class="bi bi-arrow-left"></i>
+            Back
+        </a>
+    </div>
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+
+        <input asp-for="Id" type="hidden" />
+        <input asp-for="BusinessId" type="hidden" />
+
+        <div class="row">
+
+            <!-- Tour Information -->
+
+            <div class="col-lg-8">
+
+                <div class="card shadow-sm border-0 mb-4">
+
+                    <div class="card-header fw-bold">
+                        Tour Information
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" class="form-control rounded-3" />
+
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="TripDate" class="form-label"></label>
+
+                            <input asp-for="TripDate" type="datetime-local" class="form-control rounded-3" />
+
+                            <span asp-validation-for="TripDate" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Price" class="form-label"></label>
+
+                            <input asp-for="Price" class="form-control rounded-3" />
+
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <div class="mb-3">
+
+                                    <label asp-for="MaxParticipants" class="form-label"></label>
+
+                                    <input asp-for="MaxParticipants" class="form-control rounded-3" />
+
+                                    <span asp-validation-for="MaxParticipants" class="text-danger"></span>
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <div class="mb-3">
+
+                                    <label asp-for="CurrentParticipants" class="form-label"></label>
+
+                                    <input asp-for="CurrentParticipants" class="form-control rounded-3" />
+
+                                    <span asp-validation-for="CurrentParticipants" class="text-danger"></span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Remaining Seats
+                            </label>
+
+                            <input class="form-control rounded-3" value="@Model.RemainingSeats" readonly />
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Images -->
+
+            <div class="col-lg-4">
+
+                <div class="card shadow-sm border-0">
+
+                    <div class="card-header fw-bold">
+                        Images
+                    </div>
+
+                    <div class="card-body">
+
+                        @if (Model.Images.Any())
+                        {
+                            foreach (var image in Model.Images)
+                            {
+                                <div class="border rounded p-2 mb-3">
+
+                                    <img src="@image.ImagePath" class="img-fluid rounded mb-2"
+                                         style="height:140px;width:100%;object-fit:cover;" />
+
+                                    <div class="form-check">
+
+                                        <input class="form-check-input" type="checkbox" name="ImagesToDelete" value="@image.Id"
+                                               id="img_@image.Id" />
+
+                                        <label class="form-check-label" for="img_@image.Id">
+
+                                            Remove Image
+
+                                        </label>
+
+                                    </div>
+
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p class="text-muted">
+                                No images uploaded.
+                            </p>
+                        }
+
+                        <hr />
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Add New Images
+                            </label>
+
+                            <input type="file" name="NewImages" multiple class="form-control" />
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+
+            <button class="btn btn-primary rounded-pill px-4" type="submit">
+
+                <i class="bi bi-check-circle"></i>
+                Save Changes
+
+            </button>
+
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-outline-secondary rounded-pill px-4">
+
+                Cancel
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,223 @@
+@model List<Tour>
+
+@{
+    ViewData["Title"] = "Tours";
+
+    var businessId = ViewBag.BusinessId as int?;
+    var isBusinessScoped = businessId.HasValue;
+
+    var userRole = Context.Session.GetString("UserRole");
+    var isManager = userRole == "Admin" || userRole == "Owner";
+}
+
+<div class="container py-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">@ViewBag.BusinessName Tours</h2>
+            <p class="text-muted">@(isManager ? "Manage restaurants belonging to this business." : "Explore available restaurants.")</p>
+        </div>
+        <div>
+
+            @if (isBusinessScoped)
+            {
+                <a asp-controller="Business" asp-action="Details" asp-route-id="@businessId"
+                   class="btn btn-outline-secondary rounded-pill me-2">
+                    <i class="bi bi-arrow-left"></i>
+                    Business
+                </a>
+
+                @if (isManager)
+                {
+                    <a asp-action="Create" asp-route-businessId="@businessId" class="btn btn-primary rounded-pill">
+                        <i class="bi bi-plus-circle"></i>
+                        Add Tour
+                    </a>
+                }
+            }
+        </div>
+
+    </div>
+
+
+    <!-- Statistics -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-4">
+            <div class="stat-card">
+                <h6>Total Tours</h6>
+                <h2>@Model.Count</h2>
+            </div>
+        </div>
+
+
+        <div class="col-md-4">
+            <div class="stat-card">
+                <h6>Total Bookings</h6>
+                <h2>@Model.Sum(c => c.TourBookings.Count)</h2>
+            </div>
+        </div>
+
+    </div>
+
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center p-5">
+
+            <h4>No Tours Found</h4>
+
+            <p class="text-muted mb-3">
+                There are currently no cars available.
+            </p>
+
+            @if (isManager)
+            {
+                <a asp-action="Create" asp-route-businessId="@businessId" class="btn btn-primary">
+                    Add First Tour
+                </a>
+            }
+
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+
+            @foreach (var tour in Model)
+            {
+                var avgRating = tour.Reviews.Any()
+                    ? tour.Reviews.Average(r => r.Rate)
+                    : 0;
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="card car-card border-0 h-100">
+
+                        <img src="@(tour.Images.FirstOrDefault()?.ImagePath ?? "/images/no-image.png")" class="car-image" />
+
+                        <div class="card-body">
+
+                            @if (tour.Reviews.Any())
+                            {
+                                <p class="text-warning mb-3">
+                                    ★ @avgRating.ToString("0.0")
+                                    <span class="text-muted">
+                                        (@tour.Reviews.Count Reviews)
+                                    </span>
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="text-muted mb-3">
+                                    No Reviews
+                                </p>
+                            }
+
+                            <div class="row text-center">
+
+                                <div class="col">
+                                    <strong>@tour.TourBookings.Count</strong>
+                                    <br />
+                                    <small>Bookings</small>
+                                </div>
+
+                                <div class="col">
+                                    <strong>@tour.Images.Count</strong>
+                                    <br />
+                                    <small>Images</small>
+                                </div>
+
+                                <div class="col">
+                                    <strong>@tour.Reviews.Count</strong>
+                                    <br />
+                                    <small>Reviews</small>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer bg-white border-0">
+
+                            <div class="d-grid gap-2">
+
+                                <a asp-action="Details" asp-route-id="@tour.Id" class="btn btn-outline-primary">
+                                    Details
+                                </a>
+
+                                @if (isManager)
+                                {
+                                    <a asp-controller="TourBooking" asp-action="Index" asp-route-carId="@tour.Id"
+                                       class="btn btn-primary">
+                                        Manage Bookings
+                                    </a>
+
+                                    <div class="d-flex gap-2">
+
+                                        <a asp-action="Edit" asp-route-id="@tour.Id" class="btn btn-outline-warning flex-fill">
+                                            Edit
+                                        </a>
+
+                                        <form asp-action="Delete" asp-route-id="@tour.Id" method="post" class="flex-fill">
+
+                                            <button type="submit" class="btn btn-outline-danger w-100"
+                                                    onclick="return confirm('Delete this Tour?');">
+                                                Delete
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+    }
+
+</div>
+
+<style>
+    body {
+        background: #f8fafc;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+    }
+
+    .car-card {
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+        transition: .25s;
+    }
+
+    .car-card:hover {
+        transform: translateY(-6px);
+    }
+
+    .car-image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+
+    .btn-primary {
+        background: #2563eb;
+        border-color: #2563eb;
+    }
+</style>

@@ -64,7 +64,9 @@ public class TourService : GenericService<Tour>, ITour
             .Include(t => t.Business)
             .Include(t => t.Images)
             .Include(t => t.Reviews)
+                .ThenInclude(t => t.User)
             .Include(t => t.TourBookings)
+                .ThenInclude(t => t.User)
             .FirstOrDefault(t => t.Id == tourId);
     }
 
